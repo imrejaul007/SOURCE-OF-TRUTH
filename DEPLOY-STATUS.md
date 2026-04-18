@@ -74,6 +74,20 @@ Last updated: 2026-04-18 (Gen 31: CRON-002 async onComplete, NW-CRIT-003/012 mer
 | CRITICAL-005: Karma 2x inflation | karmaService.ts + earnRecordService.ts | `findOneAndUpdate` + `$inc` replaces non-atomic `+=` | Branch: fix/CRITICAL-005-karma-atomic |
 | NW-CRIT-012: UPI socket timeout | usePaymentConfirmation.ts + PaymentOptions.tsx | subscribe(slug, orderId) emits `join-store` (backend has no `subscribe:payment` handler) | Branch: fix/NW-CRIT-012-upi-socket |
 
+## Gen 31 Fixes (2026-04-18) — R7
+
+| Fix | File | Evidence | PR |
+|-----|------|----------|-----|
+| AB2-H9: Inquiry duplicate race | `supabase/migrations/011_inquiry_unique_pending.sql` + `api/inquiries/route.ts` | Partial unique index + 23505 error handling → 409 Conflict | AdBazaar main |
+| AB2-H6: Double payout race | `api/vendor/payout/route.ts` | Optimistic locking: claim row `payout_id='pending'` BEFORE external API call | AdBazaar main |
+
+## Gen 34 Fixes (2026-04-18) — R8
+
+| Fix | File | Evidence | PR |
+|-----|------|----------|-----|
+| AB2-H10: Proof upload status regression | `api/bookings/[id]/route.ts:153-160` | Status guard: only Confirmed/Paid may advance to Executing | AdBazaar main |
+| TS: BookingStatus type mismatch | `api/bookings/[id]/route.ts:170-174` | Cast `Object.values(BookingStatus)` to `string[]` + `status as BookingStatus` | AdBazaar main |
+
 ## Recent Updates (2026-04-17)
 
 - `rez-shared` v1.0.2 published to npm (coin economics: net-zero 1:1, coinsEarned(), COIN_TO_RUPEE_RATE)
