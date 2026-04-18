@@ -162,28 +162,59 @@ All three apps have a new branch `ten-agent-round/20260418` off their respective
 - **Sessions on 2026-04-18:** 3 (morning launch-prep, afternoon audit rounds, evening ten-agent + next-phase)
 - **Total commits landed (across 4 repos including SOURCE-OF-TRUTH):** ~20
 - **Total bounded bugs closed:** ~230
-- **TSC status:** 0 errors, all 3 apps, all 3 sessions
-- **`as any` casts:** started 6,405 → end ~6,200
-- **`console.*` calls:** started 2,523 → end ~2,000
-
-### Gaps that remain ACTIVE (updated after Session 3)
-
-Many earlier items have been closed across the three sessions. Remaining top priorities:
-
 - **Consumer NA-CRIT-02:** bill amount is client-controlled — needs backend OCR.
 - **Consumer NA-CRIT-05:** QR check-in has no camera integration.
-- **Admin A10-C7:** three color systems still coexist (`DesignTokens` + `Colors` + `ThemeContext`). `AdminThemeProvider` was removed in phase 3, but the duplicated definitions remain.
 - **Admin A10-H14:** 82 copy-paste CRUD services — architectural refactor.
 - **Merchant G-MA-C03:** onboarding bank penny-drop (frontend uses Razorpay IFSC lookup now but backend penny-drop still needed).
 - **All apps:** `as any` / `console.*` arch-fitness debt (multi-session cleanup campaign).
 
-### Push workflow (Session 3)
+### Session 4 Update (2026-04-19, post-compaction)
 
-The sandbox cannot push. Run from your Mac:
+Post-session fixes applied after context compaction:
+
+**Admin (`443f69f` on main, cherry-picked to `ten-agent-round/20260418`):**
+- `admin-settings.tsx`: replaced undefined `saving`/`addingAdmin` state vars with `mutation.status === 'pending'` (React Query v5 API)
+- `useMutations.ts`: fixed `onSuccess` callback (variadic args), `invalidateKeys` type narrowed to `(readonly unknown[])[]`
+- `useAdminSettingsMutations.ts`: double-cast for apiClient body args, fixed nested array invalidation key
+
+**Admin next-phase batch 2 (`68dc9b4` on `ten-agent-round/20260418`):**
+- 9 new mutation hooks: `useUserMutations.ts` (3) + `useVoucherMutations.ts` (3) + `useCampaignMutations.ts` (3)
+- Total: 19 `useAdminMutation`-wrapped hooks across 6 service areas; 13 wired to call sites
+
+**Admin A10-C7 (`09eff06` on `ten-agent-round/20260418`):**
+- `DesignTokens.ts` re-exports from `./Colors` — unified as single color source
+- `BusinessColors` rewritten against flat palette
+
+**Merchant (`fix/merchant-cache-idor` on origin, merged to main as `04f8420`):**
+- G-MA-C13: `useNetworkStatus.ts` now wires `onSuccess` callback to `syncOfflineActions()` — invalidates React Query caches by action type after network restore
+- G-MA-C05/C15: order detail page now asserts `merchantId` + `storeId` ownership match active session — IDOR guard
+- `offline.ts`: fixed type cast on `invalidateCacheForAction` self-call
+
+### TSC status: 0 errors, all 3 apps ✓
+- **`as any` casts:** started 6,405 → end ~6,200
+- **`console.*` calls:** started 2,523 → end ~2,000
+
+### Gaps that remain ACTIVE (updated after Session 4)
+
+Many earlier items have been closed across the four sessions. Remaining top priorities:
+
+- **Consumer NA-CRIT-02:** bill amount is client-controlled — needs backend OCR.
+- **Consumer NA-CRIT-05:** QR check-in has no camera integration.
+- **Admin A10-H14:** 82 copy-paste CRUD services — architectural refactor.
+- **Merchant G-MA-C03:** onboarding bank penny-drop (frontend uses Razorpay IFSC lookup now but backend penny-drop still needed).
+- **All apps:** `as any` / `console.*` arch-fitness debt (multi-session cleanup campaign).
+
+### Push workflow (Session 4)
 
 ```
-for repo in rez-app-admin rez-app-marchant rez-app-consumer; do
-  cd "$repo" && git push -u origin ten-agent-round/20260418 && cd ..
-done
-# Then open 3 PRs on GitHub.
+# Admin: ten-agent-round branch has 7 commits (push first for context)
+cd rez-app-admin && git push origin ten-agent-round/20260418 && cd ..
+
+# Merchant: fix/merchant-cache-idor branch (or merge into ten-agent-round)
+cd rez-app-marchant && git push -u origin fix/merchant-cache-idor && cd ..
+
+# SOURCE-OF-TRUTH
+cd SOURCE-OF-TRUTH && git push origin main && cd ..
+
+# Then open PRs on GitHub.
 ```

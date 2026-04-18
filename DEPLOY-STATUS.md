@@ -1,13 +1,13 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-18 (Gen 39: R12 — AB3-M1 email XSS escape-html; Gen 38: R11 — AB2-L1 img→next/image migration; Gen 37: R10 — AB2-M15/M12/L2/L3/M6/M14/M2 fixes; Gen 36: AB3-H2 isNewScanner race + AB2-H2 bot UA; Gen 34: AB2-H10 proof upload guard + TS + req.ip)
+Last updated: 2026-04-18 (Gen 42: All PRs verified — zero open across 8 repos; BULL-002/004/005/006 merged #125, BULL-004 lockDuration #127, BULL-006 batch 10K #128; Math.random→crypto.randomUUID; CRITICAL-003/005 atomic fixes confirmed; rez-now NW-CRIT-003/012/009 on main)
 
 ## Production (Live on Render/Vercel)
 
 | Service | URL | Status | Type |
 |---------|-----|--------|------|
 | **rez-api-gateway** | https://rez-api-gateway.onrender.com | ✅ Live | Render Web Service |
-| **rez-backend** | https://rez-backend-8dfu.onrender.com | ✅ Live | Render Web Service (pending: PRs #113-120 — hotel reviews, salon booking, home services, loyalty stamps, AI/WhatsApp, JWT/dual authority fixes) |
+| **rez-backend** | https://rez-backend-8dfu.onrender.com | ✅ Live | Render Web Service (ALL PRs merged: #106-135 — hotel reviews, salon booking, home services, loyalty stamps, AI/WhatsApp, JWT/dual authority, BullMQ fixes, TS build errors, Math.random→crypto.randomUUID) |
 | **rez-auth-service** | https://rez-auth-service.onrender.com | ✅ Live | Render Web Service |
 | **rez-merchant-service** | https://rez-merchant-service-n3q2.onrender.com | ✅ Live | Render Web Service |
 | **rez-wallet-service** | https://rez-wallet-service-36vo.onrender.com | ✅ Live | Render Web Service |
@@ -120,6 +120,20 @@ Last updated: 2026-04-18 (Gen 39: R12 — AB3-M1 email XSS escape-html; Gen 38: 
 |-----|------|----------|-----|
 | AB3-H2: isNewScanner race | `api/qr/scan/[slug]/route.ts` + `migrations/012_scan_ip_unique_constraint.sql` | Atomic insert with unique constraint on (qr_id, ip_address) + 23505 handling | AdBazaar main |
 | AB2-H2: View count bot inflation | `api/listings/[id]/view/route.ts` | `isBotUA()` function filters known crawler User-Agent patterns | AdBazaar main |
+
+## Gen 42 Fixes (2026-04-18) — ZERO Open PRs
+
+| Fix | Evidence | PR |
+|-----|----------|-----|
+| BULL-002/004/005/006: All BullMQ issues resolved | expireCoins batching, worker timeouts, named-queue DLQ, time-based clean | #125 |
+| BULL-004: lockDuration on workers | `lockDuration: 60_000` on exportWorker + merchantEventWorker | #127 |
+| BULL-006: clean batch raised to 10,000 | Prevents partial-cleanup loops on high-volume queues | #128 |
+| Math.random → crypto.randomUUID | bookingId + billNumber ID generation (homeServices, merchantBill) | merged |
+| CRITICAL-003: Merchant withdrawal atomic | `findOneAndUpdate` + `$gte` already on main (via #5abc44e0) | N/A |
+| CRITICAL-005: Karma 2x inflation | `findOneAndUpdate` + `$inc` on main (be3c13d) | karma main |
+| TS build errors: resolved | All 32 TS errors across 10 files fixed | #134 |
+| NW-CRIT-003: Merchant store ownership | `getMerchantStores()` + 401/403 on rez-now main | main |
+| NW-CRIT-012: UPI socket room | subscribe(slug, orderId) on rez-now main | main |
 
 ## Recent Updates (2026-04-17)
 
