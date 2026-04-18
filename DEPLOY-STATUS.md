@@ -1,6 +1,6 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-18 (Gen 31: CRON-002 async onComplete, NW-CRIT-003/012 merchant ownership+socket, F-03 dedup key ms, ROUTE-SEC-005 already fixed via MerchantUpload model)
+Last updated: 2026-04-18 (Gen 39: R12 — AB3-M1 email XSS escape-html; Gen 38: R11 — AB2-L1 img→next/image migration; Gen 37: R10 — AB2-M15/M12/L2/L3/M6/M14/M2 fixes; Gen 36: AB3-H2 isNewScanner race + AB2-H2 bot UA; Gen 34: AB2-H10 proof upload guard + TS + req.ip)
 
 ## Production (Live on Render/Vercel)
 
@@ -29,6 +29,31 @@ Last updated: 2026-04-18 (Gen 31: CRON-002 async onComplete, NW-CRIT-003/012 mer
 ## Recent Updates (2026-04-18)
 
 - `rez-payment-service`: wallet-credit BullMQ worker added (`src/worker/walletCreditWorker.ts`) — coins now correctly credited after payment capture
+- `AdBazaar`: AB3-M1 email XSS fix — `escape-html` applied to all user data in 5 email templates (R12 commit caf4ec7)
+
+## Gen 37 Fixes (2026-04-18) — R10
+
+| Fix | File | Evidence | PR |
+|-----|------|----------|-----|
+| AB2-M15: Campaign total_spent recalc | `api/campaigns/[id]/route.ts` | Query remaining booking amounts and write total_spent on every PATCH | AdBazaar main |
+| AB2-L3: Redundant middleware matcher | `middleware.ts` | Removed `/browse/:path*` — already short-circuited above | AdBazaar main |
+| AB2-L2: Unknown category warn | `components/listing/ListingCard.tsx` | `console.warn` for invalid ListingCategory values | AdBazaar main |
+| AB2-M12: Payment cancel UX | `buyer/cart/page.tsx` + `buyer/bookings/page.tsx` | Redirect to bookings with `cancelled=1` banner on Razorpay dismiss | AdBazaar main |
+| AB2-M6: emailProofApproved CTA | `lib/email.ts` | Added `appUrl` + `/vendor/earnings` link | AdBazaar main |
+| AB2-M14: Vendor earnings stale | `vendor/dashboard/page.tsx` | Filter to `status === 'completed'` only | AdBazaar main |
+| AB3-M2: sendEmail swallows failures | `lib/email.ts` | Changed to `throw new Error()` on Resend failure | AdBazaar main |
+
+## Gen 38 Fixes (2026-04-18) — R11
+
+| Fix | File | Evidence | PR |
+|-----|------|----------|-----|
+| AB2-L1: <img> → next/image migration | `components/ui/Image.tsx` + `next.config.ts` + 9 files | Typed wrapper solves React 19 + TS 5.9 + Next.js 16 type conflict; 15 img elements replaced | AdBazaar main |
+
+## Gen 39 Fixes (2026-04-18) — R12
+
+| Fix | File | Evidence | PR |
+|-----|------|----------|-----|
+| AB3-M1: Email template XSS | `lib/email.ts` | escape-html applied to all user data in 5 templates; @types/escape-html shim added | AdBazaar main |
 
 ## Gen 23 Fixes (2026-04-18)
 
@@ -87,6 +112,14 @@ Last updated: 2026-04-18 (Gen 31: CRON-002 async onComplete, NW-CRIT-003/012 mer
 |-----|------|----------|-----|
 | AB2-H10: Proof upload status regression | `api/bookings/[id]/route.ts:153-160` | Status guard: only Confirmed/Paid may advance to Executing | AdBazaar main |
 | TS: BookingStatus type mismatch | `api/bookings/[id]/route.ts:170-174` | Cast `Object.values(BookingStatus)` to `string[]` + `status as BookingStatus` | AdBazaar main |
+| TS: req.ip not on NextRequest | `api/qr/scan/[slug]/route.ts` + `middleware.ts` | Removed `req.ip` fallback — x-forwarded-for + x-real-ip only | AdBazaar main |
+
+## Gen 36 Fixes (2026-04-18) — R9
+
+| Fix | File | Evidence | PR |
+|-----|------|----------|-----|
+| AB3-H2: isNewScanner race | `api/qr/scan/[slug]/route.ts` + `migrations/012_scan_ip_unique_constraint.sql` | Atomic insert with unique constraint on (qr_id, ip_address) + 23505 handling | AdBazaar main |
+| AB2-H2: View count bot inflation | `api/listings/[id]/view/route.ts` | `isBotUA()` function filters known crawler User-Agent patterns | AdBazaar main |
 
 ## Recent Updates (2026-04-17)
 
@@ -98,6 +131,15 @@ Last updated: 2026-04-18 (Gen 31: CRON-002 async onComplete, NW-CRIT-003/012 mer
 - `Rendez`: PR #4 (auth headers + gift type mismatch) merged
 - Coin economics locked: earn 1 coin/₹1, spend 1 coin = ₹1
 - Ad monetization: CPA + CPM + fixed daily charge model
+
+## Gen 25 Fixes — BullMQ All-Hands (2026-04-18)
+
+| Fix | File | Evidence | PR |
+|-----|------|----------|-----|
+| BULL-002: expireCoins batched Promise.allSettled | `src/jobs/expireCoins.ts` | Sequential loop → 100-user batches, 500ms inter-batch | #125 |
+| BULL-004: broadcastWorker withTimeout 60s | `src/workers/broadcastWorker.ts` | withTimeout wrapper + lockDuration:60s | #125 |
+| BULL-005: bullmqFailureHandler DLQ rewrite | `src/config/bullmqFailureHandler.ts` | Redis LIST → BullMQ named Queue, 30d retention | #125 |
+| BULL-006: ScheduledJobService time-based clean | `src/services/ScheduledJobService.ts` | clean(0,...) → clean(STALE_THRESHOLD_MS=24h) | #125 |
 
 ## Gen 24 Fixes (2026-04-17)
 
