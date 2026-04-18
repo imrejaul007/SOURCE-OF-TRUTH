@@ -20,6 +20,18 @@ Single place to find everything about the REZ platform. Read this before solving
 - **Backend**: https://rez-backend-8dfu.onrender.com
 - **GitHub**: https://github.com/imrejaul007
 
+## Bug Tracking & Gap Analysis
+
+Gap docs are in `docs/Gaps/` (relative to project root):
+
+| Folder | Scope | Status |
+|--------|-------|--------|
+| `docs/Gaps/10-REZ-NOW/` | ReZ Now (rez-now/) — 14 CRITICAL + 15 HIGH issues | **13 fixed, 1 partial, 0 open** CRITICAL |
+| `docs/Gaps/09-CROSS-SERVICE-2026/` | Cross-service inconsistencies | Various |
+| `docs/Gaps/11-CROSS-SERVICE-CONNECTIONS/` | Cross-repo connection issues | Various |
+
+Always check the gap docs before starting new work — many issues are already fixed.
+
 ## Key Rules
 
 1. **NEVER commit env values** — use placeholder names only in this folder

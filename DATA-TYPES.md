@@ -2,7 +2,7 @@
 
 Types live in `@rez/shared-types`. Local stubs in each app under `types/`.
 
-**Updated:** 2026-04-18 — Gen 27: backend `Payment.paymentMethod` enum reconciled to 4-value canonical. Backend was using 7 values including razorpay/stripe/paypal in `paymentMethod` — these belong in the `gateway` field, not `paymentMethod`. Also confirmed: `FlashSale.index({ status: 1, enabled: 1 })` (not `isActive`), `coinExpiry` uses `addBulk` batching 500/chunk.
+**Updated:** 2026-04-18 — Gen 22: CoinType canonical values updated (6 types: promo/branded/prive/cashback/referral/rez). Consumer app `storePayment.types.ts` now imports canonical CoinType. `wallet-credit` orphan queue worker added (Gen 22). Payment.paymentMethod reconciled (Gen 27).
 
 ## Payment Status & Methods (Canonical — rez-payment-service)
 
@@ -357,7 +357,9 @@ type TransactionStatus = 'pending' | 'completed' | 'failed' | 'reversed';
 
 ### CoinType
 ```typescript
-type CoinType = 'REZ' | 'CASHBACK';
+// Canonical: packages/rez-shared/src/constants/coins.ts + types/enums/index.ts
+// Priority order (for display/ranking): promo → branded → prive → cashback → referral → rez
+type CoinType = 'promo' | 'branded' | 'prive' | 'cashback' | 'referral' | 'rez';
 ```
 
 ### WalletBalance

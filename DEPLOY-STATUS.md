@@ -1,6 +1,6 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-18 (Gen 23: ROUTE-SEC-005 admin upload ownership, CRON-002 async onComplete, BULL-001 removeOnComplete bounded, NW-CRIT-003 store ownership)
+Last updated: 2026-04-18 (Gen 31: CRON-002 async onComplete, NW-CRIT-003/012 merchant ownership+socket, F-03 dedup key ms, ROUTE-SEC-005 already fixed via MerchantUpload model)
 
 ## Production (Live on Render/Vercel)
 
@@ -39,13 +39,40 @@ Last updated: 2026-04-18 (Gen 23: ROUTE-SEC-005 admin upload ownership, CRON-002
 | BULL-001: BullMQ removeOnComplete bounded | `src/config/jobQueues.ts` | `removeOnComplete: { count: 100 }` (was bare `true`) | rez-backend-master |
 | NW-CRIT-003: Merchant page store ownership | `app/[storeSlug]/merchant/layout.tsx` | getMerchantStores() ownership check + auth error redirect | rez-now |
 
+## Gen 30 Fixes (2026-04-18)
+
+| Fix | File | Evidence | PR |
+|-----|------|----------|-----|
+| CRITICAL-005 | Karma 2x inflation non-atomic | `findOneAndUpdate` + `$inc` in karmaService | Branch pushed |
+| NW-CRIT-012 | UPI socket store room | subscribe(slug, orderId) emits `join-store` | Branch pushed |
+
+## Gen 31 Fixes (2026-04-18)
+
+| Fix | File | Evidence | Status |
+|-----|------|----------|--------|
+| CRON-002 | autoCheckoutWorker async try-catch | `try-catch` around `processForgottenCheckouts()` | Pushed to Karma main |
+| NW-CRIT-003 | Merchant store ownership guard | `getMerchantStores()` + 401/403 redirect | Pushed to rez-now main |
+| NW-CRIT-012 | UPI socket room fix | `subscribe(storeSlug, razorpayOrderId)` | Pushed to rez-now main |
+| F-03 | Visit milestone dedup collision | `Math.floor(Date.now()/1000)` → `Date.now()` | Pushed to gamification main |
+| ROUTE-SEC-005 | Admin Cloudinary delete ownership | MerchantUpload model + 403 check | PR #117 (already merged) |
+| NA-CRIT-04 | Missing types/unified | MISJUDGMENT — stub exists at types/unified/index.ts | N/A |
+| BULL-001 | removeOnComplete leak | MISJUDGMENT — {count:100} already in jobQueues.ts | N/A |
+
 ## Gen 29 Fixes (2026-04-18)
 
 | Fix | File | Evidence | PR |
 |-----|------|----------|-----|
 | RZ-A-C2: Next.js middleware | rendez-admin/src/middleware.ts | Edge JWT verification + session cookie (12h TTL) | Rendez PR #5 |
-| AB2-C1: XFF IP consistency | adBazaar/qr/scan/route.ts | XFF last-IP matches middleware exactly | AdBazaar PR #14 |
+| AB2-C1: XFF IP consistency | adBazaar/qr/scan/route.ts | XFF first-IP (trusted proxy) matches middleware exactly — merged via PR #15 | AdBazaar PR #15 |
+| AB-B1: Visit bonus coins | adBazaar/qr/scan/route.ts | Prior scan count check credits visit_bonus_coins on first visit | AdBazaar PR #15 |
 | AB3-C1: Campaign DELETE IDOR | adBazaar/campaigns/[id]/route.ts | MISJUDGMENT — ownership check existed from initial commit | — |
+
+## Gen 30 Fixes (2026-04-18)
+
+| Fix | File | Evidence | PR |
+|-----|------|----------|-----|
+| CRITICAL-005: Karma 2x inflation | karmaService.ts + earnRecordService.ts | `findOneAndUpdate` + `$inc` replaces non-atomic `+=` | Branch: fix/CRITICAL-005-karma-atomic |
+| NW-CRIT-012: UPI socket timeout | usePaymentConfirmation.ts + PaymentOptions.tsx | subscribe(slug, orderId) emits `join-store` (backend has no `subscribe:payment` handler) | Branch: fix/NW-CRIT-012-upi-socket |
 
 ## Recent Updates (2026-04-17)
 

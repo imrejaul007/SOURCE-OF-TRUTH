@@ -7,7 +7,7 @@ Total: 55 repos (verified via `gh repo list imrejaul007 --limit 100`)
 - Internal / Other: 4 (vesper, rez-app, ReZ-Hotel-pms, hotel)
 - Unrelated personal projects: 21 (see bottom section)
 
-## Recent Updates (2026-04-17)
+## Recent Updates (2026-04-18)
 
 - `rez-shared` v1.0.2: net-zero coin economics (1 coin = ₹1), coinsEarned(), COIN_TO_RUPEE_RATE
 - `rez-backend` PRs merged:
@@ -23,6 +23,11 @@ Total: 55 repos (verified via `gh repo list imrejaul007 --limit 100`)
 - Coin economics: net-zero model (earn 1 coin/₹1, spend 1 coin = ₹1)
 - Ad monetization: CPA + CPM + fixed daily charge model
 
+### REZ Now Gap Audit (2026-04-18) — `rez-now/`
+- **CRITICAL**: 13/14 fixed. 1 partial (NW-CRIT-011 CAPTCHA — needs backend). 0 open.
+- **HIGH**: 12/15 fixed. 3 partial (NW-HIGH-006 unit, NW-HIGH-009 price guard, NW-HIGH-013 endpoint paths). 0 open.
+- Key fixes: idempotency key UUID-only, AES-GCM token encryption, httpOnly cookies, Socket.IO store-room join for UPI, offline queue error events, canonical PaymentStatus/OrderHistoryItem types, merchant store-ownership guard, coupon server re-validation at checkout, price guard in `createRazorpayOrder`, catalog gated behind `NEXT_PUBLIC_FEATURE_CATALOG_V2`.
+
 ---
 
 ## Frontend Apps
@@ -33,7 +38,7 @@ Total: 55 repos (verified via `gh repo list imrejaul007 --limit 100`)
 | 2 | **Merchant App** | https://github.com/imrejaul007/rez-app-marchant | Vercel / Expo | Private |
 | 3 | **Admin App** | https://github.com/imrejaul007/rez-app-admin | Vercel | Private |
 | 4 | **Web Menu (QR)** | https://github.com/imrejaul007/rez-web-menu | vercel.app | Private |
-| 5 | **REZ Now** | https://github.com/imrejaul007/rez-now | TBD | Private |
+| 5 | **REZ Now** | https://github.com/imrejaul007/rez-now | Vercel | Private | Gap audit: **13/14 CRITICAL fixed**, **11/15 HIGH fixed** |
 
 ## Backend / Infrastructure
 
