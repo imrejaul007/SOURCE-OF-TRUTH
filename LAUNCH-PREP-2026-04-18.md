@@ -1,5 +1,7 @@
 # Launch-Prep 2026-04-18 — Summary
 
+> **Last Updated: 2026-04-18 (Session 2)** — All 3 apps: 0 TS errors on main.
+
 This is the canonical summary of the launch-preparation work performed on 2026-04-18 across the three user-facing React Native / Expo apps: `rez-app-consumer`, `rez-app-marchant`, and `rez-app-admin`.
 
 For full per-item detail see `docs/gaps/16-LAUNCH-PREP-2026-04-18.md` in the main project.
@@ -88,3 +90,31 @@ The arch-fitness rules (`no-console-log`, `no-as-any`) would hard-fail CI on eve
 - Previous verification pass: `docs/gaps/15-VERIFIED-FIX-STATUS.md`
 - Session `push-all.sh`: `push-launch-prep.sh` at the super-project root
 - SOURCE-OF-TRUTH push script: `push-source-of-truth.sh` at the super-project root
+
+---
+
+## Session 2 Update (2026-04-18, Evening)
+
+### All 3 Apps: 0 TypeScript Errors on main
+
+| Repo | Branch | Commit | PR | Errors |
+|---|---|---|---|---|
+| rez-app-consumer | main | `3a33c69` (fix/consumer-ts-audit-round2) | #111 merged | 0 |
+| rez-app-admin | main | `239258a` (8-team audit) | #84 merged | 0 |
+| rez-app-marchant | main | `22cc3b4e` (fix/merchant-ts-audit-round2) | #94 merged | 0 |
+
+### Consumer Fixes (PR #111)
+- `deal(discountValue)` → `deal.discountValue` (Deal is object, not callable)
+- `uuid` imports fixed across 7 services (were inside block comments)
+- API response union type casts in `reelApi.ts`
+- Error type casts in `useCheckout.ts`, `billUploadService.ts`
+- `CoinType` import added to `useWallet.ts`
+- `CryptoEncoding` fix in `imageHashService.ts`
+- `Record<>` type annotations in wallet/loyalty hooks
+
+### Merchant Fixes (PR #94)
+- `@hookform/resolvers` 5.2.2 → 4.1.0 (v5 missing `zod.d.ts` type declarations)
+- 40 implicit `any` params typed in `_layout.tsx`
+- `NotificationBehavior` cast fixed, notification callbacks typed
+- `tsconfig.json` invalid `types` entry removed
+- Stub type declarations for `expo-notifications` and `react-native-gesture-handler`
