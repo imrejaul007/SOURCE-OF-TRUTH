@@ -9,6 +9,61 @@ Total: 55 repos (verified via `gh repo list imrejaul007 --limit 100`)
 
 ## Recent Updates (2026-04-19)
 
+### Backend P0 Fixes (MASTER-PLAN-2026-04-19 B1-B12)
+
+All merged to `main`. Render auto-deploys on push.
+
+| Item | Fix | Service | PR |
+|------|-----|---------|----|
+| B1 | Remove duplicate `startPaymentWorker()` | `rez-payment-service` | #14 |
+| B2 | Move atomic `findOneAndUpdate` inside MongoDB transaction for wallet credit (TOCTOU race fix) | `rez-payment-service` | #15 |
+| B4 | Add IDOR protection to `PATCH /orders/:id/status` (merchant can only update own orders) | `rez-order-service` | #17 |
+| B6 | Magic byte MIME sniffing (JPEG/PNG/WebP) prevents MIME spoofing on file uploads | `rez-media-events` | #4 |
+| B8 | Replace in-memory Map with Redis INCR+EXPIRE rate limiter for distributed correctness | `analytics-events` | #6 |
+| B9 | Replace `cors()` with explicit CORS_ORIGIN whitelist (was wide-open) | `rez-ads-service` | #11 |
+| B10 | Add nginx routes for `/api/homepage` and `/api/recommendations` to search_backend | `rez-api-gateway` | #7 |
+| B12 | Remove silent 10,000-coin cap on wallet recharge (net-zero economics: 1 coin = ₹1) | `rez-payment-service` | #15 |
+
+Not addressed:
+- **B3**: SSE endpoint already fixed (BAK-CROSS-002 in previous session)
+- **B5**: Ephemeral disk uploads — requires Cloudinary/S3 migration (complex infra change)
+- **B11**: Gateway + SOT contract drift — no specific drift identified in codebase
+
+### P1 Backend Fixes (2026-04-19)
+
+| Fix | Service | PR |
+|-----|---------|----|
+| Add `trust proxy` to 7 Express services so `req.ip` reflects real client IP behind nginx/Render LB | `rez-auth-service` | #7 |
+| Add `trust proxy` to 7 Express services so `req.ip` reflects real client IP behind nginx/Render LB | `rez-payment-service` | #16 |
+| Add `trust proxy` to 7 Express services so `req.ip` reflects real client IP behind nginx/Render LB | `rez-wallet-service` | #14 |
+| Add `trust proxy` to 7 Express services so `req.ip` reflects real client IP behind nginx/Render LB | `rez-search-service` | #7 |
+| Add `trust proxy` to 7 Express services so `req.ip` reflects real client IP behind nginx/Render LB | `rez-ads-service` | #12 |
+| Add `trust proxy` to 7 Express services so `req.ip` reflects real client IP behind nginx/Render LB | `analytics-events` | #7 |
+| Add `trust proxy` to 7 Express services so `req.ip` reflects real client IP behind nginx/Render LB | `rez-marketing-service` | #5 |
+| Tighten CORS regex in `rez-merchant-service` (MA-BACK-007: removed wildcard `vercel.app` subdomain allow) | `rez-merchant-service` | prior |
+
+Already done prior:
+- Merchant deep-link handler (F7): `Linking.getInitialURL` + `Linking.addEventListener` with route allowlist
+- Admin deep-link handler (F8): same pattern — already committed to git HEAD
+
+- `rez-backend` — All PRs merged. Zero open. TypeScript build clean.
+
+| Item | Fix | Service | PR |
+|------|-----|---------|----|
+| B1 | Remove duplicate `startPaymentWorker()` | `rez-payment-service` | #14 |
+| B2 | Move atomic `findOneAndUpdate` inside MongoDB transaction for wallet credit (TOCTOU race fix) | `rez-payment-service` | #15 |
+| B4 | Add IDOR protection to `PATCH /orders/:id/status` (merchant can only update own orders) | `rez-order-service` | #17 |
+| B6 | Magic byte MIME sniffing (JPEG/PNG/WebP) prevents MIME spoofing on file uploads | `rez-media-events` | #4 |
+| B8 | Replace in-memory Map with Redis INCR+EXPIRE rate limiter for distributed correctness | `analytics-events` | #6 |
+| B9 | Replace `cors()` with explicit CORS_ORIGIN whitelist (was wide-open) | `rez-ads-service` | #11 |
+| B10 | Add nginx routes for `/api/homepage` and `/api/recommendations` to search_backend | `rez-api-gateway` | #7 |
+| B12 | Remove silent 10,000-coin cap on wallet recharge (net-zero economics: 1 coin = ₹1) | `rez-payment-service` | #15 |
+
+Not addressed:
+- **B3**: SSE endpoint already fixed (BAK-CROSS-002 in previous session)
+- **B5**: Ephemeral disk uploads — requires Cloudinary/S3 migration (complex infra change)
+- **B11**: Gateway + SOT contract drift — no specific drift identified in codebase
+
 - `rez-backend` — All PRs merged. Zero open. TypeScript build clean.
   - **#118** (2026-04-18): Home services booking (HomeServiceCategory, HomeService, HomeServiceBooking)
   - **#119** (2026-04-18): Loyalty stamps audit trail (StampEvent, StampRedemption)
