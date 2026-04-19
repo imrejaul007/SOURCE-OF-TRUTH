@@ -190,6 +190,26 @@ Post-session fixes applied after context compaction:
 - G-MA-C05/C15: order detail page now asserts `merchantId` + `storeId` ownership match active session — IDOR guard
 - `offline.ts`: fixed type cast on `invalidateCacheForAction` self-call
 
+### Session 5 Update (2026-04-19, morning)
+
+**All 9 mutation hooks wired to call sites (was 13, now 22 total wired):**
+
+| Hook | Call site | Status |
+|---|---|---|
+| `useResetStreak` | `users/[id].tsx` | Wired |
+| `useCreateVoucher` | `voucher-management.tsx` | Wired |
+| `useUpdateVoucher` | `voucher-management.tsx` | Wired |
+| `useDeleteVoucher` | `voucher-management.tsx` | Wired |
+| `useToggleVoucher` | `voucher-management.tsx` | **New** — added to `useVoucherMutations.ts` |
+| `useCreateCampaign` | `campaigns.tsx` | Wired |
+| `useUpdateCampaign` | `campaigns.tsx` | Wired |
+| `useToggleCampaignStatus` | `campaigns.tsx` | Wired |
+
+All wired via `mutateAsync()`; loading states use `status === 'pending'` (React Query v5 API).
+No new TS errors introduced across all 3 apps.
+
+**Active gaps updated:** Admin A10-H1 (useMutation rollout) now 22 of ~70 hooks wired.
+
 ### TSC status: 0 errors, all 3 apps ✓
 - **`as any` casts:** started 6,405 → end ~6,200
 - **`console.*` calls:** started 2,523 → end ~2,000
@@ -204,17 +224,12 @@ Many earlier items have been closed across the four sessions. Remaining top prio
 - **Merchant G-MA-C03:** onboarding bank penny-drop (frontend uses Razorpay IFSC lookup now but backend penny-drop still needed).
 - **All apps:** `as any` / `console.*` arch-fitness debt (multi-session cleanup campaign).
 
-### Push workflow (Session 4)
+### Push workflow (Session 5)
+
+All 3 apps already on main at origin with 0 TS errors.
+Merchant `fix/merchant-cache-idor` branch still open — open PR for review.
+SOURCE-OF-TRUTH commit `9d6cdb7` is local-only (remote deleted — user recreates).
 
 ```
-# Admin: ten-agent-round branch has 7 commits (push first for context)
-cd rez-app-admin && git push origin ten-agent-round/20260418 && cd ..
-
-# Merchant: fix/merchant-cache-idor branch (or merge into ten-agent-round)
-cd rez-app-marchant && git push -u origin fix/merchant-cache-idor && cd ..
-
-# SOURCE-OF-TRUTH
-cd SOURCE-OF-TRUTH && git push origin main && cd ..
-
-# Then open PRs on GitHub.
+cd SOURCE-OF-TRUTH && git push origin main
 ```
