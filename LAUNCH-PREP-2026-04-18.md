@@ -233,3 +233,34 @@ SOURCE-OF-TRUTH commit `9d6cdb7` is local-only (remote deleted — user recreate
 ```
 cd SOURCE-OF-TRUTH && git push origin main
 ```
+
+### Session 6 Update (2026-04-19, afternoon)
+
+**Consumer TS: 20 → 0**
+- `pointsApi.ts`: `PointTransaction` was re-exported but not locally imported — added `import type`
+- `earningsApi.ts`: same pattern — added `import type { EarningTransaction }`
+- `loyaltyApi.ts`: same pattern — added `import type { LoyaltyTransaction }`
+- `pushNotificationService.ts`: added `as Error` cast on logger.error (migration introduced it)
+- Console migration `f6d32a3` confirmed on origin/main (30 calls migrated in 10 service files)
+
+**Admin TS: 19 → 14** (remaining 14 are pre-existing in UI files)
+- `offers.ts`: 5 functions (`getOffer`, `createOffer`, `updateOffer`, `approveOffer`, `rejectOffer`) return `data?.data ?? null` but declared as `Promise<Offer>` — fixed to `Promise<Offer | null>`
+- `storage.ts`: added missing `import { logger } from '@/utils/logger'`
+- Committed as `378815e` pushed to origin/main
+
+**Merchant TS: 0** (unchanged)
+
+**Admin remaining 14 pre-existing errors (not introduced this session):**
+- `analytics-dashboard.tsx` (8): `ANALYTICS_SERVICE_URL` undefined (x2) + `platformSummary` null/typeof issues (x6)
+- `bundle-management.tsx` (1): `insets` undefined
+- `campaign-management.tsx` (1): `insets` undefined
+- `coin-governor.tsx` (1): `insets` undefined
+- `fraud-alerts.tsx` (1): `insets` undefined
+- `trial-approvals.tsx` (2): `insets` undefined
+
+### Session 6 Push
+
+```
+cd rez-app-admin && git push origin main   # 378815e — committed
+cd rez-app-consumer && git push origin main  # f6d32a3 — already on main
+```
