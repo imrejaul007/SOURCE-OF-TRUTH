@@ -1,6 +1,6 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-18 (Gen 42: All PRs verified — zero open across 8 repos; BULL-002/004/005/006 merged #125, BULL-004 lockDuration #127, BULL-006 batch 10K #128; Math.random→crypto.randomUUID; CRITICAL-003/005 atomic fixes confirmed; rez-now NW-CRIT-003/012/009 on main)
+Last updated: 2026-04-19 (Gen 45: All PRs verified — zero open across 8 repos; BULL-002/004/005/006 merged #125, BULL-004 lockDuration #127, BULL-006 batch 10K #128; Math.random→crypto.randomUUID; CRITICAL-003/005 atomic fixes confirmed; rez-now NW-CRIT-003/012/009 on main; rez-app-consumer Render/Vercel dual deploy fixed)
 
 ## Production (Live on Render/Vercel)
 
@@ -134,6 +134,15 @@ Last updated: 2026-04-18 (Gen 42: All PRs verified — zero open across 8 repos;
 | TS build errors: resolved | All 32 TS errors across 10 files fixed | #134 |
 | NW-CRIT-003: Merchant store ownership | `getMerchantStores()` + 401/403 on rez-now main | main |
 | NW-CRIT-012: UPI socket room | subscribe(slug, orderId) on rez-now main | main |
+
+## Gen 45 Fixes (2026-04-19) — Consumer App Dual Deploy
+
+| Fix | Evidence | Status |
+|-----|----------|--------|
+| Consumer Render/Vercel dual deploy | `"main": "expo-router/entry"` causes Render to auto-detect Node.js server; preinstall script removes it on Render only; Vercel keeps `"main"` via GitHub Actions (no `$RENDER` env) | main (1c84793) |
+| serve:render port flag | Changed `-l tcp://0.0.0.0:$PORT` (broken) to `-p ${PORT:-3000} -s` (correct serve CLI + SPA rewrite) | main (1c84793) |
+
+> **Root cause**: Render auto-detects `"main"` in package.json and overrides `render.yaml`, running `node expo-router/entry` as a web server. Expo-router is not a Node.js server — it exports a React bundle. Solution: `scripts/preinstall.js` detects `$RENDER` env var (available at build time per Render docs) and removes `"main"` before npm install completes. Vercel uses GitHub Actions with `vercel-action` — `$RENDER` is never set, so `"main"` stays and Vercel's expo metro bundler resolves correctly.
 
 ## Recent Updates (2026-04-17)
 
