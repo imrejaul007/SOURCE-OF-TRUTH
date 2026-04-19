@@ -57,10 +57,10 @@ GET  /api/orders/history           → Order history
 
 ### Payments
 ```
-POST /api/payments/initiate        → Create Razorpay order
-POST /api/payments/verify         → Verify payment
-POST /api/payments/refund          → Request refund
-GET  /api/payments/:id             → Get payment status
+POST /api/payment/initiate         → Create Razorpay order
+POST /api/payment/verify          → Verify payment
+POST /api/payment/refund           → Request refund
+GET  /api/payment/status/:id       → Get payment status
 ```
 
 ### QR / Check-in
@@ -80,7 +80,7 @@ POST /api/cashback/claim          → Claim available cashback
 
 ### rez-auth-service
 ```
-POST /auth/otp/request
+POST /auth/otp/send
 POST /auth/otp/verify
 POST /auth/token/refresh
 POST /auth/logout
@@ -125,12 +125,16 @@ GET  /payments/user/:userId
 
 ### rez-order-service
 ```
-POST /orders
-GET  /orders/:id
-PUT  /orders/:id/status
-GET  /orders/user/:userId
-GET  /orders/merchant/:merchantId
+GET  /orders                        → List orders (authenticated user's)
+GET  /orders/:id                    → Get order
+POST /orders/:id/cancel             → Cancel order
+GET  /orders/stream                 → SSE live order updates
+GET  /internal/orders/summary/:userId → Internal: per-user summary
 ```
+Note: order *creation* (`POST /api/orders`) is currently served by the monolith
+(`rezbackend`). The rez-order-service does not expose a creation endpoint — the
+gateway's `/api/orders` route would need to change (or this service would need a
+handler added) to fully strangle the monolith.
 
 ### rez-catalog-service
 ```
