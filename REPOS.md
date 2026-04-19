@@ -7,25 +7,25 @@ Total: 55 repos (verified via `gh repo list imrejaul007 --limit 100`)
 - Internal / Other: 4 (vesper, rez-app, ReZ-Hotel-pms, hotel)
 - Unrelated personal projects: 21 (see bottom section)
 
-## Recent Updates (2026-04-18)
+## Recent Updates (2026-04-19)
 
+- `rez-backend` — All PRs merged. Zero open. TypeScript build clean.
+  - **#118** (2026-04-18): Home services booking (HomeServiceCategory, HomeService, HomeServiceBooking)
+  - **#119** (2026-04-18): Loyalty stamps audit trail (StampEvent, StampRedemption)
+  - **#120** (2026-04-18): Claude AI assistant + WhatsApp + catalog + appointments
+  - **#125** (2026-04-18): BULL-002/004/005/006 — BullMQ timeout and clean loop fixes
+  - **#126** (2026-04-18): Wallet types refactor, cart API, bill upload
+  - **#127** (2026-04-18): BULL-004 — lockDuration + per-job timeout for BullMQ
+  - **#130-#137** (2026-04-18): TypeScript build fixes, CRITICAL-013/016, @karim4987498/shared removal, Math.random → crypto.randomUUID
 - `rez-shared` v1.0.2: net-zero coin economics (1 coin = ₹1), coinsEarned(), COIN_TO_RUPEE_RATE
-- `rez-backend` PRs merged:
-  - #106: Harden recharge webhook, console.error cleanup
-  - #113: JWT HS256 pin, ROUTE-SEC-029 health endpoint protection
-  - #114: Single MongoDB authority for payments (CRITICAL-008)
-  - #115: Salon/SPA booking system (SalonService, SalonStaff, SalonBooking)
-  - #116: Hotel review system (HotelReview, ReviewResponse, review prompt on stay)
-  - #117: ROUTE-SEC-001/005/014 architectural security fixes
-  - #118: Home services booking (HomeServiceCategory, HomeService, HomeServiceBooking)
-  - #119: Loyalty stamps audit trail (StampEvent, StampRedemption)
-  - #120: AI/WhatsApp + catalog + appointments + merchant infrastructure
+- `adBazaar` — All PRs merged. Zero open.
+  - **#17** (2026-04-19): AB2-C5 payout silent-fail fix + AB3-C3 campaign booking updates
 - Coin economics: net-zero model (earn 1 coin/₹1, spend 1 coin = ₹1)
 - Ad monetization: CPA + CPM + fixed daily charge model
 
-### REZ Now Gap Audit (2026-04-18) — `rez-now/`
+### REZ Now Gap Audit (2026-04-19) — `rez-now/`
 - **CRITICAL**: 13/14 fixed. 1 partial (NW-CRIT-011 CAPTCHA — needs backend). 0 open.
-- **HIGH**: 12/15 fixed. 3 partial (NW-HIGH-006 unit, NW-HIGH-009 price guard, NW-HIGH-013 endpoint paths). 0 open.
+- **HIGH**: 11/15 fixed. 2 partial (NW-HIGH-006 unit, NW-HIGH-008 coupon re-val — need backend). 2 open (NW-HIGH-001 catalog placeholders, NW-HIGH-009 price manipulation).
 - Key fixes: idempotency key UUID-only, AES-GCM token encryption, httpOnly cookies, Socket.IO store-room join for UPI, offline queue error events, canonical PaymentStatus/OrderHistoryItem types, merchant store-ownership guard, coupon server re-validation at checkout, price guard in `createRazorpayOrder`, catalog gated behind `NEXT_PUBLIC_FEATURE_CATALOG_V2`.
 
 ---
@@ -45,7 +45,7 @@ Total: 55 repos (verified via `gh repo list imrejaul007 --limit 100`)
 | # | Service | Repo URL | Render Deploy URL | Local Port | Status |
 |---|---------|----------|-------------------|------------|--------|
 | 6 | **API Gateway** | https://github.com/imrejaul007/rez-api-gateway | rez-api-gateway.onrender.com | 5002 | ✅ Live |
-| 7 | **rez-backend** | https://github.com/imrejaul007/rez-backend | rez-backend-8dfu.onrender.com | 5001 | ✅ Live (2026-04-17: hotel reviews, salon, home services, stamps, AI/WhatsApp) |
+| 7 | **rez-backend** | https://github.com/imrejaul007/rez-backend | rez-backend-8dfu.onrender.com | 5001 | ✅ Live (2026-04-19: TS clean, all PRs merged, home services, stamps, AI/WhatsApp) |
 | 8 | **rez-auth-service** | https://github.com/imrejaul007/rez-auth-service | rez-auth-service.onrender.com | 5003 | ✅ Live |
 | 9 | **rez-merchant-service** | https://github.com/imrejaul007/rez-merchant-service | rez-merchant-service-n3q2.onrender.com | 3004 | ✅ Live |
 | 10 | **rez-wallet-service** | https://github.com/imrejaul007/rez-wallet-service | rez-wallet-service-36vo.onrender.com | 5006 | ✅ Live |
