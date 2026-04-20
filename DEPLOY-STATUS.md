@@ -1,6 +1,6 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-20 (Gen 52: Auth microservice route fix — added 8 /user/auth/* legacy aliases for API gateway compatibility; added /user/auth/login-pin alias for ReZ Now; added /refresh-token alias for gateway token refresh path; PRs #13, #15, #16 merged to main)
+Last updated: 2026-04-20 (Gen 53: Auth microservice — PRs #13, #15, #16, #14 merged to main. Legacy /user/auth/* aliases + login-pin + /refresh-token + BAK-AUTH-005 lockout on BullMQ failure + E8 audit log.)
 
 ## Production (Live on Render/Vercel)
 
@@ -25,6 +25,10 @@ Last updated: 2026-04-20 (Gen 52: Auth microservice route fix — added 8 /user/
 | **rez-app-consumer** | (EAS build) | ✅ Live | Expo EAS |
 | **rez-app-marchant** | https://rez-app-marchant.vercel.app | ✅ Live | Vercel |
 | **rez-web-menu** | https://menu.rez.money | ✅ Live | Vercel |
+
+## Recent Updates (2026-04-20)
+
+- `rez-auth-service`: PR #14 merged — BAK-AUTH-005 lockout on BullMQ queue failure + E8 audit log internal user-lookup. **All 4 PRs (#13, #14, #15, #16) now merged. Zero open PRs across all 18 services.**
 
 ## Recent Updates (2026-04-18)
 
