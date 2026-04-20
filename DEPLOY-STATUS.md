@@ -1,6 +1,6 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-19 (Gen 45: All PRs verified — zero open across 8 repos; BULL-002/004/005/006 merged #125, BULL-004 lockDuration #127, BULL-006 batch 10K #128; Math.random→crypto.randomUUID; CRITICAL-003/005 atomic fixes confirmed; rez-now NW-CRIT-003/012/009 on main; rez-app-consumer Render/Vercel dual deploy fixed)
+Last updated: 2026-04-20 (Gen 52: Auth microservice route fix — added 8 /user/auth/* legacy aliases for API gateway compatibility; added /user/auth/login-pin alias for ReZ Now; added /refresh-token alias for gateway token refresh path; PRs #13, #15, #16 merged to main)
 
 ## Production (Live on Render/Vercel)
 

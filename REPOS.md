@@ -41,10 +41,14 @@ Not addressed:
 | Add `trust proxy` to 7 Express services so `req.ip` reflects real client IP behind nginx/Render LB | `analytics-events` | #7 |
 | Add `trust proxy` to 7 Express services so `req.ip` reflects real client IP behind nginx/Render LB | `rez-marketing-service` | #5 |
 | Tighten CORS regex in `rez-merchant-service` (MA-BACK-007: removed wildcard `vercel.app` subdomain allow) | `rez-merchant-service` | prior |
-
-Already done prior:
-- Merchant deep-link handler (F7): `Linking.getInitialURL` + `Linking.addEventListener` with route allowlist
-- Admin deep-link handler (F8): same pattern — already committed to git HEAD
+| Re-add 8 `/user/auth/*` legacy aliases for API gateway compatibility (all consumer apps use these paths) | `rez-auth-service` | #13 |
+| Add `/user/auth/login-pin` alias for ReZ Now PIN login | `rez-auth-service` | #15 |
+| Add `/refresh-token` alias (gateway strips `/api/user/auth/refresh-token` → `/refresh-token`) | `rez-auth-service` | #16 |
+| Merchant deep-link handler (F7): `Linking.getInitialURL` + `Linking.addEventListener` with route allowlist | `rez-app-marchant` | prior (commit ac3e7fd) |
+| Admin deep-link handler (F8): same pattern | `rez-app-admin` | prior (commit cc23ee8) |
+| Standardize `/health` with MongoDB + Redis checks (canonical shape: `{status, checks, uptime, timestamp}` + `/healthz` alias) | `rez-ads-service` | #13 |
+| Standardize `/health` with MongoDB + Redis checks (canonical shape) | `rez-marketing-service` | #6 |
+| Standardize `/health` with MongoDB + Redis checks (canonical shape) | `rez-search-service` | #8 |
 
 - `rez-backend` — All PRs merged. Zero open. TypeScript build clean.
 
