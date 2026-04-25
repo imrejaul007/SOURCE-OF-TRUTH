@@ -123,21 +123,22 @@ These are separate platforms for merchants (not connected to REZ core services)
 
 ---
 
-## DUPLICATE/Legacy FOLDERS (TO BE CLEANED)
+## DUPLICATE/Legacy FOLDERS (CLEANED - 2026-04-25)
 
-These are duplicate clones of the same repos above. Safe to remove.
+Deleted after proper audit to preserve all unpushed commits:
 
-| Local Folder | Same As | Size | Issue |
-|-------------|---------|------|-------|
-| `hotel-ota/` | `Hotel OTA/` | 955M | Duplicate clone |
-| `packages/rez-shared/` | `rez-shared/` | - | Duplicate clone |
-| `rezapp/rez-master/` | `rez-app-consumer/` | - | Duplicate clone |
-| `rezbackend/rez-backend-master/` | Core above | 1.1G | Duplicate clone |
-| `rez-web-menu/rezbackend/rez-backend-master/` | `rez-backend/` | 0B | Empty leftover |
-| `components/` | - | 96B | Empty stub |
-| `config/` | - | 96B | Empty stub |
-| `test/` | - | 96B | Empty stub |
-| `tests/` | - | 96B | Empty stub |
+| Local Folder | Same As | Action |
+|-------------|---------|--------|
+| `hotel-ota/` | `Hotel OTA/` | ✅ Deleted (955M freed) |
+| `packages/rez-shared/` | `rez-shared/` | ✅ Deleted |
+| `rezapp/rez-master/` | `rez-app-consumer/` | ✅ Deleted |
+| `rez-web-menu/rezbackend/` | `rez-backend/` | ✅ Deleted (empty) |
+| `components/` | - | ✅ Deleted (empty) |
+| `config/` | - | ✅ Deleted (empty) |
+| `test/` | - | ✅ Deleted (empty) |
+| `tests/` | - | ✅ Deleted (empty) |
+
+### Note: `rezbackend/rez-backend-master/` is the CORRECT location for the backend repo - do NOT delete.
 
 ---
 
