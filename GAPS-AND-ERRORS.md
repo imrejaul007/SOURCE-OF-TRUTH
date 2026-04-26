@@ -125,52 +125,79 @@
 
 ## MEDIUM PRIORITY GAPS
 
-### 7. Partner App SSO Integration Incomplete
+### 7. REZ SSO for Partner Apps Missing
 
 | App | Auth Status | Integration Needed |
 |-----|-------------|-------------------|
-| Rendez | Standalone Supabase auth | REZ Partner SSO |
-| Stay Owen | Standalone Prisma | REZ SSO for guest wallet |
-| AdBazaar | Supabase auth | Future: REZ wallet for payouts |
+| Rendez | Standalone Supabase auth | REZ Partner SSO - users can't use REZ login |
+| Stay Owen | Standalone Prisma | REZ SSO for guest wallet - loyalty coins not shared |
 
 **Action Required:**
-- Define REZ Partner API for SSO
+- Define REZ Partner API for SSO/OAuth2
 - Implement OAuth2 flow for partner apps
+- Enable REZ wallet sharing with partner guests
 
 ---
 
-### 8. NextaBiZ Integration Not Connected
+### 8. NextaBiZ → REZ Merchant Integration Missing ⚠️ HIGH PRIORITY
 
-**Current status:** Standalone B2B SaaS
+**Current status:** Standalone B2B SaaS - NOT connected
 
 **Missing integrations:**
-- No connection to REZ core services
-- No connection to REZ Merchant App
-- Inventory signals not flowing to merchants
+- ❌ No API connection to REZ core services
+- ❌ No connection to REZ Merchant App
+- ❌ Inventory signals don't flow to merchants
+- ❌ Reorder suggestions not sent to REZ Merchant
+
+**Current Flow (BROKEN):**
+```
+NextaBiZ detects low stock → No action → Merchant doesn't know to reorder
+```
+
+**Desired Flow (NEEDED):**
+```
+NextaBiZ detects low stock → Signal sent to REZ Merchant App → Merchant gets reorder alert
+```
 
 **Action Required:**
-- Define API contract for inventory signals
-- Implement webhook to notify REZ merchants
+1. Create webhook in NextaBiZ: `POST /api/rez/merchant/signals`
+2. Add signal receiver in REZ Backend
+3. Push notification to REZ Merchant App
+4. Merchant takes action → PO created
 
 ---
 
-### 9. Hotel PMS - RestoPapa Integration Not Built
+### 9. Hotel PMS - Stay Owen Integration Missing
 
-**Current status:** Separate platforms
+**Current status:** Separate platforms (Hotel OTA is PMS + OTA combined)
 
 **Missing integration:**
-- RestoPapa can't receive bookings from Stay Owen
-- No unified dashboard for multi-property owners
+- Stay Owen (OTA) can't sync bookings to Hotel PMS
+- No unified dashboard for hotel owners
 
 **Action Required:**
-- Implement booking sync API
+- Implement booking sync API between Stay Owen and Hotel PMS
 - Create unified property management view
+
+---
+
+### 10. RestoPapa - NOT Part of REZ Ecosystem ⚠️ SEPARATE PRODUCT
+
+**Important:** RestoPapa is a **STANDALONE product** - NOT integrated with REZ.
+
+If merchants want REZ integration:
+- Use **REZ Merchant App** for POS and orders
+- Use **REZ Now** for web ordering
+- Use **REZ Web Menu** for QR menus
+
+If merchants want standalone restaurant management:
+- Use **RestoPapa** (separate database, auth, orders)
 
 ---
 
 ## LOW PRIORITY / FUTURE
 
-### 10. Event Sourcing Not Implemented
+### 11. Event Sourcing Not Implemented
 
 **Current:** BullMQ for async processing (not true event sourcing)
 
@@ -183,7 +210,7 @@
 
 ---
 
-### 11. GraphQL Federation Not Planned
+### 12. GraphQL Federation Not Planned
 
 **Current:** REST-only architecture
 
@@ -192,6 +219,17 @@
 - Over-fetching of data
 
 **Recommendation:** Consider if mobile performance becomes critical
+
+---
+
+### 13. Scoring Engine Standalone
+
+**Current:** Scoring engine exists but not integrated into main flow
+
+**Files:**
+- `services/scoring-engine/`
+
+**Recommendation:** Connect to inventory management for automatic reorder signals via NextaBiZ → REZ Merchant
 
 ---
 

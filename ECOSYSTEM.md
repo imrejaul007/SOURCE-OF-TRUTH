@@ -249,25 +249,34 @@ Hotel property management + OTA (Online Travel Agency):
 
 ## MERCHANT APPS (Business-Facing)
 
-### 1. REZ Merchant App — `rez-app-marchant`
+### 1. REZ Merchant App — `rez-app-marchant` (PRIMARY - FOR ALL MERCHANTS)
 
 **Stack:** Expo SDK 53, React Native
 **Bundle ID:** `com.rez.admin`
 **Repo:** `imrejaul007/rez-app-marchant`
 
 #### Purpose
-Complete POS and store management for merchants:
-- Point of Sale (POS)
-- Order management
-- Inventory control
-- Analytics dashboard
-- Staff management
+**MAIN POS AND ORDER MANAGEMENT APP FOR ALL MERCHANTS** including:
+- Restaurants (dine-in, takeaway, delivery)
+- Retail stores
+- Salons and spas
+- Hotels
+- Any business using REZ platform
+
+Features:
+- Point of Sale (POS) with KDS (Kitchen Display System)
+- **Receives ALL orders** from: REZ App, REZ Now, REZ Web Menu
+- Inventory management with reorder signals
+- Staff management and commission tracking
+- Real-time order tracking via Socket.io
+- Settlement and payout management
 
 #### Key Features
 | Category | Features |
 |----------|----------|
+| **KDS (Kitchen Display)** | Real-time order queue, status updates, audio alerts |
 | POS | Product catalog, barcode scan, modifiers, split bill |
-| Orders | Order queue, KDS, real-time tracking |
+| **Order Management** | Order queue, KDS, real-time tracking (ALL sources) |
 | Inventory | Stock tracking, low-stock alerts, reorder signals |
 | Analytics | Revenue, orders, customers, trends |
 | Staff | Roles, permissions, commission tracking |
@@ -276,10 +285,23 @@ Complete POS and store management for merchants:
 | Loyalty | Punch cards, customer history, offers |
 | Multi-Store | Franchise management, centralized menu |
 
+#### Order Flow (Already Integrated)
+```
+REZ App (Consumer) ─────┐
+                         │
+REZ Now (Web Menu) ─────┼──▶ REZ Merchant App (KDS) ────▶ Merchant receives orders
+                         │         │
+REZ Web Menu (QR) ─────┘         │
+                                   │ Socket.io real-time
+                                   ▼
+                            Status updates ────▶ Customer sees ETA
+```
+
 #### Connects To
 - **REZ Backend** → Orders, payments, wallet settlement
 - **REZ App** → Customer orders, loyalty
-- **REZ Now** → Store page updates
+- **REZ Now** → Store page updates, web orders
+- **REZ Web Menu** → QR-based orders
 
 ---
 
@@ -345,18 +367,18 @@ B2B SaaS platform for business management:
 
 ---
 
-### 4. RestoPapa (Restaurian) — `restaurantapp`
+### 4. RestoPapa (Restaurian) — `restaurantapp` ⚠️ STANDALONE - NOT INTEGRATED
 
-**Stack:** Node.js, Monorepo
-**Status:** Deploy Pending
+**Stack:** Node.js, Monorepo (NestJS + Next.js)
+**Status:** Standalone SaaS - NOT connected to REZ ecosystem
 **Repo:** `imrejaul007/restaurantapp`
 
 #### Purpose
-Restaurant-specific management platform:
-- Menu management
-- Table reservations
-- Kitchen display
-- Delivery integration
+**STANDALONE restaurant management SaaS** - NOT integrated with REZ ecosystem:
+- Separate database (Prisma + PostgreSQL)
+- Own user authentication system
+- Own order management
+- NOT connected to REZ Wallet, coins, or loyalty
 
 #### Key Features
 | Feature | Description |
@@ -367,10 +389,22 @@ Restaurant-specific management platform:
 | Delivery | Integration with delivery partners |
 | Analytics | Table turnover, popular items, peak hours |
 | Multi-Outlet | Franchise management |
+| Hiring/Verification | Staff management |
+| Marketplace | Vendor products |
+| Job Portal | Recruitment features |
+| Community Forum | Social features |
+| Messaging | Internal chat |
 
-#### Connects To
-- **REZ Backend** → Future wallet integration
-- **REZ Web Menu** → Online ordering
+#### NOT Connected To
+- ❌ REZ Backend
+- ❌ REZ Wallet (no coin system)
+- ❌ REZ Merchant App
+- ❌ REZ App (consumers)
+- ❌ REZ Now / Web Menu
+- ❌ Any REZ microservices
+
+#### Use Case
+Restaurants who want a **complete standalone restaurant management system** separate from the REZ ecosystem. They can use RestoPapa OR REZ Merchant, but not both for order management.
 
 ---
 
