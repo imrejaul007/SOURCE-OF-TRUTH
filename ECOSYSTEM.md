@@ -571,7 +571,7 @@ Property Management System for hotels:
 | Rendez | ✅ Partner SSO | ❌ | ❌ |
 | Stay Owen | ✅ SSO | ❌ | ❌ |
 | AdBazaar | ❌ | ✅ Primary | ❌ |
-| NextaBiZ | ❌ | ❌ | ✅ Standalone |
+| NextaBiZ | ❌ | ❌ | ✅ Standalone + Webhook |
 | RestoPapa | ❌ | ❌ | ✅ Standalone |
 | Hotel PMS | ❌ | ❌ | ✅ Standalone |
 
@@ -586,7 +586,7 @@ Property Management System for hotels:
 | Rendez | ✅ Hold/Release | ❌ | ❌ |
 | Stay Owen | ✅ Bookings | ❌ | ❌ |
 | AdBazaar | ✅ Payouts | ❌ | ❌ |
-| NextaBiZ | ❌ | ❌ | ✅ Standalone |
+| NextaBiZ | ❌ | ❌ | ✅ Standalone + Webhook |
 | RestoPapa | ❌ | ❌ | ✅ Standalone |
 | Hotel PMS | ❌ | ❌ | ✅ Standalone |
 
@@ -599,7 +599,7 @@ Property Management System for hotels:
 | Web Menu → REZ Merchant | Orders | Socket.io |
 | AdBazaar → REZ Merchant | Campaign, payouts | API calls |
 | Stay Owen → Hotel PMS | Bookings | Webhook |
-| NextaBiZ → REZ Merchant | Inventory signals | Future API |
+| NextaBiZ → REZ Merchant | Inventory signals | ✅ Webhook (`/internal/nextabizz/reorder-signal`) |
 
 ---
 
