@@ -10,7 +10,10 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# Get the parent directory (full repo root)
+# Script is in SOURCE-OF-TRUTH/scripts/, so go up 2 levels
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 
 echo "=========================================="
 echo "REZ Platform - Partner Apps Deployment"

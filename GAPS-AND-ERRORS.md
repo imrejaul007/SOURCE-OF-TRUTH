@@ -258,6 +258,13 @@ If merchants want standalone restaurant management:
 | Store ownership guard | ✅ Fixed | Merchant page ownership check |
 | Karma 2x inflation | ✅ Fixed | Atomic operations in karma service |
 | Campaign total_spent recalc | ✅ Fixed | AdBazaar API fix |
+| ORDER-IDEM-001: Duplicate order prevention | ✅ Fixed | Partial unique index on clientIdempotencyKey (Order.ts:111-114) |
+| Scheduler endpoint 404 (credit refresh) | ✅ Fixed | Changed to /internal/credit/refresh |
+| BNPL profile update missing | ✅ Fixed | Added recordPaymentProfileUpdate in handleBNPLPayment |
+| WalletReadModel type mismatches | ✅ Fixed | IWalletReadModel + Record<string,unknown> union |
+| prom-client types not found | ✅ Fixed | Removed restrictive types:["node"] from tsconfigs |
+| expo-notifications types missing | ✅ Fixed | Added import and expo-env.d.ts |
+| setTimeout implicit any | ✅ Fixed | ReturnType<typeof setTimeout> |
 
 ---
 
@@ -360,12 +367,31 @@ Before launch, complete these items:
 
 The following were automated in this session:
 
+### Integration Work
 | Component | Commit | Repository |
 |-----------|--------|------------|
 | OAuth2 Partner SSO | `5d24641` | rez-auth-service |
+| OAuth2 Client (Rendez) | `030bea5` | Rendez |
+| OAuth2 Client (AdBazaar) | `2f97e9e` | AdBazaar |
 | NextaBiZ Webhook | `2245921` | rez-merchant-service |
 | Booking Sync API | `4b144bd` | hotel-ota |
 | Webhook Sender SDK | `f67f331` | nextabizz |
+
+### CI/CD & DevOps
+| Component | Commit | Repository |
+|-----------|--------|------------|
+| CI/CD Workflow (Rendez) | `030bea5` | Rendez |
+| CI/CD Workflow (AdBazaar) | `2f97e9e` | AdBazaar |
+| CI/CD Workflow (Hotel OTA) | `7841d38` | hotel-ota |
+
+### Documentation
+| Component | File |
+|-----------|------|
+| Monitoring Setup Guide | `MONITORING-SETUP.md` |
+| API Documentation | `API-DOCUMENTATION.md` |
+| Push Notifications Guide | `PUSH-NOTIFICATIONS-SETUP.md` |
+| Env Variables Reference | `ENV-VARIABLES.md` |
+| Deployment Scripts | `scripts/` |
 
 ---
 
