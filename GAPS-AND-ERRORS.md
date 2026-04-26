@@ -125,59 +125,62 @@
 
 ## MEDIUM PRIORITY GAPS
 
-### 7. REZ SSO for Partner Apps Missing
+### 7. REZ SSO for Partner Apps - ✅ IMPLEMENTED
 
-| App | Auth Status | Integration Needed |
+| App | Auth Status | Integration Status |
 |-----|-------------|-------------------|
-| Rendez | Standalone Supabase auth | REZ Partner SSO - users can't use REZ login |
-| Stay Owen | Standalone Prisma | REZ SSO for guest wallet - loyalty coins not shared |
+| Rendez | Standalone Supabase auth | ✅ OAuth2 endpoint created |
+| Stay Owen | Standalone Prisma | ✅ OAuth2 endpoint created |
 
-**Action Required:**
-- Define REZ Partner API for SSO/OAuth2
-- Implement OAuth2 flow for partner apps
-- Enable REZ wallet sharing with partner guests
+**Implementation:**
+- OAuth2 endpoints in `rez-auth-service/src/routes/oauthPartnerRoutes.ts`
+- Endpoints: `/oauth/authorize`, `/oauth/consent`, `/oauth/token`, `/oauth/userinfo`, `/oauth/refresh`, `/oauth/revoke`
+- Partner apps: Rendez, Stay Owen, AdBazaar configured
 
----
-
-### 8. NextaBiZ → REZ Merchant Integration Missing ⚠️ HIGH PRIORITY
-
-**Current status:** Standalone B2B SaaS - NOT connected
-
-**Missing integrations:**
-- ❌ No API connection to REZ core services
-- ❌ No connection to REZ Merchant App
-- ❌ Inventory signals don't flow to merchants
-- ❌ Reorder suggestions not sent to REZ Merchant
-
-**Current Flow (BROKEN):**
-```
-NextaBiZ detects low stock → No action → Merchant doesn't know to reorder
-```
-
-**Desired Flow (NEEDED):**
-```
-NextaBiZ detects low stock → Signal sent to REZ Merchant App → Merchant gets reorder alert
-```
-
-**Action Required:**
-1. Create webhook in NextaBiZ: `POST /api/rez/merchant/signals`
-2. Add signal receiver in REZ Backend
-3. Push notification to REZ Merchant App
-4. Merchant takes action → PO created
+**Remaining:**
+- Partner apps need to implement OAuth2 client flow
+- Environment variables needed: `PARTNER_RENDEZ_CLIENT_ID`, `PARTNER_RENDEZ_CLIENT_SECRET`, etc.
 
 ---
 
-### 9. Hotel PMS - Stay Owen Integration Missing
+### 8. NextaBiZ → REZ Merchant Integration - ✅ IMPLEMENTED ⚠️ HIGH PRIORITY
 
-**Current status:** Separate platforms (Hotel OTA is PMS + OTA combined)
+**Status:** Webhook integration implemented
 
-**Missing integration:**
-- Stay Owen (OTA) can't sync bookings to Hotel PMS
-- No unified dashboard for hotel owners
+**Implementation:**
+- Webhook sender in `nextabizz/packages/webhook-sdk/src/sender.ts`
+- Signal receiver in `rez-merchant-service/src/routes/nextabizzSignals.ts`
+- Endpoint: `POST /internal/nextabizz/reorder-signal`
+- HMAC-SHA256 signature verification for security
 
-**Action Required:**
-- Implement booking sync API between Stay Owen and Hotel PMS
-- Create unified property management view
+**Flow:**
+```
+NextaBiZ detects low stock → Reorder engine processes → Webhook to REZ Merchant → Notification created in MongoDB
+```
+
+**Remaining:**
+- Environment variables needed: `REZ_MERCHANT_WEBHOOK_SECRET`
+- Push notification to merchant app (future enhancement)
+
+---
+
+### 9. Hotel PMS - Stay Owen Integration - ✅ IMPLEMENTED
+
+**Status:** Booking sync API created
+
+**Implementation:**
+- Booking sync routes in `Hotel OTA/apps/api/src/routes/booking-sync.routes.ts`
+- Webhooks: `/booking-sync/webhook/status`, `/booking-sync/webhook/cancel`
+- Query endpoints: `/booking-sync/bookings/:id`, `/booking-sync/bookings`
+
+**Features:**
+- Real-time booking status updates
+- Cancellation handling with refund processing
+- Booking details retrieval for Stay Owen OTA
+
+**Remaining:**
+- Hotel PMS side needs to be updated to call these webhooks
+- Unified property management view (future enhancement)
 
 ---
 
@@ -327,3 +330,7 @@ Before launch, complete these items:
 
 ## LAST UPDATED
 - 2026-04-26: Initial gap analysis
+- 2026-04-26: Marked items 7, 8, 9 as IMPLEMENTED
+  - REZ SSO OAuth2 API for partner apps
+  - NextaBiZ → REZ Merchant webhook integration
+  - Hotel PMS ↔ Stay Owen booking sync API
