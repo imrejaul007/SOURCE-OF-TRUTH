@@ -138,3 +138,19 @@ X-Internal-Token header → verified against INTERNAL_SERVICE_TOKEN
 - All services have `/health` and `/health/ready` endpoints
 - Render auto-rollback on health check failure
 - Prometheus metrics at `/metrics` (internal auth required)
+
+## Scale Recommendations
+
+See [SCALE-RECOMMENDATIONS.md](./SCALE-RECOMMENDATIONS.md) for full assessment:
+
+| Pattern | Status | Notes |
+|---------|--------|-------|
+| Unified Observability | ⚠️ Partial | Prometheus/Grafana exist, Sentry in 8/14 services |
+| Event Sourcing | ❌ Not Impl | BullMQ is event-driven but not true event sourcing |
+| GraphQL Federation | ❌ Not Impl | REST-only, no Apollo Federation |
+| CQRS | ❌ Not Impl | Single read/write model for all services |
+
+### Quick Wins
+- Add Sentry to remaining services (2-3h each)
+- Configure Prometheus targets for all services
+- Build Grafana dashboards for service health

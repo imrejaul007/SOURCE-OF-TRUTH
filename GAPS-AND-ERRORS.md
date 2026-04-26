@@ -300,7 +300,7 @@ If merchants want standalone restaurant management:
 | Web Menu | ✅ Live | Vercel |
 | AdBazaar | ⚠️ Deploy Needed | Local clone exists |
 | Rendez | ⚠️ Deploy Needed | Local clone exists |
-| Hotel OTA | ⚠️ Deploy Needed | Local clone exists |
+| Hotel OTA | ✅ Code Ready | Local clone - needs deployment |
 | RestoPapa | ⚠️ Deploy Needed | Local clone exists |
 | NextaBiZ | ✅ Live | Vercel |
 
@@ -310,21 +310,62 @@ If merchants want standalone restaurant management:
 
 Before launch, complete these items:
 
-- [ ] **Get all API keys** (Maps, OpenCage, Razorpay, Cloudinary, Firebase)
-- [ ] **Create Apple App Store apps** (Consumer + Admin)
-- [ ] **Get Apple credentials** (ascAppId, appleTeamId)
-- [ ] **Set up Google Play Console** (Consumer + Admin apps)
-- [ ] **Download Google service account JSON**
-- [ ] **Switch Razorpay to Live mode**
-- [ ] **Enable Firebase push notifications**
-- [ ] **Deploy partner apps** (Rendez, AdBazaar, Hotel OTA, RestoPapa)
-- [ ] **Configure DNS** for partner app domains
+### External Services (CANNOT BE AUTOMATED)
+- [ ] **Get Google Maps API Key** - [Google Cloud Console](https://console.cloud.google.com)
+- [ ] **Get OpenCage API Key** - [OpenCage](https://opencagedata.com)
+- [ ] **Get Razorpay Live Keys** - [Razorpay Dashboard](https://dashboard.razorpay.com)
+- [ ] **Get Firebase Web API Key** - [Firebase Console](https://console.firebase.google.com)
+- [ ] **Get Cloudinary API Key** - [Cloudinary Dashboard](https://cloudinary.com/console)
+
+### App Store (CANNOT BE AUTOMATED)
+- [ ] **Create Apple App Store apps** - [App Store Connect](https://appstoreconnect.apple.com)
+  - Consumer: "REZ App", Bundle ID: `money.rez.app`
+  - Admin: "Rez Admin", Bundle ID: `com.rez.admin`
+- [ ] **Get Apple credentials** - Add to eas.json:
+  - `ascAppId`: From App Information page
+  - `appleTeamId`: From Apple Developer account
+
+### Google Play (CANNOT BE AUTOMATED)
+- [ ] **Set up Google Play Console** - [Play Console](https://play.google.com/console)
+- [ ] **Create service account** - Settings > Developer account > API access
+- [ ] **Download google-service-account.json** - Save to:
+  - `rez-app-consumer/google-service-account.json`
+  - `rez-app-admin/google-service-account.json`
+
+### Integration Setup (CANNOT BE AUTOMATED)
+- [ ] **Switch Razorpay to Live mode** - Complete KYC on Razorpay
+- [ ] **Enable Firebase push notifications** - Set `EXPO_PUBLIC_ENABLE_PUSH_NOTIFICATIONS=true`
+- [ ] **Generate OAuth secrets** - Add to rez-auth-service .env:
+  - `PARTNER_RENDEZ_CLIENT_SECRET=<generated>`
+  - `PARTNER_STAY_OWEN_CLIENT_SECRET=<generated>`
+  - `PARTNER_ADBAZAAR_CLIENT_SECRET=<generated>`
+- [ ] **Generate NextaBiZ webhook secret** - Add to both services:
+  - `REZ_MERCHANT_WEBHOOK_SECRET=<generated>`
+
+### Deployment (CANNOT BE AUTOMATED)
+- [ ] **Deploy partner apps** - See `scripts/deploy-partner-apps.sh`
+- [ ] **Configure DNS** - Set up domains for partner apps
+- [ ] **Update CORS origins** - Add production URLs to services
+
+### App Store Submission (CANNOT BE AUTOMATED)
 - [ ] **Complete App Store listings** (screenshots, descriptions, keywords)
 - [ ] **Complete Play Store listings** (descriptions, screenshots, content rating)
 - [ ] **Add privacy policy URL** to both stores
 - [ ] **Test payment flow end-to-end**
-- [ ] **Set up monitoring dashboards**
-- [ ] **Create runbooks** for common incidents
+- [ ] **Submit for review**
+
+---
+
+## AUTOMATED WORK (COMPLETED)
+
+The following were automated in this session:
+
+| Component | Commit | Repository |
+|-----------|--------|------------|
+| OAuth2 Partner SSO | `5d24641` | rez-auth-service |
+| NextaBiZ Webhook | `2245921` | rez-merchant-service |
+| Booking Sync API | `4b144bd` | hotel-ota |
+| Webhook Sender SDK | `f67f331` | nextabizz |
 
 ---
 
@@ -334,3 +375,7 @@ Before launch, complete these items:
   - REZ SSO OAuth2 API for partner apps
   - NextaBiZ → REZ Merchant webhook integration
   - Hotel PMS ↔ Stay Owen booking sync API
+- 2026-04-26: Added automation reference, deployment scripts
+  - Created `scripts/setup-env-verification.sh`
+  - Created `scripts/deploy-partner-apps.sh`
+  - Created `ENV-VARIABLES.md` with complete variable reference
