@@ -27,7 +27,7 @@ This creates predictive value through **dormant intent revival**, not just archi
 │                          ▼                                      │
 │              ┌───────────────────────┐                          │
 │              │   Intent Graph        │                          │
-│              │     (Prisma)          │                          │
+│              │     (MongoDB)          │                          │
 │              └───────────┬───────────┘                          │
 │                          ▼                                      │
 │  ┌─────────────────────────────────────────────────────────┐    │
@@ -112,7 +112,7 @@ SEARCH → VIEW → WISHLIST/CART → HOLD → FULFILLED
 
 ### Agent 1: Demand Signal Agent
 
-**File**: `packages/rez-intent-graph/src/agents/demand-signal-agent.ts`
+**File**: `src/src/agents/demand-signal-agent.ts`
 
 **Purpose**: Real-time demand aggregation across all apps
 
@@ -142,7 +142,7 @@ SEARCH → VIEW → WISHLIST/CART → HOLD → FULFILLED
 
 ### Agent 2: Scarcity Agent
 
-**File**: `packages/rez-intent-graph/src/agents/scarcity-agent.ts`
+**File**: `src/src/agents/scarcity-agent.ts`
 
 **Purpose**: Real-time supply/demand ratio engine
 
@@ -184,7 +184,7 @@ score = min(100, (demand / supply) / (demand / supply + 2) * 150)
 
 ### Agent 3: Personalization Agent
 
-**File**: `packages/rez-intent-graph/src/agents/personalization-agent.ts`
+**File**: `src/src/agents/personalization-agent.ts`
 
 **Purpose**: Learn from user response patterns
 
@@ -221,7 +221,7 @@ score = min(100, (demand / supply) / (demand / supply + 2) * 150)
 
 ### Agent 4: Attribution Agent
 
-**File**: `packages/rez-intent-graph/src/agents/attribution-agent.ts`
+**File**: `src/src/agents/attribution-agent.ts`
 
 **Purpose**: Full-funnel attribution tracking
 
@@ -256,7 +256,7 @@ score = min(100, (demand / supply) / (demand / supply + 2) * 150)
 
 ### Agent 5: Adaptive Scoring Agent
 
-**File**: `packages/rez-intent-graph/src/agents/adaptive-scoring-agent.ts`
+**File**: `src/src/agents/adaptive-scoring-agent.ts`
 
 **Purpose**: ML-based confidence scoring
 
@@ -292,7 +292,7 @@ score = min(100, (demand / supply) / (demand / supply + 2) * 150)
 
 ### Agent 6: Feedback Loop Agent
 
-**File**: `packages/rez-intent-graph/src/agents/feedback-loop-agent.ts`
+**File**: `src/src/agents/feedback-loop-agent.ts`
 
 **Purpose**: Closed-loop optimization
 
@@ -328,7 +328,7 @@ score = min(100, (demand / supply) / (demand / supply + 2) * 150)
 
 ### Agent 7: Network Effect Agent
 
-**File**: `packages/rez-intent-graph/src/agents/network-effect-agent.ts`
+**File**: `src/src/agents/network-effect-agent.ts`
 
 **Purpose**: Cross-user collaborative signals
 
@@ -360,7 +360,7 @@ score = min(100, (demand / supply) / (demand / supply + 2) * 150)
 
 ### Agent 8: Revenue Attribution Agent
 
-**File**: `packages/rez-intent-graph/src/agents/revenue-attribution-agent.ts`
+**File**: `src/src/agents/revenue-attribution-agent.ts`
 
 **Purpose**: P&L impact measurement
 
@@ -397,7 +397,7 @@ score = min(100, (demand / supply) / (demand / supply + 2) * 150)
 
 ## Shared Memory Hub
 
-**File**: `packages/rez-intent-graph/src/agents/shared-memory.ts`
+**File**: `src/src/agents/shared-memory.ts`
 
 In-memory store (Redis-ready abstraction) for inter-agent communication.
 
@@ -425,7 +425,7 @@ messages:*             - Message queue
 
 ## Swarm Coordinator
 
-**File**: `packages/rez-intent-graph/src/agents/swarm-coordinator.ts`
+**File**: `src/src/agents/swarm-coordinator.ts`
 
 Manages agent lifecycle, inter-agent communication, and health monitoring.
 
@@ -442,7 +442,7 @@ runAllAgentsOnce()         // Run all agents sequentially
 
 ## Agent Server
 
-**File**: `packages/rez-intent-graph/src/server/agent-server.ts`
+**File**: `src/src/server/agent-server.ts`
 
 Standalone Express server for running the swarm.
 
@@ -484,7 +484,7 @@ Standalone Express server for running the swarm.
 
 ## Database Schema
 
-**File**: `packages/rez-intent-graph/prisma/schema.prisma`
+**File**: `src/models/` (MongoDB Mongoose models)
 
 **Core Models**:
 - `Intent` - User intent with confidence, status, metadata
@@ -493,14 +493,13 @@ Standalone Express server for running the swarm.
 - `IntentSequence` - Event sequences for pattern detection
 - `CrossAppIntentProfile` - Aggregated user profile
 
-**Agent Tables** (in agent-schema.prisma):
-- `NudgeEvent` - Nudge delivery and interaction events
-- `NudgeConversion` - Conversion tracking
-- `ScoredIntent` - ML-scored intents
-- `MerchantInventory` - Inventory levels
-- `OrderMetric` - Order attribution
-- `UserMetric` - User behavior metrics
-- `ChannelMetric` - Channel performance
+**Nudge Models**:
+- `Nudge` - Nudge delivery and interaction events
+- `NudgeSchedule` - Scheduled nudge delivery
+
+**Knowledge Models**:
+- `MerchantKnowledge` - Merchant knowledge base for autonomous chat
+- `MerchantDemandSignal` - Merchant demand aggregation
 
 ---
 
@@ -551,17 +550,24 @@ console.log(dormantIntents);
 
 ## Files Reference
 
-### Core Package
+### Core Package (separate repo: [rez-intent-graph](https://github.com/imrejaul007/rez-intent-graph))
 ```
-packages/rez-intent-graph/
+rez-intent-graph/
 ├── package.json
 ├── tsconfig.json
-├── prisma/
-│   └── schema.prisma
+├── render.yaml                    # Render Blueprint deployment
+├── .env.example
 └── src/
     ├── index.ts                    # Public exports
     ├── types/
     │   └── intent.ts               # Core types
+    ├── models/                     # MongoDB Mongoose models
+    ├── services/
+    │   ├── IntentCaptureService.ts
+    │   ├── IntentScoringService.ts
+    │   ├── DormantIntentService.ts
+    │   ├── CrossAppAggregationService.ts
+    │   └── MerchantKnowledgeService.ts
     ├── agents/
     │   ├── index.ts                # Agent exports
     │   ├── types.ts                # Agent types
@@ -575,22 +581,28 @@ packages/rez-intent-graph/
     │   ├── feedback-loop-agent.ts  # Agent 6
     │   ├── network-effect-agent.ts  # Agent 7
     │   └── revenue-attribution-agent.ts # Agent 8
-    ├── services/
-    │   ├── IntentCaptureService.ts
-    │   ├── IntentScoringService.ts
-    │   ├── DormantIntentService.ts
-    │   └── CrossAppAggregationService.ts
     ├── nudge/
     │   └── NudgeDeliveryService.ts
     ├── triggers/
     │   └── revivalTriggers.ts
     ├── api/
     │   ├── intent.routes.ts
+    │   ├── commerce-memory.routes.ts
+    │   ├── merchant.routes.ts
+    │   ├── chat.routes.ts
     │   └── webhooks.ts
+    ├── middleware/
+    │   ├── auth.ts
+    │   └── rateLimit.ts
+    ├── config/
+    │   └── services.ts             # 14 external service URLs
     └── server/
-        ├── server.ts
-        └── agent-server.ts
+        ├── server.ts               # API server (port 3001)
+        └── agent-server.ts         # Agent server (port 3005)
 ```
+
+**Database**: MongoDB Atlas (separate cluster: `rez-intent-graph`)
+**Deployment**: Render Blueprint (2 services)
 
 ---
 
@@ -598,7 +610,8 @@ packages/rez-intent-graph/
 
 | Repo | Purpose |
 |------|---------|
-| `shared-types` | Packages, types, Intent Graph, 8 agents |
+| [rez-intent-graph](https://github.com/imrejaul007/rez-intent-graph) | Commerce Memory Intent Graph + 8 AI agents |
+| [shared-types](https://github.com/imrejaul007/shared-types) | Shared types, enums, utilities |
 | `rez-agent-os` | AI Agent OS with LLM handlers, tools |
 
 ---

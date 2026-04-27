@@ -6,12 +6,12 @@
 
 | Component | Status | Location |
 |-----------|--------|----------|
-| @rez/intent-graph package | ✓ Complete | `packages/rez-intent-graph` |
+| @rez/intent-graph package | ✓ Complete | [rez-intent-graph repo](https://github.com/imrejaul007/rez-intent-graph) |
 | 8 Agent Swarm | ✓ Complete | `src/agents/` |
 | Shared Memory Hub | ✓ Complete | `src/agents/shared-memory.ts` |
 | Swarm Coordinator | ✓ Complete | `src/agents/swarm-coordinator.ts` |
 | Agent Server | ✓ Complete | `src/server/agent-server.ts` |
-| Prisma Schema | ✓ Complete | `prisma/schema.prisma` |
+| MongoDB Models | ✓ Complete | `src/models/` |
 | rez-agent-os Integration | ✓ Complete | `agent-core/src/memory/intentGraph.ts` |
 
 ---
@@ -23,7 +23,7 @@
 | App | Integration | Files |
 |-----|-------------|-------|
 | **Hotel OTA** | Basic intent capture | `Hotel OTA/apps/api/src/services/intent-capture.service.ts` |
-| **rez-now** | Event tracking | `packages/rez-intent-graph/src/integrations/rezNowIntegration.ts` |
+| **rez-now** | Event tracking | `src/integrations/rezNowIntegration.ts` |
 | **Agent OS** | Context + Tools | `agent-core/src/memory/intentGraph.ts`, `tools/intentTools.ts` |
 
 ### ⚠️ PARTIALLY INTEGRATED
