@@ -16,6 +16,7 @@ Last updated: 2026-04-27 (Gen 57: ReZ Mind — Commerce Memory Intent Graph depl
 | **rez-catalog-service** | https://rez-catalog-service-1.onrender.com | ✅ Live | Render Web Service |
 | **rez-search-service** | https://rez-search-service.onrender.com | ✅ Live | Render Web Service |
 | **rez-gamification-service** | https://rez-gamification-service-3b5d.onrender.com | ✅ Live | Render Web Service |
+| **rez-karma-service** | https://rez-karma-service.onrender.com | ✅ Live | Render Web Service |
 | **rez-ads-service** | https://rez-ads-service.onrender.com | ✅ Live | Render Web Service |
 | **rez-marketing-service** | https://rez-marketing-service.onrender.com | ✅ Live | Render Web Service |
 | **analytics-events** | https://analytics-events-37yy.onrender.com | ✅ Live | Render Web Service |
@@ -192,7 +193,6 @@ Last updated: 2026-04-27 (Gen 57: ReZ Mind — Commerce Memory Intent Graph depl
 | Service | Repo | Status |
 |---------|------|--------|
 | **rez-finance-service** | github.com/imrejaul007/rez-finance-service | In development |
-| **rez-karma-service** | https://rez-karma-service.onrender.com | ✅ Live (2026-04-27) | github.com/imrejaul007/Karma |
 
 ## Internal / Undeployed (no local clone)
 
