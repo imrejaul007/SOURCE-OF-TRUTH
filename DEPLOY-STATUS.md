@@ -190,7 +190,7 @@ Last updated: 2026-04-20 (Gen 53: Auth microservice — PRs #13, #15, #16, #14 m
 | Service | Repo | Status |
 |---------|------|--------|
 | **rez-finance-service** | github.com/imrejaul007/rez-finance-service | In development |
-| **rez-karma-service** | github.com/imrejaul007/Karma | In development |
+| **rez-karma-service** | https://rez-karma-service.onrender.com | ✅ Live (2026-04-27) | github.com/imrejaul007/Karma |
 
 ## Internal / Undeployed (no local clone)
 

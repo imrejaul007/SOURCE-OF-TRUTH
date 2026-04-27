@@ -128,12 +128,18 @@ SERVICE_NAME=rez-finance-service
 PORT=4005
 ```
 
-### rez-karma-service (repo: imrejaul007/Karma)
+### rez-karma-service (repo: imrejaul007/Karma) — ✅ LIVE
 ```
-MONGODB_URI=<GET FROM RENDER>
-REDIS_URL=<GET FROM RENDER>
+MONGODB_URI=mongodb+srv://work_db_user:...@karma.topsbq1.mongodb.net/?appName=karma
+REDIS_URL=redis://red-d760rlshg0os73bd8mp0:6379
 SERVICE_NAME=rez-karma-service
-PORT=4006
+PORT=3009
+AUTH_SERVICE_URL=https://rez-auth-service.onrender.com
+WALLET_SERVICE_URL=https://rez-wallet-service-36vo.onrender.com
+MERCHANT_SERVICE_URL=https://rez-merchant-service-n3q2.onrender.com
+JWT_SECRET=<GET FROM RENDER — same as rez-auth-service>
+INTERNAL_SERVICE_TOKEN=<GET FROM RENDER — same as other services>
+BATCH_CRON_SCHEDULE=59 23 * * 0
 ```
 
 ---
