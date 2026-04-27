@@ -1,6 +1,6 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-20 (Gen 53: Auth microservice — PRs #13, #15, #16, #14 merged to main. Legacy /user/auth/* aliases + login-pin + /refresh-token + BAK-AUTH-005 lockout on BullMQ failure + E8 audit log.)
+Last updated: 2026-04-27 (Gen 57: ReZ Mind — Commerce Memory Intent Graph deployed on separate repo. rez-intent-api (3001) + rez-intent-agent (3005). npm: rez-intent-graph@0.2.0)
 
 ## Production (Live on Render/Vercel)
 
@@ -21,6 +21,8 @@ Last updated: 2026-04-20 (Gen 53: Auth microservice — PRs #13, #15, #16, #14 m
 | **analytics-events** | https://analytics-events-37yy.onrender.com | ✅ Live | Render Web Service |
 | **rez-notification-events** | https://rez-notification-events-mwdz.onrender.com | ✅ Live | Render Worker |
 | **rez-media-events** | https://rez-media-events-lfym.onrender.com | ✅ Live | Render Worker |
+| **rez-intent-api** | https://rez-intent-graph.onrender.com | ✅ Live | Render Web Service |
+| **rez-intent-agent** | https://rez-intent-agent.onrender.com | ✅ Live | Render Web Service |
 | **rez-app-admin** | https://rez-app-admin.vercel.app | ✅ Live | Vercel |
 | **rez-app-consumer** | (EAS build) | ✅ Live | Expo EAS |
 | **rez-app-marchant** | https://rez-app-marchant.vercel.app | ✅ Live | Vercel |

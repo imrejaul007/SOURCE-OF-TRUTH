@@ -606,6 +606,13 @@ rez-intent-graph/
 
 ---
 
+## Live URLs
+
+| Service | URL |
+|---------|-----|
+| **rez-intent-api** | https://rez-intent-graph.onrender.com |
+| **rez-intent-agent** | https://rez-intent-agent.onrender.com |
+
 ## Git Repositories
 
 | Repo | Purpose |
