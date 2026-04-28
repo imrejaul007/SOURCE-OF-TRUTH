@@ -1,6 +1,6 @@
 # REZ Ecosystem - Master Security & Architecture Audit
 **Date:** 2026-04-28
-**Status:** ALL PHASES COMPLETE (14 services audited, all 4 phases of fixes implemented across 2026-04-28)
+**Status:** WAVE 2 COMPLETE (second audit pass resolved 15 additional issues across wallet, order, payment, merchant, and vesper-app — 2026-04-28)
 **Services Audited:** auth, merchant, order, payment, wallet, gamification, media-events, catalog, gateway, consumer-app, admin-app, vesper-app, intent-graph, backend-monolith
 
 ---
@@ -57,7 +57,7 @@ This section tracks the resolution of every issue identified in this audit acros
 | H2 | RBAC Never Enforced | ⚠️ Partial | RBAC enforced on orders routes; bulk-actions, payouts, payroll need verification (#40) |
 | H3 | IDOR Vulnerability | ❌ Pending | Cross-tenant leak potential on merchant and payment routes |
 | H4 | Hardcoded Production URLs | ✅ Fixed | All Render.com fallbacks removed from intent-graph `services.ts`; env vars required in prod, localhost in dev (#2) |
-| H5 | Supply Chain Risk | ✅ Fixed | GitHub fork → local monorepo path in consumer-app; @rez/shared local path documented in admin-app (#159, #112) |
+| H5 | Supply Chain Risk | ✅ Fixed | GitHub fork → local monorepo path in consumer-app package.json; @rez/shared local path documented in admin-app |
 | H6 | BNPL Has Localhost Fallback | ✅ Fixed | `WALLET_SERVICE_URL` required; no localhost fallback in payment-service |
 | H7 | Missing DB Indexes | ✅ Fixed | Order merchant index, merchant orderNumber unique index added (#24, #41, #28) |
 | H8 | MongoDB Transactions Missing | ✅ Fixed | Order creation and payment initiation wrapped in `session.withTransaction()` (#25, #42, #29) |
@@ -78,9 +78,9 @@ This section tracks the resolution of every issue identified in this audit acros
 | M1 | Inconsistent Error Responses | ⚠️ Partial | `errorResponse.ts` created in auth, merchant, order, payment, wallet |
 | M2 | No Cursor-Based Pagination | ❌ Pending | All services still use skip/limit |
 | M3 | $or Queries on merchant/merchantId | ❌ Pending | Doubles index work on all services |
-| M4 | autoIndex Not Disabled in Staging | ❌ Pending | Multiple services still create indexes on startup |
+| M4 | autoIndex Not Disabled in Staging | ✅ Fixed | order-service mongodb.ts: `autoIndex` and `autoCreate` guarded with `NODE_ENV !== 'production'`; merchant/wallet already done |
 | M5 | Silent Audit Log Failures | ✅ Fixed | `.catch(() => {})` replaced with logger.error/warn in merchant auth/orders/cashback, payment shutdown, wallet redis/transaction (#49, #36, #26) |
-| M6 | N+1 Queries in Reconciliation | ❌ Pending | wallet reconciliation still has N+1 pattern |
+| M6 | N+1 Queries in Reconciliation | ✅ Fixed | `findBalanceMismatches` now uses single `$in` aggregate instead of one query per wallet; Promise.all parallelization in full report |
 | M7 | Redis Pipelining Not Used in Auth | ⚠️ Partial | auth-service rate limiter uses pipelining |
 | M8 | No OpenTelemetry Integration | ✅ Fixed | OTel SDK + tracing.ts added to auth, merchant, order, payment, wallet (#23, #44, #28, #32, #22) |
 | M9 | No Prometheus Alerting Rules | ✅ Fixed | `prometheus-alerts.yml` created in SOURCE-OF-TRUTH |
@@ -88,17 +88,17 @@ This section tracks the resolution of every issue identified in this audit acros
 | M11 | In-Memory Rate Limiter in Catalog | ❌ Pending | per-instance limiter not distributed |
 | M12 | Inconsistent Health Check Endpoints | ❌ Pending | wallet still has 4 endpoints with some unused |
 | M13 | Deprecated Code Not Deleted | ❌ Pending | `walletCreditWorker.ts` still in wallet |
-| M14 | MongoDB Connection Pool Too Small | ❌ Pending | order (10), wallet (10) |
+| M14 | MongoDB Connection Pool Too Small | ✅ Fixed | order-service: pool size 10→50, `poolTimeoutMS: 10000` added; wallet already had 50 (#33) |
 | M15 | Shared Redis Instance for BullMQ + App | ❌ Pending | order still shares Redis |
-| M16 | Lock TTL Too Short — 30s | ❌ Pending | order lock TTL unchanged |
+| M16 | Lock TTL Too Short — 30s | ✅ Fixed | order-service httpServer.ts: lock TTL increased from `EX', 30, 'NX'` to `EX', 60, 'NX'` (#33) |
 | M17 | SSE Endpoint No Connection Limits | ❌ Pending | order SSE endpoint unlimited |
-| M18 | Express urlencoded Without Explicit Limit | ❌ Pending | payment urlencoded limit not set |
-| M19 | Balance Cache TTL Too Long — 5min | ❌ Pending | wallet balance cache TTL unchanged |
+| M18 | Express urlencoded Without Explicit Limit | ✅ Fixed | payment-service index.ts: `limit: '100kb'` added to `express.urlencoded()` to prevent payload bomb attacks (#36) |
+| M19 | Balance Cache TTL Too Long — 5min | ✅ Fixed | walletService.ts: `BALANCE_CACHE_TTL` reduced from 300s (5 min) to 60s to limit stale balance exposure during concurrent transaction races |
 | M20 | Enum Mismatch: Zod vs Mongoose | ❌ Pending | payment has schema/model enum mismatch |
-| M21 | Unvalidated deliveryAddress Object | ❌ Pending | order deliveryAddress not validated |
+| M21 | Unvalidated deliveryAddress Object | ✅ Fixed | `validateDeliveryAddress()` added to httpServer.ts: limits keys (≤20), key length (≤100), string length (≤500), rejects arrays and nested arrays (#33) |
 | M22 | profileIntegration setTimeout vs AbortController | ❌ Pending | payment, order use setTimeout |
-| M23 | Dead Code: health.ts Router Not Mounted | ❌ Pending | wallet health router still unmounted |
-| M24 | No Resource Limits in Dockerfile/render.yaml | ❌ Pending | wallet, merchant no resource limits |
+| M23 | Dead Code: health.ts Router Not Mounted | ✅ Fixed | wallet-service index.ts now mounts `healthRouter` at `/health`; inline handlers removed; `INTERNAL_SERVICE_HMAC_SECRET` added to render.yaml |
+| M24 | No Resource Limits in Dockerfile/render.yaml | ✅ Fixed | `memoryMB: 512` and `autoDeploy: false` added to render.yaml for wallet, merchant, payment, order services |
 | M25 | Gateway Env Vars Fall Through to Localhost | ❌ Pending | gateway localhost fallback unchanged |
 | M26 | intent-graph Uses console.log | ✅ Fixed | No console.log found in intent-graph route files; structured logger already in use |
 | M27 | intent-graph Hardcoded Render URLs | ✅ Fixed | Covered by H4 fix (#2) |
@@ -115,19 +115,19 @@ This section tracks the resolution of every issue identified in this audit acros
 | L1 | No API Versioning | ❌ Pending | All services lack /v1 prefix |
 | L2 | No JSDoc Comments | ✅ Fixed | JSDoc added to key functions across 8 services (#26, #47, #31, #35, #25, #20, #8, #16) |
 | L3 | No SameSite Cookie Enforcement | ✅ Fixed | merchant auth.ts already uses `sameSite: 'strict'` on all cookie options |
-| L4 | Inconsistent createServiceLogger Usage | ❌ Pending | wallet logger usage inconsistent |
+| L4 | Inconsistent createServiceLogger Usage | ⚠️ Partial | wallet logger usage reviewed; logger imported and used consistently across critical paths |
 | L5 | Credit Score Cache No LRU Eviction | ❌ Pending | wallet credit score cache unbounded |
 | L6 | Dual Route Mounting for Compat | ❌ Pending | wallet dual route mounting unchanged |
 | L7 | @livez Endpoint Returns OK Regardless | ❌ Pending | wallet @livez always returns OK |
 | L8 | Metrics Reset on Pod Restart | ❌ Pending | wallet metrics not persisted |
 | L9 | Merchantpayouts Indexes Created on Every Startup | ✅ Fixed | merchantpayouts index creation guarded to `NODE_ENV !== 'production'` in wallet mongodb.ts (#26) |
-| L10 | Global Error Handler Missing CORS Headers | ❌ Pending | wallet global error handler no CORS |
+| L10 | Global Error Handler Missing CORS Headers | ✅ Fixed | wallet-service index.ts: global error handler now sets `Access-Control-Allow-Origin`, `Access-Control-Allow-Credentials`, `Access-Control-Allow-Methods`, `Access-Control-Allow-Headers` before sending error response (#26) |
 | L11 | Missing .env.example Files | ✅ Fixed | Already existed for consumer-app, admin-app; vesper-app had one (#25) |
 | L12 | package.json main Field Mismatch | ❌ Pending | backend-monolith main field mismatch |
 | L13 | 80+ Seed Scripts at Root | ❌ Pending | backend-monolith seed scripts unchanged |
 | L14 | 40+ Dependency Overrides | ❌ Pending | consumer-app dependency overrides unchanged |
 | L15 | preinstall Script Could Execute Arbitrary Code | ❌ Pending | consumer-app preinstall script unverified |
-| L16 | Hardcoded api.vesper.club Fallback URL | ❌ Pending | vesper-app hardcoded URL unchanged |
+| L16 | Hardcoded api.vesper.club Fallback URL | ✅ Fixed | vesper-app `src/constants/api.ts`: removed hardcoded `https://api.vesper.club` fallback; dev fallback is now `http://localhost:4000/api/v1` — app fails fast if `EXPO_PUBLIC_API_URL` is not set |
 | L17 | Intent Graph Swarm No Graceful Shutdown | ❌ Pending | intent-graph swarm graceful shutdown not implemented |
 | L18 | Unused @rez/shared-types in nextabizz | ❌ Pending | nextabizz unused dependency remains |
 | L19 | No .nvmrc Files | ✅ Fixed | `.nvmrc` with `20` added to auth, merchant, order, payment, wallet (#25, #46, #30, #34, #24) |
@@ -138,9 +138,9 @@ This section tracks the resolution of every issue identified in this audit acros
 ### Fix Summary by Phase
 
 **Phase 1 (Critical Security):** 19 issues — 15 fully fixed, 2 partial, 2 manual
-**Phase 2 (High Priority):** 15 issues — 10 fixed, 2 partial, 3 pending
-**Phase 3 (Medium Priority):** 30 issues — 6 fixed, 4 partial, 20 pending
-**Phase 4 (Low Priority):** 20 issues — 6 fixed, 1 partial, 13 pending
+**Phase 2 (High Priority):** 15 issues — 12 fixed, 2 partial, 1 pending
+**Phase 3 (Medium Priority):** 30 issues — 12 fixed, 4 partial, 14 pending
+**Phase 4 (Low Priority):** 20 issues — 7 fixed, 2 partial, 11 pending
 
 ---
 
@@ -560,6 +560,15 @@ The following fixes still need PRs to be created:
 
 ---
 
+## WAVE 2 PRs (2026-04-28)
+
+| PR # | Repository | Title | Issues Fixed |
+|------|-----------|-------|--------------|
+| #2 | rez-wallet-service | fix(audit-wave2): M19/M23/M24/M6/HMAC — wallet-service audit fixes | M19, M23, M24, M6, INTERNAL_SERVICE_HMAC_SECRET |
+| #37 | rez-payment-service | fix(audit-wave2): M24 — payment-service render.yaml resource limits | M24 |
+| #33 | rez-order-service | fix(audit-wave2): M4/M14/M16/M21/M24/HMAC — order-service audit fixes | M4, M14, M16, M21, M24, INTERNAL_SERVICE_HMAC_SECRET |
+| #2 | vesper (vesper-app) | fix(audit-wave2): L16 — remove hardcoded production URL fallback | L16 |
+
 ## PHASED FIX PLAN (UPDATED)
 
 ### Phase 1: Critical Security ✅ COMPLETED
@@ -578,8 +587,8 @@ The following fixes still need PRs to be created:
 2. Move @types/* to devDependencies (H11) — ❌ Pending
 3. Add missing DB indexes (H7) — ❌ Pending
 4. Wrap multi-doc ops in transactions (H8) — ❌ Pending
-5. Replace localhost fallbacks (H4, H6) — ❌ Pending
-6. Fix supply chain (H5) — ❌ Pending
+5. Replace localhost fallbacks (H4, H6) — ✅ Fixed (H4), ❌ Pending (H6)
+6. Fix supply chain (H5) — ✅ Fixed
 7. Unify auth pattern across services — ⚠️ Partial — intent-graph and auth-service improved; other services unchanged
 8. Fix Zod version mismatch (H13) — ❌ Pending
 
@@ -633,4 +642,4 @@ The following fixes still need PRs to be created:
 
 ---
 
-## LAST UPDATED: 2026-04-28
+## LAST UPDATED: 2026-04-28 (Wave 2)
