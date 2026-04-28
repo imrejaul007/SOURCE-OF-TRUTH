@@ -198,31 +198,109 @@ Last updated: 2026-04-27 (Gen 58: Full platform audit — added rez-scheduler-se
 
 ### Consumer Side Apps
 
-| App | Platform | Services Used |
-|-----|----------|---------------|
-| **ReZ App (Consumer)** | Web, Android, iOS | rez-auth-service (Auth, OTP, MFA), rez-wallet-service (Wallet, Coins), rez-backend (Orders, Products, Cart, Stores), rez-merchant-service (Merchants), rez-payment-service (Razorpay), rez-catalog-service (Products), rez-gamification-service (Karma, Rewards), analytics-events, hotel-ota (Room service) |
-| **ReZ Now** | Web Only | rez-backend, rez-merchant-service, rez-wallet-service, rez-auth-service, hotel-ota (Room service, chat) |
-| **ReZ Web Menu** | Web Only | rez-backend, rez-merchant-service, rez-auth-service, Socket.io |
-| **Room QR** | Web Only | Hotel OTA API (Room service, chat) |
-| **Rendez** | Web, Android, iOS | rendez-backend (Profiles, Matches, Chat), rez-wallet-service (Coins), rez-auth-service (OAuth), rez-merchant-service (Rewards) |
-| **ReZ Karma** | Web, Android, iOS | rez-karma-service, rez-gamification-service, rez-wallet-service (Coins), rez-merchant-service (Perks) |
-| **Stay Own (Hotel OTA)** | Web, Android, iOS | Hotel OTA API, rez-auth-service (OAuth), rez-wallet-service (Booking payments) |
+**ReZ App**
+Web, Android, iOS
+Use
+rez-auth-service (Auth, OTP, MFA),
+rez-wallet-service (Wallet, Coins),
+rez-backend (Orders, Products, Cart, Stores),
+rez-merchant-service (Merchants),
+rez-payment-service (Razorpay),
+rez-catalog-service (Products),
+rez-gamification-service (Karma, Rewards),
+analytics-events,
+hotel-ota (Room service)
+
+**ReZ Now**
+Web Only
+Use
+rez-backend,
+rez-merchant-service,
+rez-wallet-service,
+rez-auth-service,
+hotel-ota (Room service, chat)
+
+**ReZ Web Menu**
+Web Only
+Use
+rez-backend,
+rez-merchant-service,
+rez-auth-service,
+Socket.io
+
+**Room QR**
+Web Only
+Use
+Hotel OTA API (Room service, chat)
+
+**Rendez**
+Web, Android, iOS
+Use
+rendez-backend (Profiles, Matches, Chat),
+rez-wallet-service (Coins),
+rez-auth-service (OAuth),
+rez-merchant-service (Rewards)
+
+**ReZ Karma**
+Web, Android, iOS
+Use
+rez-karma-service,
+rez-gamification-service,
+rez-wallet-service (Coins),
+rez-merchant-service (Perks)
+
+**Stay Own (Hotel OTA)**
+Web, Android, iOS
+Use
+Hotel OTA API,
+rez-auth-service (OAuth),
+rez-wallet-service (Booking payments)
 
 ### Merchant Side Apps
 
-| App | Platform | Services Used |
-|-----|----------|---------------|
-| **ReZ Merchants (OS)** | Web and Windows App | rez-merchant-service (All merchant APIs), rez-wallet-service (Settlements), rez-auth-service (Auth), rez-backend (Orders) |
-| **AdBazaar** | Web | AdBazaar DB (Supabase), rez-ads-service, rez-merchant-service (Campaigns), rez-auth-service (OAuth) |
-| **NextaBiZ** | Web, Android, iOS | nextabizz-api (Supabase), rez-merchant-service (Webhook — reorder signals), rez-auth-service (OAuth) |
-| **Hotel PMS** | Web and Windows App | Hotel OTA API, rez-auth-service (Auth), rez-wallet-service (Hotel payments) |
-| **RestoPapa** | Web | rez-backend (Orders, stores), rez-merchant-service, rez-wallet-service |
+**ReZ Merchants (OS)**
+Web and Windows App
+Use
+rez-merchant-service (All merchant APIs),
+rez-wallet-service (Settlements),
+rez-auth-service (Auth),
+rez-backend (Orders)
+
+**AdBazaar**
+Web
+Use
+AdBazaar DB (Supabase),
+rez-ads-service,
+rez-merchant-service (Campaigns),
+rez-auth-service (OAuth)
+
+**NextaBiZ**
+Web, Android, iOS
+Use
+nextabizz-api (Supabase),
+rez-merchant-service (Webhook — reorder signals),
+rez-auth-service (OAuth)
+
+**Hotel PMS**
+Web and Windows App
+Use
+Hotel OTA API,
+rez-auth-service (Auth),
+rez-wallet-service (Hotel payments)
+
+**RestoPapa**
+Web
+Use
+rez-backend (Orders, stores),
+rez-merchant-service,
+rez-wallet-service
 
 ### Admin Apps
 
-| App | Platform | Services Used |
-|-----|----------|---------------|
-| **ReZ Admin** | Web | rez-backend (All admin routes: users, merchants, stores, orders, campaigns, gamification, ads, analytics, wallet) |
+**ReZ Admin**
+Web
+Use
+rez-backend (All admin routes: users, merchants, stores, orders, campaigns, gamification, ads, analytics, wallet)
 
 ## In-Flight / Not Yet Deployed
 
