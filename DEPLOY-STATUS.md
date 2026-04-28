@@ -1,6 +1,6 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-27 (Gen 58: Full platform audit — added rez-scheduler-service, rez-finance-service live status, rez-now + rez-web-menu partner apps, Resturistan + nextabizz deployed, wallet service URL corrected)
+Last updated: 2026-04-28 (Gen 58d: Full audit — corrected app-to-service mapping with verified service calls per codebase)
 
 ## Production (Live on Render/Vercel)
 
@@ -201,106 +201,89 @@ Last updated: 2026-04-27 (Gen 58: Full platform audit — added rez-scheduler-se
 **ReZ App**
 Web, Android, iOS
 Use
-rez-auth-service (Auth, OTP, MFA),
-rez-wallet-service (Wallet, Coins),
-rez-backend (Orders, Products, Cart, Stores),
-rez-merchant-service (Merchants),
-rez-payment-service (Razorpay),
-rez-catalog-service (Products),
-rez-gamification-service (Karma, Rewards),
-analytics-events,
-hotel-ota (Room service)
+rez-api-gateway (All: Auth, Wallet, Orders, Products, Offers, Gamification, Booking, Payment, Karma, Ads),
+hotel-ota-api (Hotel search, booking, room service, chat),
+analytics-events
 
 **ReZ Now**
 Web Only
 Use
-rez-backend,
-rez-merchant-service,
-rez-wallet-service,
-rez-auth-service,
-hotel-ota (Room service, chat)
+api.rezapp.com (Merchant stores, web-ordering search, auth),
+hotel-ota-api (Room QR validation, room service menu),
+Socket.io (Real-time notifications)
 
 **ReZ Web Menu**
 Web Only
 Use
-rez-backend,
-rez-merchant-service,
-rez-auth-service,
-Socket.io
-
-**Room QR**
-Web Only
-Use
-Hotel OTA API (Room service, chat)
+Self-contained (Own MongoDB, Redis — no external ReZ service calls)
 
 **Rendez**
 Web, Android, iOS
 Use
-rendez-backend (Profiles, Matches, Chat),
-rez-wallet-service (Coins),
-rez-auth-service (OAuth),
-rez-merchant-service (Rewards)
+REZ_PARTNER_API_URL (Wallet verify/transfer, nearby merchants, booking creation, token linking),
+REZ Partner OAuth (via rez-auth-service)
 
 **ReZ Karma**
 Web, Android, iOS
 Use
-rez-karma-service,
-rez-gamification-service,
-rez-wallet-service (Coins),
-rez-merchant-service (Perks)
+rez-karma-service (Profiles, events, check-in/out, missions, leaderboard, communities, micro-actions),
+rez-wallet-service (Coin balance),
+rez-gamification-service (Missions, streaks),
+rez-merchant-service (Perks/rewards)
 
 **Stay Own (Hotel OTA)**
 Web, Android, iOS
 Use
-Hotel OTA API,
-rez-auth-service (OAuth),
-rez-wallet-service (Booking payments)
+Hotel OTA API (Hotel search, booking, room service),
+rez-auth-service (OAuth SSO — stay-own client),
+rez-wallet-service (Booking payments via REZ coins)
 
 ### Merchant Side Apps
 
 **ReZ Merchants (OS)**
 Web and Windows App
 Use
-rez-merchant-service (All merchant APIs),
-rez-wallet-service (Settlements),
-rez-auth-service (Auth),
-rez-backend (Orders)
+rez-merchant-service (Auth, stores, products, orders, wallet, offers, analytics — direct),
+rez-api-gateway (Some paths: QR codes, invoices, campaign templates, ROI summary),
+Socket.io (Real-time order events)
 
 **AdBazaar**
 Web
 Use
-AdBazaar DB (Supabase),
-rez-ads-service,
-rez-merchant-service (Campaigns),
-rez-auth-service (OAuth)
+Supabase (Listings, bookings, scan events, users, QR codes),
+rez-auth-service (OAuth2 partner login),
+rez-merchant-service (Campaign management),
+REZ Internal API (Merchant ID verification)
 
 **NextaBiZ**
 Web, Android, iOS
 Use
-nextabizz-api (Supabase),
-rez-merchant-service (Webhook — reorder signals),
-rez-auth-service (OAuth)
+Supabase (Session, merchant data, reorder signals),
+rez-auth-service (OAuth2 partner integration — client ID: nextabizz),
+rez-merchant-service (Webhook — reorder signals)
 
 **Hotel PMS**
 Web and Windows App
 Use
-Hotel OTA API,
-rez-auth-service (Auth),
-rez-wallet-service (Hotel payments)
+Hotel OTA API (Hotel management, PMS sync),
+rez-auth-service (SSO token validation),
+rez-wallet-service (Hotel payment processing)
+Note: Part of Hotel OTA monorepo
 
-**RestoPapa**
+**RestoPapa (Resturistan)**
 Web
 Use
-rez-backend (Orders, stores),
-rez-merchant-service,
-rez-wallet-service
+Resturistan microservices (Auth, Restaurant, Order, Notification — own),
+@restopapa/rez-client (rez-merchant-service for shift signals, rez-catalog-service, analytics-events, rez-wallet-service),
+rez-api-gateway (Orders, stores),
+rez-auth-service (REZ SSO bridge — rezVerified users)
 
 ### Admin Apps
 
 **ReZ Admin**
 Web
 Use
-rez-backend (All admin routes: users, merchants, stores, orders, campaigns, gamification, ads, analytics, wallet)
+rez-api-gateway (All admin routes: users, merchants, stores, orders, campaigns, gamification, ads, analytics, wallet)
 
 ## In-Flight / Not Yet Deployed
 
