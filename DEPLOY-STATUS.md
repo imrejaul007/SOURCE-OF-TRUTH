@@ -1,6 +1,6 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-27 (Gen 57: ReZ Mind — Commerce Memory Intent Graph deployed on separate repo. rez-intent-api (3001) + rez-intent-agent (3005). npm: rez-intent-graph@0.2.0)
+Last updated: 2026-04-27 (Gen 58: Full platform audit — added rez-scheduler-service, rez-finance-service live status, rez-now + rez-web-menu partner apps, Resturistan + nextabizz deployed, wallet service URL corrected)
 
 ## Production (Live on Render/Vercel)
 
@@ -24,6 +24,8 @@ Last updated: 2026-04-27 (Gen 57: ReZ Mind — Commerce Memory Intent Graph depl
 | **analytics-events** | https://analytics-events-37yy.onrender.com | ✅ Live | Render Web Service |
 | **rez-notification-events** | https://rez-notification-events-mwdz.onrender.com | ✅ Live | Render Worker |
 | **rez-media-events** | https://rez-media-events-lfym.onrender.com | ✅ Live | Render Worker |
+| **rez-scheduler-service** | https://rez-scheduler-service.onrender.com | ✅ Live | Render Web Service |
+| **rez-finance-service** | https://rez-finance-service.onrender.com | ✅ Live | Render Web Service |
 | **rez-intent-api** | https://rez-intent-graph.onrender.com | ✅ Live | Render Web Service |
 | **rez-intent-agent** | https://rez-intent-agent.onrender.com | ✅ Live | Render Web Service |
 | **rez-app-admin** | https://rez-app-admin.vercel.app | ✅ Live | Vercel |
@@ -185,16 +187,18 @@ Last updated: 2026-04-27 (Gen 57: ReZ Mind — Commerce Memory Intent Graph depl
 
 | App | Repo | Status |
 |-----|------|--------|
-| **Resturistan** | github.com/imrejaul007/restaurantapp | Local clone exists — deploy pending |
+| **Resturistan** | github.com/imrejaul007/restaurantapp | ✅ Deployed |
 | **Rendez** | github.com/imrejaul007/Rendez | v1.0.0 — local clone exists, deploy pending |
 | **AdBazaar** | github.com/imrejaul007/adBazaar | Next.js + Supabase — local clone exists, active |
-| **Hotel OTA** | github.com/imrejaul007/hotel-ota | Local clone exists — deploy pending |
+| **Hotel OTA** | github.com/imrejaul007/hotel-ota | ✅ Deployed (includes ReZ-Hotel-pms as submodule) |
+| **nextabizz** | github.com/imrejaul007/nextabizz | ✅ Deployed |
+| **rez-now** | github.com/imrejaul007/rez-now | ✅ Live at https://rez-now.vercel.app |
 
 ## In-Flight / Not Yet Deployed
 
 | Service | Repo | Status |
 |---------|------|--------|
-| **rez-finance-service** | github.com/imrejaul007/rez-finance-service | In development |
+| (all deployed) | | |
 
 ## Internal / Undeployed (no local clone)
 
@@ -203,7 +207,7 @@ Last updated: 2026-04-27 (Gen 57: ReZ Mind — Commerce Memory Intent Graph depl
 | **vesper** | github.com/imrejaul007/vesper | Private, no local clone |
 | **rez-app** | github.com/imrejaul007/rez-app | Private, no local clone (legacy?) |
 | **hotel** | github.com/imrejaul007/hotel | Public, no local clone |
-| **ReZ-Hotel-pms** | github.com/imrejaul007/ReZ-Hotel-pms | Private, local clone exists |
+| **ReZ-Hotel-pms** | github.com/imrejaul007/ReZ-Hotel-pms | Submodule of Hotel OTA (hotel-ota repo) |
 
 ## Shared Infrastructure
 
