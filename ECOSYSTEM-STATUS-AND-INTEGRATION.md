@@ -70,11 +70,11 @@ CRON_SECRET=6neTfu9UW+UwJoA5NbbUpikSKdFm8GMqRZCFjRtIT3c=
 
 ### NOT YET DEPLOYED
 
-| Product | Dir | Deploy Target | Blockers | Uncommitted |
-|---------|-----|-------------|----------|-----------|
-| **ReZ Now** | `rez-now/` | Vercel | `.env.local` tracked in git (secret leak risk); 43 files modified | YES — 43 files |
-| **Rendez** | `Rendez/` | Render + Vercel | `.env.local` has hardcoded JWT secrets (SECURITY RISK); 81 files modified | YES — 81 files |
-| **NextaBiZ** | `nextabizz/` | Vercel | **CRITICAL: `vercel.json` has duplicate `regions` key (invalid JSON)** | CLEAN |
+| Product | Dir | Deploy Target | Blockers | Status |
+|---------|-----|-------------|----------|--------|
+| **ReZ Now** | `rez-now/` | Vercel | NONE — all committed, `.env.local` in `.gitignore` | FIXED — commits `077e6f5`, `8cf5442` |
+| **Rendez** | `Rendez/` | Render + Vercel | NONE — committed, `.env.local` in `.gitignore` | FIXED — commit `66ed553` |
+| **NextaBiZ** | `nextabizz/` | Vercel | NONE — `vercel.json` fixed | FIXED — commit `86e2c24` |
 
 ### Room QR — NOT a Separate Product
 
@@ -98,7 +98,7 @@ StayOwn is the **mobile Expo app** inside the Hotel OTA monorepo:
 
 ---
 
-## Part 3: Deployment Fixes Needed
+## Part 3: Deployment Fixes — All Resolved (2026-04-28)
 
 ### 3.1: NextaBiZ — FIXED
 **File:** `nextabizz/apps/web/vercel.json` — duplicate `regions` key removed.
@@ -322,7 +322,7 @@ Add `NEXT_PUBLIC_INTENT_CAPTURE_URL=https://rez-intent-graph.onrender.com` to:
 
 #### Rendez
 
-**Status:** NOT integrated — needs new code
+**Status:** Intent capture service exists in `rendez-backend/src/services/intentCapture.service.ts`
 **Priority:** LOW
 
 **appType:** `rendez`
@@ -337,7 +337,7 @@ Add `NEXT_PUBLIC_INTENT_CAPTURE_URL=https://rez-intent-graph.onrender.com` to:
 
 #### NextaBiZ
 
-**Status:** NOT integrated — needs new code
+**Status:** INTEGRATED — commit `ad4d480`
 **Priority:** MEDIUM (has supplier/merchant flow)
 
 **appType:** `nextabizz`
@@ -351,7 +351,7 @@ Add `NEXT_PUBLIC_INTENT_CAPTURE_URL=https://rez-intent-graph.onrender.com` to:
 
 #### AdBazaar
 
-**Status:** NOT integrated — needs new code
+**Status:** INTEGRATED — commit `2a6976c`
 **Priority:** MEDIUM (has listing/bidding flow)
 
 **appType:** `adbazaar`
@@ -365,7 +365,7 @@ Add `NEXT_PUBLIC_INTENT_CAPTURE_URL=https://rez-intent-graph.onrender.com` to:
 
 #### Hotel PMS
 
-**Status:** NOT integrated — needs new code
+**Status:** INTEGRATED — commit `1432920`
 **Priority:** LOW (B2B product)
 
 **appType:** `hotel_pms`
@@ -383,15 +383,15 @@ Add `NEXT_PUBLIC_INTENT_CAPTURE_URL=https://rez-intent-graph.onrender.com` to:
 
 #### ReZ Web Menu
 
-**Status:** NOT integrated
+**Status:** INTEGRATED — commit `8cf5442` (same repo as ReZ Now)
 **Priority:** MEDIUM
 
 **appType:** `web_menu`
 **Category:** `DINING`
 
-#### ReZ Merchants OS
+#### ReZ Merchants OS (ReZ Merchant App)
 
-**Status:** NOT integrated
+**Status:** INTEGRATED — commit `dc19d94` (app) + `9b12ff1` (service)
 **Priority:** MEDIUM (merchant side)
 
 **appType:** `merchant_os`
@@ -404,7 +404,7 @@ Add `NEXT_PUBLIC_INTENT_CAPTURE_URL=https://rez-intent-graph.onrender.com` to:
 
 #### Karma
 
-**Status:** NOT integrated
+**Status:** INTEGRATED — commit `76c3e97`
 **Priority:** LOW
 
 **appType:** `karma`
