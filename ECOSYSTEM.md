@@ -95,6 +95,18 @@ Primary consumer-facing app for:
 - **REZ Web Menu** → Menu browsing via QR scan
 - **Rendez** → Social features (future SSO)
 
+#### Service Dependencies
+| Service | Purpose |
+|---------|---------|
+| `rez-auth-service` | Phone OTP, user identity |
+| `rez-wallet-service` | REZ Coins, transactions |
+| `rez-backend` | Orders, catalog, store management |
+| `rez-merchant-service` | Merchant data, product catalog |
+| `rez-payment-service` | UPI/Razorpay payment processing |
+| `rez-catalog-service` | Product catalog, search |
+| `rez-gamification-service` | Coins, missions, challenges |
+| `analytics-events` | Event tracking |
+
 ---
 
 ### 2. REZ Now — `rez-now`
@@ -127,6 +139,14 @@ Merchant-branded public store page with QR code for:
 - **REZ Backend** → Store data, orders, payments
 - **REZ App** → Coin crediting, wallet updates
 
+#### Service Dependencies
+| Service | Purpose |
+|---------|---------|
+| `rez-backend` | Store data, orders, payments |
+| `rez-merchant-service` | Store configuration, KDS |
+| `rez-wallet-service` | Coin crediting |
+| `rez-auth-service` | User authentication |
+
 ---
 
 ### 3. REZ Web Menu — `rez-web-menu`
@@ -158,6 +178,13 @@ Mobile-optimized QR menu for in-store use:
 - **REZ Backend** → Store catalog, orders
 - **REZ Merchant App** → KDS and order notifications
 
+#### Service Dependencies
+| Service | Purpose |
+|---------|---------|
+| `rez-backend` | Store catalog, orders, payments |
+| `rez-merchant-service` | Order routing, KDS |
+| `rez-auth-service` | User OTP verification |
+
 ---
 
 ### 4. Rendez — `Rendez`
@@ -188,6 +215,14 @@ Social discovery and engagement layer:
 - **REZ Wallet** → Hold/release coins for social impact
 - **REZ Gamification** → Challenge rewards, badges
 
+#### Service Dependencies
+| Service | Purpose |
+|---------|---------|
+| `rez-auth-service` | OAuth2 Partner SSO (`/oauth/*` endpoint) |
+| `rez-wallet-service` | Hold/release funds for social impact |
+| `rez-merchant-service` | Merchant discovery |
+| `rendez-backend` | Social features, events, profiles |
+
 ---
 
 ### 5. Karma — `rez-karma-service`
@@ -217,6 +252,14 @@ Social impact and karma score system:
 - **REZ Wallet** → Reward coin distribution
 - **REZ Gamification** → Achievement system
 
+#### Service Dependencies
+| Service | Purpose |
+|---------|---------|
+| `rez-auth-service` | User identity |
+| `rez-wallet-service` | Reward coin distribution |
+| `rez-merchant-service` | Merchant reviews and ratings |
+| `rez-gamification-service` | Achievement badges, challenges |
+
 ---
 
 ### 6. Stay Owen (Hotel OTA) — `Hotel OTA`
@@ -244,6 +287,13 @@ Hotel property management + OTA (Online Travel Agency):
 - **REZ Auth Service** → SSO for hotel guests
 - **REZ Wallet** → Booking payments, loyalty coins
 - **REZ Backend** → Future integration for hotel discovery
+
+#### Service Dependencies
+| Service | Purpose |
+|---------|---------|
+| `Hotel OTA API` (apps/api) | Hotel listings, bookings, PMS |
+| `rez-auth-service` | OAuth2 Partner SSO for guest login |
+| `rez-wallet-service` | Booking payments, coin rewards |
 
 ---
 
@@ -303,6 +353,14 @@ REZ Web Menu (QR) ─────┘         │
 - **REZ Now** → Store page updates, web orders
 - **REZ Web Menu** → QR-based orders
 
+#### Service Dependencies
+| Service | Purpose |
+|---------|---------|
+| `rez-merchant-service` | Orders, KDS, product catalog, inventory |
+| `rez-wallet-service` | Settlement, payouts, balance |
+| `rez-auth-service` | Merchant login, OTP |
+| `rez-backend` | Store data, customer orders |
+
 ---
 
 ### 2. AdBazaar — `adBazaar`
@@ -335,6 +393,13 @@ Advertising marketplace connecting brands with merchants:
 - **REZ Merchant App** → Vendor fulfillment notifications
 - **REZ App** → Ad impressions, attribution
 
+#### Service Dependencies
+| Service | Purpose |
+|---------|---------|
+| `AdBazaar DB` (Supabase) | Campaign data, brand accounts, analytics |
+| `rez-merchant-service` | Merchant payout settlement webhook |
+| `rez-auth-service` | OAuth2 Partner SSO (`/oauth/*` endpoint) |
+
 ---
 
 ### 3. NextaBiZ — `nextabizz`
@@ -364,6 +429,12 @@ B2B SaaS platform for business management:
 #### Connects To
 - **REZ Backend** → User auth (if using REZ accounts)
 - **External APIs** → Supplier systems, ERPs
+
+#### Service Dependencies
+| Service | Purpose |
+|---------|---------|
+| `nextabizz-api` (Supabase) | B2B inventory, RFQ, procurement |
+| `rez-merchant-service` | Reorder signal webhook (`/internal/nextabizz/reorder-signal`) |
 
 ---
 
@@ -432,6 +503,13 @@ Property Management System for hotels:
 #### Connects To
 - **Stay Owen (OTA)** → Booking synchronization
 - **REZ Wallet** → Future: guest wallet for hotel services
+
+#### Service Dependencies
+| Service | Purpose |
+|---------|---------|
+| `Hotel OTA API` (apps/api) | Booking data, PMS operations |
+| `rez-auth-service` | Staff authentication |
+| `rez-wallet-service` | Future: guest wallet for services |
 
 ---
 
@@ -756,5 +834,68 @@ Property Management System for hotels:
 
 ---
 
+## APP-TO-SERVICE DEPENDENCY MATRIX
+
+### Legend
+- ✅ **Full integration** — actively used
+- 🔗 **Webhook/API** — receives/provides data
+- 🔐 **OAuth2** — authenticated via partner SSO
+- ❌ **Not connected**
+
+### Consumer Apps
+
+| App | rez-auth | rez-wallet | rez-backend | rez-merchant | rez-payment | rez-catalog | rez-gamification | Rendez API | Hotel OTA API | AdBazaar DB |
+|-----|----------|-----------|-------------|-------------|-------------|-------------|-----------------|------------|---------------|-------------|
+| **REZ App** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
+| **REZ Now** | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **REZ Web Menu** | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **Rendez** | 🔐 | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ |
+| **Karma** | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ |
+| **Room QR (Hotel)** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
+
+### Merchant Apps
+
+| App | rez-auth | rez-wallet | rez-backend | rez-merchant | rez-payment | rendez-backend | Hotel OTA API | AdBazaar DB | nextabizz-api |
+|-----|----------|-----------|-------------|-------------|-------------|---------------|---------------|-------------|---------------|
+| **REZ Merchant** | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
+| **AdBazaar** | 🔐 | 🔗 | ❌ | 🔗 | ❌ | ❌ | ❌ | ✅ | ❌ |
+| **NextaBiZ** | ❌ | ❌ | ❌ | 🔗 | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **Hotel PMS** | ✅ | 🔗 | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ |
+| **RestoPapa** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+
+### Service Definitions
+
+| Service | Repo | Database | Purpose |
+|---------|------|----------|---------|
+| `rez-auth-service` | `imrejaul007/rez-auth-service` | MongoDB + Redis | Phone OTP, OAuth2 Partner SSO |
+| `rez-wallet-service` | `imrejaul007/rez-wallet-service` | MongoDB + Redis | REZ Coins, transactions, settlements |
+| `rez-backend` | `imrejaul007/rez-backend` | MongoDB | Orders, stores, catalog, customer data |
+| `rez-merchant-service` | `imrejaul007/rez-merchant-service` | MongoDB + Redis | KDS, product catalog, inventory, **PRIMARY ORDER RECEIVER** |
+| `rez-payment-service` | `imrejaul007/rez-payment-service` | MongoDB | UPI/Razorpay payment processing |
+| `rez-catalog-service` | `imrejaul007/rez-catalog-service` | MongoDB | Product catalog, search, recommendations |
+| `rez-gamification-service` | `imrejaul007/rez-gamification-service` | MongoDB | Coins, missions, challenges, badges |
+| `rendez-backend` | `imrejaul007/Rendez` | PostgreSQL (Prisma) | Social features, events, profiles |
+| `Hotel OTA API` | `imrejaul007/hotel-ota/apps/api` | PostgreSQL (Prisma) | Hotel listings, bookings, PMS |
+| `AdBazaar DB` | `imrejaul007/adBazaar` | Supabase (PostgreSQL) | Ad campaigns, brands, vendors |
+| `nextabizz-api` | `imrejaul007/nextabizz` | Supabase (PostgreSQL) | B2B inventory, RFQ, procurement |
+| `analytics-events` | `imrejaul007/analytics-service` | MongoDB | Event tracking |
+
+### Order Flow — PRIMARY PATH
+
+```
+CONSUMER APPS → rez-merchant-service (RECEIVES ALL ORDERS) → REZ Merchant App (KDS)
+
+Sources of orders into rez-merchant-service:
+  1. REZ App        →  rez-backend         →  rez-merchant-service
+  2. REZ Now        →  rez-backend         →  rez-merchant-service
+  3. REZ Web Menu   →  rez-backend         →  rez-merchant-service
+  4. Room QR (Hotel) →  Hotel OTA API      →  rez-merchant-service
+
+ALL orders land in rez-merchant-service → Merchant sees via REZ Merchant App (KDS)
+```
+
+---
+
 ## LAST UPDATED
 - 2026-04-26: Initial ecosystem documentation
+- 2026-04-26: Added service dependency matrix with OAuth2 and webhook connections
