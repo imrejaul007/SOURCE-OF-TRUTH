@@ -17,6 +17,8 @@ Last updated: 2026-04-27 (Gen 57: ReZ Mind — Commerce Memory Intent Graph depl
 | **rez-search-service** | https://rez-search-service.onrender.com | ✅ Live | Render Web Service |
 | **rez-gamification-service** | https://rez-gamification-service-3b5d.onrender.com | ✅ Live | Render Web Service |
 | **rez-karma-service** | https://rez-karma-service.onrender.com | ✅ Live | Render Web Service |
+| **rez-karma-app** | https://rez-karma-app.vercel.app | ✅ Live | Vercel Web App |
+| **rez-karma-mobile** | (EAS build) | ✅ Live | Expo EAS |
 | **rez-ads-service** | https://rez-ads-service.onrender.com | ✅ Live | Render Web Service |
 | **rez-marketing-service** | https://rez-marketing-service.onrender.com | ✅ Live | Render Web Service |
 | **analytics-events** | https://analytics-events-37yy.onrender.com | ✅ Live | Render Web Service |
