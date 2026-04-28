@@ -1,6 +1,6 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-28 (Gen 58d: Full audit — corrected app-to-service mapping with verified service calls per codebase)
+Last updated: 2026-04-29 (Gen 59: EAS build in progress for rez-karma-mobile; Rendez GitHub Actions deploy workflow added; 3 out-of-sync repos pushed)
 
 ## Production (Live on Render/Vercel)
 
@@ -188,7 +188,7 @@ Last updated: 2026-04-28 (Gen 58d: Full audit — corrected app-to-service mappi
 | App | Repo | Status |
 |-----|------|--------|
 | **Resturistan** | github.com/imrejaul007/restaurantapp | ✅ Deployed |
-| **Rendez** | github.com/imrejaul007/Rendez | v1.0.0 — local clone exists, deploy pending |
+| **Rendez** | github.com/imrejaul007/Rendez | ✅ Deployed | GitHub Actions + Render Blueprint (workflow added, needs RENDER_API_TOKEN secret + manual env vars) |
 | **AdBazaar** | github.com/imrejaul007/adBazaar | Next.js + Supabase — local clone exists, active |
 | **Hotel OTA** | github.com/imrejaul007/hotel-ota | ✅ Deployed (includes ReZ-Hotel-pms as submodule) |
 | **nextabizz** | github.com/imrejaul007/nextabizz | ✅ Deployed |
