@@ -1,6 +1,13 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-29 (Gen 59: EAS build in progress for rez-karma-mobile; Rendez GitHub Actions deploy workflow added; 3 out-of-sync repos pushed)
+Last updated: 2026-04-30 (Gen 60: EAS build failing — Gradle error; requires manual check on Expo dashboard or EAS paid plan upgrade)
+
+## Known Issues
+
+| Issue | Status | Notes |
+|-------|--------|-------|
+| **EAS Build - rez-karma-mobile** | FAILED | Gradle build fails on EAS builders; local `expo export` works; needs manual check of EAS dashboard logs or paid tier |
+| **Rendez Deploy** | PENDING | GitHub Actions workflow added; needs `RENDER_API_TOKEN` in GitHub Secrets |
 
 ## Production (Live on Render/Vercel)
 
