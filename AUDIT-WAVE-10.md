@@ -68,3 +68,35 @@ All changes merged to `origin/main`:
 - bb5e93d fix(MERCH-AUDIT): resolve build errors and npm audit conflicts (#54)
 - d181a0d feat(MERCH-AUDIT-OAUTH): add OAuth partner env vars to Zod schema (#53)
 - abc0382 feat(MERCH-AUDIT-OAUTH): mount REZ OAuth2 routes with fetch timeouts (#52)
+- aae191e fix(merchant-service): comprehensive audit fixes round 3 (FIX-14 to FIX-19) (#51)
+- d039d5a feat: add MongoDB replica set support to rez-merchant-service
+- ae01eb0 fix(audit-wave8): H3 — add IDOR protection middleware (#57)
+
+## Additional Fixes
+
+### Order Service Build Fixes (PR #38)
+| PR # | Title | Files Changed |
+|------|-------|---------------|
+| #38 | fix(order-service): resolve TypeScript build errors | `src/utils/cursorPagination.ts`, `src/worker.ts` |
+
+**Order service commit:** 2f90c30 — resolved TypeScript build errors (cursorPagination unknown type, worker bullmqRedis→workerRedis)
+
+### Additional Build Fixes Across Services
+
+| PR # | Service | Description |
+|------|---------|-------------|
+| #38 | order-service | TypeScript build errors (cursorPagination, worker) |
+| #39 | auth-service | models barrel named exports, authRoutes message field |
+| #40 | payment-service | models barrel named exports, razorpayService params |
+| #28 | wallet-service | JSON comments removed, intentGraphConsumer stub created |
+
+## Status Summary
+
+| Service | Build Status | Notes |
+|---------|--------------|-------|
+| rez-merchant-service | ✅ Pass | OAuth2 routes, 0 vulns |
+| rez-order-service | ✅ Pass | Cursor pagination, worker fixes |
+| rez-auth-service | ✅ Pass | Models barrel fixed |
+| rez-payment-service | ✅ Pass | Models barrel fixed, razorpayService fixed |
+| rez-wallet-service | ✅ Pass | Package.json fixed, intentGraphConsumer stub |
+| rez-catalog-service | ✅ Pass | - |

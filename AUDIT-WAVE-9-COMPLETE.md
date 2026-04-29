@@ -26,6 +26,7 @@ All critical security issues identified in the MASTER-AUDIT-2026 have been resol
 | C9 | ✅ Fixed | JWT verification fixed |
 | C10 | ✅ Fixed | Rate limiting added |
 | C11 | ✅ Fixed | RBAC enforced on orders, payroll routes with `requirePermissions()` |
+| C14 | ✅ Fixed | OAuth uses `safeCompare()` with `crypto.timingSafeEqual` |
 | C12 | ✅ Fixed | .env.bak removed |
 | C13 | ✅ Fixed | MFA secret not exposed |
 | C14 | ✅ Fixed | OAuth timing-safe |
@@ -56,7 +57,16 @@ SOURCE-OF-TRUTH/
 ├── OPS-003-NO-API-GATEWAY.md # Complete OPS-003 resolution
 ├── MIGRATION-INTERNAL-TOKENS.md # Token migration guide
 ├── SHARED-TYPES-CONSOLIDATION.md # Types consolidation guide
+├── API-VERSIONING-ROADMAP.md # v2.0 implementation plan
+├── UTILITY-ADOPTION-GUIDE.md # Shared utilities adoption guide
 └── AUDIT-WAVE-9-COMPLETE.md # This file
+```
+
+### RBAC Middleware
+```
+rez-merchant-service/src/
+├── middleware/auth.ts # requirePermissions(), requireRole(), PERMISSIONS constants
+└── routes/payroll.ts # Permission checks on sensitive operations
 ```
 
 ### Rate Limiting

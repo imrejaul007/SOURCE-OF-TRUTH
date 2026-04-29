@@ -8,13 +8,13 @@
 
 | Service | Status | PR | Date |
 |---------|--------|-----|------|
-| rez-intent-graph | ✅ Complete | #4, #5, #6 | 2026-04-30 |
+| rez-intent-graph | ✅ Complete | #4, #5, #6, #7 | 2026-04-30 |
 | rez-search-service | ✅ Complete | #15 | 2026-04-29 |
-| rez-order-service | ✅ Complete | #35 | 2026-04-29 |
+| rez-order-service | ✅ Complete | #35, #37 | 2026-04-30 |
 | rez-ads-service | ✅ Complete | #19 | 2026-04-29 |
 | rez-gamification-service | ✅ Complete | #21 | 2026-04-29 |
 | rez-marketing-service | ✅ Complete | #12 | 2026-04-29 |
-| rez-finance-service | ✅ Complete | #11 | 2026-04-29 |
+| rez-finance-service | ✅ Complete | #11, #12 | 2026-04-30 |
 | Hotel OTA | ✅ Complete | #7 | 2026-04-29 |
 | Hotel PMS | ✅ Complete | #2 | 2026-04-29 |
 | ReZ Now | ✅ Complete | #18 | 2026-04-29 |
@@ -48,6 +48,48 @@
 | LOW | 10 | ⚠️ Minor |
 
 **Conclusion: Ecosystem is SECURE**
+
+---
+
+## TypeScript Audit Results (2026-04-30)
+
+### Fixed This Session
+| Service | Issue | Fix |
+|---------|-------|-----|
+| rez-intent-graph | Missing metrics constants | Added |
+| rez-intent-graph | Wrong cache key refs | Fixed |
+| rez-order-service | Syntax error | Fixed |
+| rez-order-service | Wrong export | Fixed |
+| rez-finance-service | Null check missing | Fixed |
+| rez-finance-service | Missing auth exports | Added |
+
+### TypeScript Status
+| Service | Status |
+|---------|--------|
+| rez-intent-graph | ✅ Clean |
+| rez-order-service | ✅ Clean |
+| rez-search-service | ✅ Clean |
+| rez-ads-service | ✅ Clean |
+| rez-gamification-service | ✅ Clean |
+| rez-marketing-service | ✅ Clean |
+| rez-finance-service | ✅ Clean |
+| rez-now | ✅ Clean |
+| nextabizz | ✅ Clean |
+
+---
+
+## Dependency Audit Results (2026-04-30)
+
+| Service | Initial | Final | Status |
+|---------|---------|-------|--------|
+| rez-ads-service | 0 | 0 | ✅ |
+| rez-gamification-service | 3 moderate | 0 | ✅ Fixed |
+| rez-marketing-service | 4 (1 HIGH) | 0 | ✅ Fixed |
+| rez-search-service | No lockfile | 0 | ✅ Fixed |
+| rez-order-service | 5 moderate | 0 | ✅ Fixed |
+| rez-finance-service | 5 moderate | 2 moderate | ⚠️ Partial |
+| rez-now | 5 moderate | 2 moderate | ⚠️ Partial |
+| Hotel OTA | 26 (1 CRIT, 11 HIGH) | 24 (10 HIGH) | ⚠️ Expo deps |
 
 ---
 
@@ -99,16 +141,6 @@ curl -X POST https://rez-intent-graph.onrender.com/api/intent/capture \
 
 ---
 
-## TypeScript Status
-
-| Service | Status |
-|---------|--------|
-| rez-intent-graph | ✅ Clean |
-| rez-order-service | ✅ Clean |
-| All others | ✅ Clean |
-
----
-
 ## What's Left
 
 1. **Manual Render Configuration** - Upgrade plan, add Redis
@@ -117,4 +149,4 @@ curl -X POST https://rez-intent-graph.onrender.com/api/intent/capture \
 
 ---
 
-*Last Updated: 2026-04-30*
+*Last Updated: 2026-04-30 23:00*

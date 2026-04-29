@@ -67,6 +67,183 @@ After exhaustive audit of rez-app-marchant (256 screens, 65 services), rez-merch
 
 ---
 
+## Complete Feature Inventory (2026-04-29)
+
+### REZ Merchant (BizOS) — Full Feature List
+
+**Architecture:** React Native/Expo mobile app + Node.js/Express backend
+
+| Category | Features | Count | Status |
+|----------|---------|-------|--------|
+| **POS & Orders** | Order types, QR ordering, table management, bill splitting, discounts, KDS, offline mode, tax calc | 10 | Complete |
+| **Products & Inventory** | Product catalog, categories, modifiers, combos, stock tracking, low stock alerts, barcode, expiry, waste logging | 10 | Complete |
+| **Recipes & Costing** | Recipe builder, ingredient costing, food cost %, menu engineering, portion control, waste analytics | 7 | Complete |
+| **Staff & Payroll** | Staff profiles, roles, attendance, shifts, leave, payroll calc, staff performance | 7 | Partial |
+| **Customers & Loyalty** | Customer profiles, segments, punch cards, points, tiers, referrals, win-back | 9 | Partial |
+| **Marketing** | Offers, flash sales, campaigns, broadcasts, push, WhatsApp, coupons | 9 | Partial |
+| **Finance** | Billing, payments, settlements, GST, expenses, P&L, cash drawer, refunds, disputes | 10 | Partial |
+| **Analytics** | Sales, products, customers, trends, forecast, benchmarks, custom reports | 10 | Partial |
+| **Integrations** | Aggregators (Swiggy/Zomato), printers, hardware, Razorpay, webhooks | 8 | Partial |
+| **Appointments** | Booking, calendar, staff rota, services, packages, treatment rooms | 7 | Partial |
+| **Hotel** | Room management, front desk, housekeeping, REZ Now Room Hub | 5 | Partial |
+| **Intelligence** | Churn prediction, LTV, Copilot, playbooks, merchant memory | 5 | **NOT Built** |
+
+**Total:** 168 screens, 50+ API services, 55 models, 30+ hooks, 9 contexts
+
+---
+
+### Hotel PMS — Full Feature List
+
+**Architecture:** Node.js/Express backend (168 routes, 176 models) + React frontend (200 pages, 423 components)
+
+| Category | Features | Count | Status |
+|----------|---------|-------|--------|
+| **Bookings** | Create, modify, cancel, search, groups, no-show, templates, dynamic pricing | 13 | Complete |
+| **Rooms** | CRUD, types, status, assignment, blocks, pricing, features, QR codes | 11 | Complete |
+| **Guests** | Profiles, search, CRM, preferences, documents, verification, blacklist | 10 | Complete |
+| **Payments** | Stripe, billing sessions, invoices, refunds, split billing, GST, circuit breakers | 13 | Complete |
+| **Front Desk** | Check-in/out, walk-ins, tape chart, night audit, daily management | 9 | Complete |
+| **Housekeeping** | Tasks, types, assignment, priority, status workflow, inspection, automation | 9 | Complete |
+| **Maintenance** | Tasks, vendors, costs, due dates, recurring, out-of-order | 9 | Complete |
+| **Inventory** | Items, stock, alerts, suppliers, categories, consumption, POs, automation | 15 | Complete |
+| **Revenue** | Pricing rules, dynamic pricing, seasonal, forecasting, analytics, optimization | 13 | Complete |
+| **Channel** | OTA integration, sync, distribution, availability, mapping, stop-sell | 8 | Complete |
+| **Marketing** | Promo codes, loyalty, tiers, reviews, email campaigns | 10 | Complete |
+| **Digital Keys** | QR keys, PIN codes, mobile keys, activation, revocation, analytics | 9 | Complete |
+| **Guest Services** | Requests, templates, booking, meet-ups, safety | 13 | Complete |
+| **Travel Agents** | Agent registration, commissions, multi-booking, dashboards | 11 | Complete |
+| **Reports** | Occupancy, revenue, guests, housekeeping, maintenance, custom | 13 | Complete |
+| **Compliance** | GDPR, PCI-DSS, audit trail, blacklist, data retention | 9 | Complete |
+| **Operations** | Departments, incidents, lost & found, laundry, queue, daily checks | 11 | Complete |
+| **POS** | Outlets, menus, orders, taxes, attributes, settlements | 11 | Complete |
+
+**Total:** 168 API routes, 108 controllers, 164 services, 176 models
+
+---
+
+### Hotel OTA — Full Feature List
+
+**Architecture:** Next.js apps + Express/Prisma API + PostgreSQL
+
+| Category | Features | Status |
+|----------|---------|--------|
+| **Consumer Booking** | Hotel search, room selection, payment (Razorpay), confirmation | Complete |
+| **Hotel Panel** | Hotel management, bookings, settings, pricing | Complete |
+| **Admin Panel** | User management, settlements, configurations | Complete |
+| **REZ Integration** | SSO, wallet coins, partner APIs | Complete |
+| **PMS Webhooks** | Receive PMS events (booking, check-in, checkout) | Partial |
+| **Room Service** | In-room service via QR | Complete |
+| **Room Chat** | Guest messaging | Complete |
+| **Corporate** | Corporate booking panel | Complete |
+
+---
+
+## Competitor Feature Comparison
+
+### Restaurant Vertical
+
+| Feature | Petpooja | Toast | Square | REZ BizOS | Gap |
+|---------|----------|-------|--------|-----------|-----|
+| Cloud billing | Yes | Yes | Yes | Yes | — |
+| Inventory management | Yes | Yes | Yes | Yes | — |
+| 80+ reports | Yes | Yes | Yes | Partial | Build more reports |
+| KDS | Yes | Yes | Yes | Yes | — |
+| QR ordering | Yes | Yes | Yes | Yes | — |
+| Aggregator sync | Zomato/Swiggy | Multi | Multi | Swiggy/Zomato | Parity |
+| Offline mode | Limited | Yes | Yes | Yes | Improve offline |
+| Multi-location | Yes | Yes | Yes | Yes | — |
+| Employee management | Yes | Yes | Yes | Partial | Build full payroll |
+| Recipe costing | No | No | No | Yes | **ADVANTAGE** |
+| Food cost analytics | No | No | No | Yes | **ADVANTAGE** |
+| Waste tracking | No | No | No | Yes | **ADVANTAGE** |
+| AI menu engineering | No | Yes | Yes | Partial | Build AI layer |
+| AI demand forecasting | No | Yes | Yes | Partial | Build AI layer |
+| AI churn prediction | No | No | No | No | Build this |
+| **India GST** | Yes | No | No | Yes | **ADVANTAGE** |
+| Tally/SAP integration | Yes | No | No | No | Build this |
+| **Pricing** | Localized | High | Free tier | Competitive | — |
+
+### Hotel Vertical
+
+| Feature | Cloudbeds | Oracle | Hotel PMS | REZ Hotel OTA | Gap |
+|---------|-----------|--------|-----------|---------------|-----|
+| PMS | Yes | Yes | Yes | Via integration | Wire PMS→OTA |
+| Channel Manager | 300+ OTAs | Yes | No | Partial | Build channel |
+| Booking Engine | Yes | Yes | No | Yes | — |
+| Digital check-in | Yes | Yes | No | Partial | Build self-checkin |
+| Revenue AI | Signals AI | Yes | No | No | Build AI pricing |
+| Guest CRM | Yes | Yes | Yes | Partial | Wire guest data |
+| **AI Forecasting** | 4B data points | Yes | No | No | Build AI layer |
+| **RevPAR increase** | +18% | — | — | — | Target this |
+| **OTA Commissions** | Zero | — | — | — | — |
+| Self-service kiosk | Yes | Yes | No | No | Build this |
+| 400+ integrations | Yes | Hundreds | No | Partial | Build more |
+
+### Wellness Vertical
+
+| Feature | Zenoti | Mindbody | REZ BizOS | Gap |
+|---------|--------|----------|-----------|-----|
+| Appointments | Yes | Yes | Yes | — |
+| Memberships | Yes | Yes | Partial | Build packages |
+| Class scheduling | Yes | Yes | Partial | Build classes |
+| **AI Receptionist** | Yes | No | No | Build this |
+| **AI agents (8+)** | Yes | No | No | Build AI suite |
+| Forms/charting | Yes | Yes | Partial | Build consultation |
+| Inventory | Yes | Yes | Yes | — |
+| Payroll | Yes | Yes | Partial | Build full payroll |
+| Marketing | Yes | Yes | Partial | Build automation |
+| **AI transformation** | 48-hr team | — | — | — |
+
+---
+
+## Competitive Advantages REZ Has
+
+| Feature | Competitors | REZ Advantage |
+|---------|-------------|---------------|
+| Recipe costing + food cost | None | Complete |
+| Waste tracking analytics | None | Complete |
+| Multi-vertical (Restaurant + Hotel + Wellness) | Separate products | Unified platform |
+| India GST compliance | Petpooja only | Complete |
+| Branded coins ecosystem | None | Complete |
+| ReZ consumer demand network | None | Complete |
+| BNPL/Finance embedded | None | Complete |
+| NextaBiZ procurement network | None | Complete |
+
+---
+
+## Features Missing vs Competitors (Priority Order)
+
+### MUST HAVE (Competitive Necessity)
+
+| # | Feature | Why | Priority |
+|---|---------|-----|----------|
+| 1 | **AI Copilot Dashboard** | Zenoti has 8 AI agents, Cloudbeds has Signals AI | Critical |
+| 2 | **Churn Prediction + LTV** | Basic retention is table stakes | Critical |
+| 3 | **Wire Hotel PMS → Hotel OTA** | Two complete systems, not connected | Critical |
+| 4 | **Demand Forecasting** | Cloudbeds: +18% RevPAR with AI | High |
+| 5 | **Dynamic Pricing AI** | Revenue optimization | High |
+
+### SHOULD HAVE (Competitive Parity)
+
+| # | Feature | Why | Priority |
+|---|---------|-----|----------|
+| 6 | **Tally/ERP Integration** | Petpooja advantage | Medium |
+| 7 | **Channel Manager (300+ OTAs)** | Cloudbeds advantage | Medium |
+| 8 | **AI Receptionist (Phone)** | Zenoti advantage | Medium |
+| 9 | **Self-service Kiosk** | Labor cost reduction | Medium |
+| 10 | **Digital Check-in/out** | Guest experience | Medium |
+
+### NICE TO HAVE (Differentiation)
+
+| # | Feature | Why | Priority |
+|---|---------|-----|----------|
+| 11 | **Bitcoin/Crypto payments** | Square only | Low |
+| 12 | **Full Banking Suite** | Square advantage | Low |
+| 13 | **400+ Integrations** | Cloudbeds advantage | Low |
+| 14 | **Enterprise Compliance** | Oracle advantage | Low |
+
+---
+
 ## REZ Admin Architecture — Control Plane
 
 ### REZ Admin Systems (REZ Ecosystem Only)
@@ -2305,3 +2482,16 @@ No new architecture needed — pure UX:
   - Admin user classes: super_admin, admin, operator, support, finance, merchant
   - Gap analysis: Unified SSO, cross-platform visibility, audit logging
   - REMOVED VESPER from REZ Admin (Vesper is NOT part of REZ ecosystem)
+- 2026-04-29: COMPREHENSIVE FEATURE INVENTORY — Deep Audit + Competitor Research
+  - Complete REZ Merchant (BizOS) feature list: 168 screens, 50+ services, 55 models, 30+ hooks
+  - Complete Hotel PMS feature list: 168 routes, 176 models, 200 pages, 423 components
+  - Complete Hotel OTA feature list: Next.js apps, Prisma/PostgreSQL, Razorpay integration
+  - Competitor comparison: Petpooja, Toast, Square, Zenoti, Cloudbeds, Oracle, Mindbody, EkAnek
+  - Restaurant vertical gap analysis: REZ has recipe costing, food cost, waste (competitors don't)
+  - Hotel vertical gap analysis: Need PMS→OTA wiring, AI forecasting, channel manager
+  - Wellness vertical gap analysis: Need AI receptionist, packages, class scheduling
+  - Competitive advantages: Multi-vertical, India GST, branded coins, ReZ demand network
+  - Features missing (priority order): AI Copilot, churn prediction, PMS→OTA wiring, forecasting
+  - MUST HAVE: AI Copilot, churn/LTV, Hotel integration, demand forecasting, dynamic pricing
+  - SHOULD HAVE: Tally/ERP, channel manager 300+, AI receptionist, kiosk, digital checkin
+  - NICE TO HAVE: Bitcoin, banking suite, 400+ integrations, enterprise compliance
