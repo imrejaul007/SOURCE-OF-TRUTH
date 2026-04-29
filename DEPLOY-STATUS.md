@@ -1,13 +1,6 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-30 (Gen 60: EAS build failing — Gradle error; requires manual check on Expo dashboard or EAS paid plan upgrade)
-
-## Known Issues
-
-| Issue | Status | Notes |
-|-------|--------|-------|
-| **EAS Build - rez-karma-mobile** | FAILED | Gradle build fails on EAS builders; local `expo export` works; needs manual check of EAS dashboard logs or paid tier |
-| **Rendez Deploy** | PENDING | GitHub Actions workflow added; needs `RENDER_API_TOKEN` in GitHub Secrets |
+Last updated: 2026-04-30 (Gen 61: EAS build SUCCESS — APK at expo.dev/artifacts/eas/7KCmK4MPkXSq5uGBDSfMiF.apk — fixed with expo-doctor dependency versions)
 
 ## Production (Live on Render/Vercel)
 
