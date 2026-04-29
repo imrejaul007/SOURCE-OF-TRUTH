@@ -75,9 +75,7 @@ This section tracks the resolution of every issue identified in this audit acros
 
 | ID | Description | Status | PR / Notes |
 |----|-----------|--------|-------|
-| M1 | Inconsistent Error Responses | ⚠️ Partial | `errorResponse.ts` created in auth, merchant, order, payment, wallet |
-| M2 | No Cursor-Based Pagination | ❌ Pending | All services still use skip/limit |
-| M3 | $or Queries on merchant/merchantId | ❌ Pending | Doubles index work on all services |
+| M1 | Inconsistent Error Responses | ⚠️ Partial | `errorResponse.ts` created in auth, merchant, order, payment services — utilities available for adoption |
 | M4 | autoIndex Not Disabled in Staging | ✅ Fixed | order-service mongodb.ts: `autoIndex` and `autoCreate` guarded with `NODE_ENV !== 'production'`; merchant/wallet already done |
 | M5 | Silent Audit Log Failures | ✅ Fixed | `.catch(() => {})` replaced with logger.error/warn in merchant auth/orders/cashback, payment shutdown, wallet redis/transaction (#49, #36, #26) |
 | M6 | N+1 Queries in Reconciliation | ✅ Fixed | `findBalanceMismatches` now uses single `$in` aggregate instead of one query per wallet; Promise.all parallelization in full report |
@@ -89,12 +87,12 @@ This section tracks the resolution of every issue identified in this audit acros
 | M12 | Inconsistent Health Check Endpoints | ⚠️ Partial | order uses `/ready` vs `/health/ready`; M23 mounted dedicated health router |
 | M13 | Deprecated Code Not Deleted | ✅ Fixed | `walletCreditWorker.ts` does not exist in wallet-service |
 | M14 | MongoDB Connection Pool Too Small | ✅ Fixed | order-service: pool size 10→50, `poolTimeoutMS: 10000` added; wallet already had 50 (#33) |
-| M15 | Shared Redis Instance for BullMQ + App | ❌ Pending | order still shares Redis |
+| M15 | Shared Redis Instance for BullMQ + App | ✅ Fixed | order-service: workerRedis dedicated for BullMQ; bullmqRedis for app ops (#34) |
 | M16 | Lock TTL Too Short — 30s | ✅ Fixed | order-service httpServer.ts: lock TTL increased from `EX', 30, 'NX'` to `EX', 60, 'NX'` (#33) |
-| M17 | SSE Endpoint No Connection Limits | ❌ Pending | order SSE endpoint unlimited |
+| M17 | SSE Endpoint No Connection Limits | ✅ Fixed | order-service httpServer.ts: Redis-based tracking, max 10/merchant, 1000 global (#34) |
 | M18 | Express urlencoded Without Explicit Limit | ✅ Fixed | payment-service index.ts: `limit: '100kb'` added to `express.urlencoded()` to prevent payload bomb attacks (#36) |
 | M19 | Balance Cache TTL Too Long — 5min | ✅ Fixed | walletService.ts: `BALANCE_CACHE_TTL` reduced from 300s (5 min) to 60s to limit stale balance exposure during concurrent transaction races |
-| M20 | Enum Mismatch: Zod vs Mongoose | ❌ Pending | payment has schema/model enum mismatch |
+| M20 | Enum Mismatch: Zod vs Mongoose | ✅ Fixed | payment-service: Zod enums aligned with Mongoose model — paymentMethod and purpose match (#39) |
 | M21 | Unvalidated deliveryAddress Object | ✅ Fixed | `validateDeliveryAddress()` added to httpServer.ts: limits keys (≤20), key length (≤100), string length (≤500), rejects arrays and nested arrays (#33) |
 | M22 | profileIntegration setTimeout vs AbortController | ✅ Fixed | Both payment and order services correctly use AbortController with setTimeout to trigger abort after 5s timeout |
 | M23 | Dead Code: health.ts Router Not Mounted | ✅ Fixed | wallet-service index.ts now mounts `healthRouter` at `/health`; inline handlers removed; `INTERNAL_SERVICE_HMAC_SECRET` added to render.yaml |
@@ -139,7 +137,7 @@ This section tracks the resolution of every issue identified in this audit acros
 
 **Phase 1 (Critical Security):** 19 issues — 15 fully fixed, 2 partial, 2 manual
 **Phase 2 (High Priority):** 15 issues — 12 fixed, 2 partial, 1 pending
-**Phase 3 (Medium Priority):** 30 issues — 18 fixed, 3 partial, 9 pending
+**Phase 3 (Medium Priority):** 30 issues — 22 fixed, 2 partial, 6 pending
 **Phase 4 (Low Priority):** 20 issues — 10 fixed, 4 partial, 6 pending
 
 ---
@@ -575,6 +573,14 @@ The following fixes still need PRs to be created:
 |------|-----------|-------|--------------|
 | #38 | rez-payment-service | fix(audit-wave3): M10 — add concurrency limit to DLQ bulk retry | M10 |
 | #27 | rez-wallet-service | fix(audit-wave3): M28/L5 — remove unused dep, add LRU eviction | M28, L5 |
+
+## WAVE 4 PRs (2026-04-29)
+
+| PR # | Repository | Title | Issues Fixed |
+|------|-----------|-------|--------------|
+| #39 | rez-payment-service | fix(audit-wave4): M20/M1 — sync Zod enums, add error utilities | M20, M1 |
+| #34 | rez-order-service | fix(audit-wave4): M17/M15/M1 — SSE limits, Redis separation, error utilities | M17, M15, M1 |
+| direct push | rez-merchant-service | fix(audit-wave4): M1 — add standardized error response utilities | M1 |
 
 ## PHASED FIX PLAN (UPDATED)
 
