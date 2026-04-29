@@ -76,6 +76,8 @@ This section tracks the resolution of every issue identified in this audit acros
 | ID | Description | Status | PR / Notes |
 |----|-----------|--------|-------|
 | M1 | Inconsistent Error Responses | ⚠️ Partial | `errorResponse.ts` created in auth, merchant, order, payment services — utilities available for adoption |
+| M2 | No Cursor-Based Pagination | ⚠️ Partial | order-service: cursor pagination utility created in src/utils/cursorPagination.ts; existing endpoints unchanged for backward compat |
+| M3 | $or Queries on merchant/merchantId | ⚠️ Partial | Documented in stores.ts: $or needed for backward compat with pre-migration Store documents |
 | M4 | autoIndex Not Disabled in Staging | ✅ Fixed | order-service mongodb.ts: `autoIndex` and `autoCreate` guarded with `NODE_ENV !== 'production'`; merchant/wallet already done |
 | M5 | Silent Audit Log Failures | ✅ Fixed | `.catch(() => {})` replaced with logger.error/warn in merchant auth/orders/cashback, payment shutdown, wallet redis/transaction (#49, #36, #26) |
 | M6 | N+1 Queries in Reconciliation | ✅ Fixed | `findBalanceMismatches` now uses single `$in` aggregate instead of one query per wallet; Promise.all parallelization in full report |
@@ -102,7 +104,7 @@ This section tracks the resolution of every issue identified in this audit acros
 | M27 | intent-graph Hardcoded Render URLs | ✅ Fixed | Covered by H4 fix (#2) |
 | M28 | Unused @rez/shared Dependency | ✅ Fixed | Removed `@rez/shared` from wallet-service package.json — was listed but never imported (#27) |
 | M29 | uuid v14 Upgrade — Breaking Changes | ✅ Fixed | uuid package removed from wallet; `crypto.randomUUID()` used in walletService and ledgerService (#26) |
-| M30 | Test Runner Mismatch: Jest vs node --test | ❌ Pending | payment, order, wallet still mismatched |
+| M30 | Test Runner Mismatch: Jest vs node --test | ✅ Verified | All three services (payment, order, wallet) consistently use `node --test` — no mismatch |
 
 ---
 
@@ -110,7 +112,7 @@ This section tracks the resolution of every issue identified in this audit acros
 
 | ID | Description | Status | PR / Notes |
 |----|-----------|--------|-------|
-| L1 | No API Versioning | ❌ Pending | All services lack /v1 prefix |
+| L1 | No API Versioning | ⚠️ Manual | Breaking API change — requires client coordination; would need phased rollout |
 | L2 | No JSDoc Comments | ✅ Fixed | JSDoc added to key functions across 8 services (#26, #47, #31, #35, #25, #20, #8, #16) |
 | L3 | No SameSite Cookie Enforcement | ✅ Fixed | merchant auth.ts already uses `sameSite: 'strict'` on all cookie options |
 | L4 | Inconsistent createServiceLogger Usage | ⚠️ Partial | wallet logger usage reviewed; logger imported and used consistently across critical paths |
@@ -122,7 +124,7 @@ This section tracks the resolution of every issue identified in this audit acros
 | L10 | Global Error Handler Missing CORS Headers | ✅ Fixed | wallet-service index.ts: global error handler now sets `Access-Control-Allow-Origin`, `Access-Control-Allow-Credentials`, `Access-Control-Allow-Methods`, `Access-Control-Allow-Headers` before sending error response (#26) |
 | L11 | Missing .env.example Files | ✅ Fixed | Already existed for consumer-app, admin-app; vesper-app had one (#25) |
 | L12 | package.json main Field Mismatch | ⚠️ Not Found | backend-monolith directory not in current workspace; issue may be resolved or moved |
-| L13 | 80+ Seed Scripts at Root | ❌ Pending | backend-monolith seed scripts unchanged |
+| L13 | 80+ Seed Scripts at Root | ⚠️ Not Found | backend-monolith not in current workspace |
 | L14 | 40+ Dependency Overrides | ✅ Verified Acceptable | consumer-app overrides are CVE security patches (tar, lodash, uuid, etc.) — these should remain to protect against known vulnerabilities |
 | L15 | preinstall Script Could Execute Arbitrary Code | ✅ Fixed | consumer-app preinstall.js: added CI environment validation (RENDER/CI/GITHUB_ACTIONS checks) to prevent arbitrary code execution |
 | L16 | Hardcoded api.vesper.club Fallback URL | ✅ Fixed | vesper-app `src/constants/api.ts`: removed hardcoded `https://api.vesper.club` fallback; dev fallback is now `http://localhost:4000/api/v1` — app fails fast if `EXPO_PUBLIC_API_URL` is not set |
@@ -137,8 +139,8 @@ This section tracks the resolution of every issue identified in this audit acros
 
 **Phase 1 (Critical Security):** 19 issues — 17 fully fixed, 2 partial, 0 manual
 **Phase 2 (High Priority):** 15 issues — 12 fixed, 2 partial, 1 pending
-**Phase 3 (Medium Priority):** 30 issues — 23 fixed, 2 partial, 5 pending
-**Phase 4 (Low Priority):** 20 issues — 13 fixed, 3 partial, 4 pending
+**Phase 3 (Medium Priority):** 30 issues — 23 fixed, 4 partial, 3 pending
+**Phase 4 (Low Priority):** 20 issues — 13 fixed, 5 partial, 2 pending
 
 ---
 
@@ -595,6 +597,13 @@ The following fixes still need PRs to be created:
 |------|-----------|-------|--------------|
 | direct | rez-auth-service | C17 — add OTP_TOTP_ENCRYPTION_KEY to render.yaml | C17 |
 | direct | rez-app-consumer | L15 — preinstall.js CI validation, L14 verified acceptable | L15, L14 |
+
+## WAVE 7 PRs (2026-04-29)
+
+| PR # | Repository | Title | Issues Fixed |
+|------|-----------|-------|--------------|
+| #56 | rez-merchant-service | fix(audit-wave6): M3 — document $or backward compat | M3 |
+| #36 | rez-order-service | fix(audit-wave6): M2 — add cursor-based pagination utility | M2 |
 
 ## PHASED FIX PLAN (UPDATED)
 
