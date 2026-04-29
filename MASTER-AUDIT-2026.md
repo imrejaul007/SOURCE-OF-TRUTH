@@ -97,7 +97,7 @@ This section tracks the resolution of every issue identified in this audit acros
 | M22 | profileIntegration setTimeout vs AbortController | ✅ Fixed | Both payment and order services correctly use AbortController with setTimeout to trigger abort after 5s timeout |
 | M23 | Dead Code: health.ts Router Not Mounted | ✅ Fixed | wallet-service index.ts now mounts `healthRouter` at `/health`; inline handlers removed; `INTERNAL_SERVICE_HMAC_SECRET` added to render.yaml |
 | M24 | No Resource Limits in Dockerfile/render.yaml | ✅ Fixed | `memoryMB: 512` and `autoDeploy: false` added to render.yaml for wallet, merchant, payment, order services |
-| M25 | Gateway Env Vars Fall Through to Localhost | ❌ Pending | gateway localhost fallback unchanged |
+| M25 | Gateway Env Vars Fall Through to Localhost | ✅ Fixed | gateway nginx.conf: all env vars now have fail-fast fallback (fail://unset-*) instead of localhost — misconfiguration produces 502 instead of silent proxy to wrong host |
 | M26 | intent-graph Uses console.log | ✅ Fixed | No console.log found in intent-graph route files; structured logger already in use |
 | M27 | intent-graph Hardcoded Render URLs | ✅ Fixed | Covered by H4 fix (#2) |
 | M28 | Unused @rez/shared Dependency | ✅ Fixed | Removed `@rez/shared` from wallet-service package.json — was listed but never imported (#27) |
@@ -126,7 +126,7 @@ This section tracks the resolution of every issue identified in this audit acros
 | L14 | 40+ Dependency Overrides | ❌ Pending | consumer-app dependency overrides unchanged |
 | L15 | preinstall Script Could Execute Arbitrary Code | ❌ Pending | consumer-app preinstall script unverified |
 | L16 | Hardcoded api.vesper.club Fallback URL | ✅ Fixed | vesper-app `src/constants/api.ts`: removed hardcoded `https://api.vesper.club` fallback; dev fallback is now `http://localhost:4000/api/v1` — app fails fast if `EXPO_PUBLIC_API_URL` is not set |
-| L17 | Intent Graph Swarm No Graceful Shutdown | ❌ Pending | intent-graph swarm graceful shutdown not implemented |
+| L17 | Intent Graph Swarm No Graceful Shutdown | ✅ Fixed | intent-graph server.ts: added SIGTERM/SIGINT handlers with 10s connection drain before exit |
 | L18 | Unused @rez/shared-types in nextabizz | ✅ Fixed | nextabizz does not use `@rez/shared-types` — package not imported |
 | L19 | No .nvmrc Files | ✅ Fixed | `.nvmrc` with `20` added to auth, merchant, order, payment, wallet (#25, #46, #30, #34, #24) |
 | L20 | Incomplete Webhook Integration Test | ❌ Pending | payment webhook test incomplete |
@@ -137,8 +137,8 @@ This section tracks the resolution of every issue identified in this audit acros
 
 **Phase 1 (Critical Security):** 19 issues — 15 fully fixed, 2 partial, 2 manual
 **Phase 2 (High Priority):** 15 issues — 12 fixed, 2 partial, 1 pending
-**Phase 3 (Medium Priority):** 30 issues — 22 fixed, 2 partial, 6 pending
-**Phase 4 (Low Priority):** 20 issues — 10 fixed, 4 partial, 6 pending
+**Phase 3 (Medium Priority):** 30 issues — 23 fixed, 2 partial, 5 pending
+**Phase 4 (Low Priority):** 20 issues — 11 fixed, 3 partial, 6 pending
 
 ---
 
@@ -581,6 +581,13 @@ The following fixes still need PRs to be created:
 | #39 | rez-payment-service | fix(audit-wave4): M20/M1 — sync Zod enums, add error utilities | M20, M1 |
 | #34 | rez-order-service | fix(audit-wave4): M17/M15/M1 — SSE limits, Redis separation, error utilities | M17, M15, M1 |
 | direct push | rez-merchant-service | fix(audit-wave4): M1 — add standardized error response utilities | M1 |
+
+## WAVE 5 PRs (2026-04-29)
+
+| PR # | Repository | Title | Issues Fixed |
+|------|-----------|-------|--------------|
+| #13 | rez-api-gateway | fix(audit-wave5): M25 — gateway env vars fail fast instead of localhost | M25 |
+| #3 | rez-intent-graph | fix(audit-wave5): L17 — add graceful shutdown to intent-graph server | L17 |
 
 ## PHASED FIX PLAN (UPDATED)
 
