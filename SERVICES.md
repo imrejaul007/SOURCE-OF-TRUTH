@@ -42,7 +42,6 @@ The REZ ecosystem consists of 8 backend microservices + 3 mobile apps + 1 gatewa
 |-----|----|---------|--------|
 | consumer-app | [Link](https://github.com/imrejaul007/consumer-app) | React Native | ✅ Live |
 | admin-app | [Link](https://github.com/imrejaul007/admin-app) | React Native | ✅ Live |
-| vesper-app | [Link](https://github.com/imrejaul007/vesper) | React Native | ✅ Live |
 
 ---
 
