@@ -20,6 +20,7 @@ Comprehensive TypeScript build fixes and security updates across all services. A
 | rez-wallet-service | ✅ Pass | ✅ Clean | #29 |
 | rez-order-service | ✅ Pass | ✅ Clean | #38 |
 | rez-catalog-service | ✅ Pass | ✅ Clean | #17 |
+| rez-intent-graph | ✅ Pass | ✅ Clean | #9 |
 
 ---
 
@@ -57,6 +58,11 @@ Comprehensive TypeScript build fixes and security updates across all services. A
 | PR # | Commit | Description |
 |------|--------|-------------|
 | #17 | bbfef45 | Type fixes in worker.ts |
+
+### intent-graph
+| PR # | Commit | Description |
+|------|--------|-------------|
+| #9 | ae809d4 | Type fixes: redis, circuitBreaker, cache, streamService, vectorService |
 
 ---
 
