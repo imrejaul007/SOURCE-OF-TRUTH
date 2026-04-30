@@ -425,7 +425,6 @@ rez-api-gateway (All admin routes: users, merchants, stores, orders, campaigns, 
 
 | Service | Repo | Notes |
 |---------|------|-------|
-| **vesper** | github.com/imrejaul007/vesper | Private, no local clone |
 | **rez-app** | github.com/imrejaul007/rez-app | Private, no local clone (legacy?) |
 | **hotel** | github.com/imrejaul007/hotel | Public, no local clone |
 | **ReZ-Hotel-pms** | github.com/imrejaul007/ReZ-Hotel-pms | Submodule of Hotel OTA (hotel-ota repo) |

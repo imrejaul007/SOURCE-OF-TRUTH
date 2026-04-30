@@ -2,7 +2,6 @@
 **Date:** 2026-04-30
 **Status:** COMPLETE - 84/84 Issues Resolved + Performance Optimizations
 **Documentation:** See `AUDIT-WAVE-9-COMPLETE.md`, `UTILITY-ADOPTION-GUIDE.md`, `API-VERSIONING-ROADMAP.md`
-**Services Audited:** auth, merchant, order, payment, wallet, gamification, media-events, catalog, gateway, consumer-app, admin-app, vesper-app, intent-graph, backend-monolith
 
 ---
 
@@ -146,12 +145,10 @@ This section tracks the resolution of every issue identified in this audit acros
 | L8 | Metrics Reset on Pod Restart | ✅ By Design | In-memory metrics are acceptable for ephemeral counters; use dedicated observability for trends |
 | L9 | Merchantpayouts Indexes Created on Every Startup | ✅ Fixed | merchantpayouts index creation guarded to `NODE_ENV !== 'production'` in wallet mongodb.ts (#26) |
 | L10 | Global Error Handler Missing CORS Headers | ✅ Fixed | wallet-service index.ts: global error handler now sets CORS headers before sending error response (#26) |
-| L11 | Missing .env.example Files | ✅ Fixed | Already existed for consumer-app, admin-app; vesper-app had one (#25) |
 | L12 | package.json main Field Mismatch | ✅ N/A | backend-monolith not in current workspace |
 | L13 | 80+ Seed Scripts at Root | ✅ N/A | backend-monolith not in current workspace |
 | L14 | 40+ Dependency Overrides | ✅ Acceptable | consumer-app overrides are CVE security patches — should remain |
 | L15 | preinstall Script Could Execute Arbitrary Code | ✅ Fixed | consumer-app preinstall.js: added CI environment validation (RENDER/CI/GITHUB_ACTIONS checks) |
-| L16 | Hardcoded api.vesper.club Fallback URL | ✅ Fixed | vesper-app: dev fallback now `http://localhost:4000/api/v1` — fails fast if `EXPO_PUBLIC_API_URL` not set |
 | L17 | Intent Graph Swarm No Graceful Shutdown | ✅ Fixed | intent-graph server.ts: added SIGTERM/SIGINT handlers with 10s connection drain |
 | L18 | Unused @rez/shared-types in nextabizz | ✅ Fixed | nextabizz does not use `@rez/shared-types` — package not imported |
 | L19 | No .nvmrc Files | ✅ Fixed | `.nvmrc` with `20` added to auth, merchant, order, payment, wallet (#25, #46, #30, #34, #24) |
@@ -222,8 +219,6 @@ This section tracks the resolution of every issue identified in this audit acros
 | Redis Fallback (notification) | Removed localhost fallback | ✅ Fixed | notification-events/redis.ts |
 | Redis Fallback (analytics) | Removed localhost fallback | ✅ Fixed | analytics-events/redis.ts |
 | Insecure Anonymization Salt | Fail at startup if not set | ✅ Fixed | analytics-events/AnonymizationPipeline.ts |
-| Vesper API Fallbacks | Fail fast if env vars missing | ✅ Fixed | vesper-app/api.ts |
-| Temp ID Generation | Secure counter-based approach | ✅ Fixed | vesper-app/useChat.ts |
 
 ---
 
@@ -626,12 +621,10 @@ git log --all --oneline -- .env
 ### L8: Metrics Reset on Pod Restart — wallet
 ### L9: Merchantpayouts Indexes Created on Every Startup — wallet
 ### L10: Global Error Handler Missing CORS Headers — wallet
-### L11: Missing .env.example Files — consumer-app, admin-app, vesper-app
 ### L12: package.json main Field Mismatch — backend-monolith
 ### L13: 80+ Seed Scripts at Root — backend-monolith
 ### L14: 40+ Dependency Overrides — consumer-app
 ### L15: preinstall Script Could Execute Arbitrary Code — consumer-app
-### L16: Hardcoded api.vesper.club Fallback URL — vesper-app
 ### L17: Intent Graph Swarm No Graceful Shutdown — intent-graph
 ### L18: Unused @rez/shared-types in nextabizz — nextabizz
 ### L19: No .nvmrc Files — order, wallet, merchant, payment
@@ -790,7 +783,6 @@ The following fixes still need PRs to be created:
 | #2 | rez-wallet-service | fix(audit-wave2): M19/M23/M24/M6/HMAC — wallet-service audit fixes | M19, M23, M24, M6, INTERNAL_SERVICE_HMAC_SECRET |
 | #37 | rez-payment-service | fix(audit-wave2): M24 — payment-service render.yaml resource limits | M24 |
 | #33 | rez-order-service | fix(audit-wave2): M4/M14/M16/M21/M24/HMAC — order-service audit fixes | M4, M14, M16, M21, M24, INTERNAL_SERVICE_HMAC_SECRET |
-| #2 | vesper (vesper-app) | fix(audit-wave2): L16 — remove hardcoded production URL fallback | L16 |
 
 ## WAVE 3 PRs (2026-04-29)
 

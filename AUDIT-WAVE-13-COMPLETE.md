@@ -9,7 +9,6 @@
 ### Services/Folders Audited
 - consumer-app (Expo React Native)
 - admin-app (Expo React Native)
-- vesper-app (Expo React Native)
 - rez-notification-events
 - analytics-events
 - rez-scheduler-service
@@ -179,8 +178,6 @@ analytics-events/src/pipelines/AnonymizationPipeline.ts
 
 ### Frontend Apps
 ```
-vesper-app/src/constants/api.ts
-vesper-app/src/hooks/useChat.ts
 ```
 
 ---

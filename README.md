@@ -15,18 +15,32 @@ Single place to find everything about the REZ platform. Read this before solving
 | [DEPLOY-STATUS.md](DEPLOY-STATUS.md) | Live deployment URLs and status |
 | [ENV-VARS.md](ENV-VARS.md) | All environment variables |
 | [LOCAL-PORTS.md](LOCAL-PORTS.md) | Local development ports |
+| [ALL-FEATURES.md](ALL-FEATURES.md) | Complete feature list |
 
 ### Services
 | Document | Description |
 |----------|-------------|
 | [SERVICES.md](SERVICES.md) | All microservices catalog |
 | [API-ENDPOINTS.md](API-ENDPOINTS.md) | API endpoints reference |
+| [API-DOCUMENTATION.md](API-DOCUMENTATION.md) | API documentation |
 | [REPOS.md](REPOS.md) | All 20+ repositories |
+
+### Apps & Integration
+| Document | Description |
+|----------|-------------|
+| [APP-INTEGRATION-GUIDE.md](APP-INTEGRATION-GUIDE.md) | Consumer/admin app integration |
+| [AGENT-SWARM-API.md](AGENT-SWARM-API.md) | Agent swarm API |
+| [BUSINESS-MODEL.md](BUSINESS-MODEL.md) | Business model and revenue |
 
 ### Security & Audit
 | Document | Description |
 |----------|-------------|
 | [MASTER-AUDIT-2026.md](MASTER-AUDIT-2026.md) | **Start here** - Complete audit (84/84 fixed) |
+| [AUDIT-WAVE-9-COMPLETE.md](AUDIT-WAVE-9-COMPLETE.md) | Wave 9 audit |
+| [AUDIT-WAVE-10.md](AUDIT-WAVE-10.md) | Wave 10 audit |
+| [AUDIT-WAVE-11-COMPLETE.md](AUDIT-WAVE-11-COMPLETE.md) | Wave 11 audit |
+| [AUDIT-WAVE-12-COMPLETE.md](AUDIT-WAVE-12-COMPLETE.md) | Wave 12 audit |
+| [AUDIT-WAVE-13-COMPLETE.md](AUDIT-WAVE-13-COMPLETE.md) | Wave 13 audit |
 | [SECURITY-HARDENING-PLAN.md](SECURITY-HARDENING-PLAN.md) | Security roadmap |
 | [OPS-003-NO-API-GATEWAY.md](OPS-003-NO-API-GATEWAY.md) | API Gateway fixes |
 | [REDIS-AUTH-GUIDE.md](REDIS-AUTH-GUIDE.md) | Redis authentication |
@@ -101,7 +115,10 @@ Client → Cloudflare → Kong Gateway → Services → MongoDB/Redis
 |-----|--------|----------|
 | consumer-app | [Link](https://github.com/imrejaul007/consumer-app) | Expo/React Native |
 | admin-app | [Link](https://github.com/imrejaul007/admin-app) | Expo/React Native |
-| vesper-app | [Link](https://github.com/imrejaul007/vesper) | Expo/React Native |
+
+### Vesper App (Dating)
+| Document | Description |
+|----------|-------------|
 
 ---
 
