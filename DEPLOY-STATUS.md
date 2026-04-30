@@ -1,6 +1,6 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-30 (Gen 63: scan.tsx restored with expo-camera; new APK ready)
+Last updated: 2026-04-30 (Gen 65: Full platform audit complete — all 28 repos synced, TypeScript passing)
 
 ## Audit Results (2026-04-30)
 
@@ -8,7 +8,7 @@ Last updated: 2026-04-30 (Gen 63: scan.tsx restored with expo-camera; new APK re
 | Category | Repos | Status |
 |----------|-------|--------|
 | Karma Suite | rez-karma-service, rez-karma-app, rez-karma-mobile | ✅ Synced |
-| Backend Services | rez-auth, merchant, wallet, payment, order, catalog, search | ✅ Synced |
+| Backend Services | rez-auth, merchant, wallet, payment, order, catalog, search, api-gateway | ✅ Synced |
 | Event Services | rez-gamification, media-events, notification, analytics | ✅ Synced |
 | Marketing/Ads | rez-ads-service, rez-marketing-service | ✅ Synced |
 | Web Apps | rez-app-admin, consumer, marchant, web-menu, now | ✅ Synced |
@@ -18,6 +18,11 @@ Last updated: 2026-04-30 (Gen 63: scan.tsx restored with expo-camera; new APK re
 - rez-auth-service: No errors
 - rez-karma-service: No errors
 - rez-app-consumer: No errors
+- rez-api-gateway: No errors
+- rez-app-marchant: Analytics fixed (pre-existing copilot type issues remain)
+
+### EAS Build Status
+- rez-karma-mobile: ✅ SUCCESS — APK at https://expo.dev/artifacts/eas/j5jjZyMuBvgmReFZuXnLKD.apk
 - rez-karma-mobile: No errors (expo-doctor clean)
 
 ### EAS Build Status
