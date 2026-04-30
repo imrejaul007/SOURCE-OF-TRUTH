@@ -216,6 +216,16 @@ Evidence:
 
 ## FIXES APPLIED
 
+### Wave 2 (2026-04-30)
+
+| Issue | Service | PR | Status |
+|-------|---------|-----|--------|
+| @types/* to devDependencies | merchant | #61 | Merged |
+| @types/* to devDependencies | wallet | #30 | Merged |
+| @types/* to devDependencies | order | #40 | Merged |
+| GitHub forks → local paths | rez-app-marchant | #126 | Merged |
+| GitHub forks → local paths | rez-karma-service | #37 | Merged |
+
 ### Wave 1 (2026-04-30)
 
 | Issue | Service | Status |

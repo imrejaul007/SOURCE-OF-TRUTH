@@ -78,10 +78,52 @@ See `Rendez/DEPLOY.md` for full documentation.
 
 | Service | Port | Status | Type |
 |---------|------|--------|------|
-| **rez-corpperks-service** | 4013 | Built | Gateway API |
-| **rez-hotel-service** | 4011 | Built | Makcorps proxy |
-| **rez-procurement-service** | 4012 | Built | NextaBizz proxy |
-| **CorpPerks Admin** | - | Built | imrejaul007/CorpPerks |
+| **rez-corpperks-service** | 4013 | Ready | Gateway API |
+| **rez-hotel-service** | 4011 | Ready | Makcorps proxy |
+| **rez-procurement-service** | 4012 | Ready | NextaBizz proxy |
+| **CorpPerks Admin** | - | Ready | imrejaul007/CorpPerks |
+
+### CorpPerks Deployment
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/imrejaul007/CorpPerks.git
+cd CorpPerks
+
+# 2. Set environment variables
+cp .env.example .env
+# Edit .env with your MongoDB Atlas URI
+
+# 3. Docker Compose (recommended)
+docker-compose up -d
+
+# 4. Or deploy to Render
+# Use render.yaml blueprint
+```
+
+### CorpPerks MongoDB Models
+
+| Model | Purpose |
+|-------|---------|
+| Company | Company info |
+| Employee | Employee records |
+| Benefit | Benefit packages |
+| BenefitUsage | Usage tracking |
+| Booking | Hotel bookings |
+| Invoice | GST invoices |
+| Order | Gift orders |
+| Campaign | Gift/Karma campaigns |
+| Wallet | Corporate wallet |
+| Card | Expense cards |
+| RewardTransaction | Coin transactions |
+
+### Seed Data
+
+```bash
+cd rez-corpperks-service
+npm install
+npm run seed
+```
 
 ## Recent Updates (2026-04-20)
 
