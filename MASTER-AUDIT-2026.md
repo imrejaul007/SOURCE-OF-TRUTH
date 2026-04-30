@@ -185,6 +185,17 @@ This section tracks the resolution of every issue identified in this audit acros
 | RBAC Middleware | requirePermissions(), requireRole() added | ✅ Fixed | auth.ts |
 | Payroll Routes | Permission checks on sensitive operations | ✅ Fixed | payroll.ts |
 | Order Service Build | cursorPagination TypeScript errors | ✅ Fixed | #38 |
+
+---
+
+## WAVE 11 FIXES (2026-04-30)
+
+| Issue | Description | Status | Files |
+|-------|-------------|--------|-------|
+| Hardcoded Fallbacks | Removed localhost/onrender fallbacks | ✅ Fixed | profileIntegration.ts, intentCaptureService.ts, redis.ts, mongodb.ts, oauth.ts |
+| Silent Error Swallowing | Added logging to all .catch(() => {}) | ✅ Fixed | httpServer.ts, intentCaptureService.ts |
+| Pagination Limits | Added limit caps to bizdocs route | ✅ Fixed | bizdocs.ts |
+| OAuth Env Vars | Added startup validation for required vars | ✅ Fixed | oauth.ts |
 | M12 | Health check endpoints | ✅ Fixed | Standardized health check middleware in rez-shared |
 | L4 | Logger Inconsistency | ✅ Fixed | Centralized logger in rez-shared |
 
