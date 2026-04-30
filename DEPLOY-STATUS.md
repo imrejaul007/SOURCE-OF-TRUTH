@@ -23,10 +23,25 @@ Last updated: 2026-04-30 (Gen 63: scan.tsx restored with expo-camera; new APK re
 ### EAS Build Status
 - rez-karma-mobile: ✅ SUCCESS — APK at https://expo.dev/artifacts/eas/j5jjZyMuBvgmReFZuXnLKD.apk (with expo-camera restored)
 
-## Remaining Tasks
-| Task | Status | Notes |
-|------|--------|-------|
-| **Rendez Deploy** | PENDING | Needs `RENDER_API_TOKEN` in GitHub → Settings → Secrets → Actions |
+## Rendez Deploy (Ready to Deploy)
+
+### Setup Required (Manual - GitHub UI)
+
+**Step 1:** Go to https://github.com/imrejaul007/Rendez/settings/secrets/actions and add:
+
+| Secret Name | Where to Get |
+|-------------|--------------|
+| `RENDER_API_TOKEN` | https://dashboard.render.com/api-keys |
+| `REZ_PARTNER_API_KEY` | REZ API Gateway admin |
+
+**Step 2:** Push to main or click "Run workflow" to trigger deploy
+
+### Deploys via render.yaml
+- `rendez-db` - PostgreSQL (auto-created)
+- `rendez-backend` - Node.js API (auto-deployed)
+- `rendez-admin` - Next.js admin (auto-deployed)
+
+See `Rendez/DEPLOY.md` for full documentation.
 
 ## Production (Live on Render/Vercel)
 
