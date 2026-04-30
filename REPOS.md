@@ -77,6 +77,17 @@ All apps connect to the ecosystem through these services.
 | 12 | rez-scheduler-service | `rez-scheduler-service/` | imrejaul007/rez-scheduler-service | - | In Dev |
 | 13 | rez-finance-service | `rez-finance-service/` | imrejaul007/rez-finance-service | - | In Dev |
 | 14 | rez-karma-service | `rez-karma-service/` | imrejaul007/Karma | - | In Dev |
+| 15 | **CorpPerks** | `CorpPerks/` | imrejaul007/CorpPerks | - | New - CorpPerks Admin |
+
+---
+
+## CorpPerks (Enterprise Benefits Platform)
+
+| # | App | Local Path | Git Remote | Status |
+|---|-----|------------|------------|--------|
+| 1 | CorpPerks Admin | `CorpPerks/src/admin/` | imrejaul007/CorpPerks | Built |
+| 2 | rez-karma-app | `rez-karma-app/src/` | imrejaul007/rez-karma-app | Built |
+| 3 | rez-karma-service | `rez-karma-service/` | imrejaul007/Karma | Live |
 
 ## Event Workers
 

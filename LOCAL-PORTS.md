@@ -24,6 +24,9 @@ Every service listens on a specific local port. Use these when developing locall
 | **rez-contracts** | 3001 | http://localhost:3001 | Smart contracts |
 | **rez-finance-service** | 4005 | http://localhost:4005 | Finance service |
 | **rez-karma-service** | 4006 | http://localhost:4006 | Karma service |
+| **rez-hotel-service** | 4011 | http://localhost:4011 | Hotel OTA (Makcorps) |
+| **rez-procurement-service** | 4012 | http://localhost:4012 | NextaBizz procurement |
+| **rez-corpperks-service** | 4013 | http://localhost:4013 | CorpPerks API |
 | **rez-now** | 4007 | http://localhost:4007 | REZ Now app |
 | **rez-app-consumer** | — | — | Expo / EAS (mobile) |
 | **rez-app-marchant** | — | — | Expo / EAS (mobile) |

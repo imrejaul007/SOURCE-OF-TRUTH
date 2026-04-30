@@ -377,3 +377,39 @@ All of these secrets need fresh values before `www.rez.money` goes live:
 - [ ] GitHub — revoke any leaked PAT, regenerate scoped tokens only in GH Actions secrets
 
 After rotating JWT and session secrets, all existing user sessions will be invalidated — users will need to log in again. This is expected.
+
+---
+
+## CorpPerks Environment Variables
+
+### rez-hotel-service (Makcorps)
+```
+PORT=4011
+MAKCORPS_API_URL=https://api.makcorps.com
+MAKCORPS_API_KEY=<GET FROM MAKCORPS>
+MAKCORPS_CLIENT_ID=<GET FROM MAKCORPS>
+MAKCORPS_CLIENT_SECRET=<GET FROM MAKCORPS>
+```
+
+### rez-procurement-service (NextaBizz)
+```
+PORT=4012
+NEXTABIZZ_API_URL=https://api.nextabizz.com
+NEXTABIZZ_API_KEY=<GET FROM NEXTABIZZ>
+NEXTABIZZ_CLIENT_ID=<GET FROM NEXTABIZZ>
+NEXTABIZZ_CLIENT_SECRET=<GET FROM NEXTABIZZ>
+```
+
+### CorpPerks Admin (Vercel)
+```
+EXPO_PUBLIC_CORP_SERVICE_URL=https://corp-api.rez.money
+EXPO_PUBLIC_KARMA_SERVICE_URL=https://karma.rez.money
+EXPO_PUBLIC_HOTEL_OTA_URL=https://api.hotel.rez.money
+```
+
+### RTMN Finance
+```
+RTMN_WALLET_URL=https://wallet.rtmn.money
+RTMN_BNPL_URL=https://bnpl.rtmn.money
+RTMN_API_KEY=<GET FROM RTMN>
+```

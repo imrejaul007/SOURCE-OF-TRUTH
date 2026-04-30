@@ -256,6 +256,104 @@ All internal service calls require header:
 X-Internal-Token: <INTERNAL_SERVICE_TOKEN>
 ```
 
+## CorpPerks Endpoints
+
+### Benefits & Employees
+```
+GET    /api/corp/benefits              List benefit packages
+POST   /api/corp/benefits              Create benefit
+GET    /api/corp/benefits/:id          Get benefit
+PUT    /api/corp/benefits/:id          Update benefit
+DELETE /api/corp/benefits/:id          Delete benefit
+GET    /api/corp/employees            List employees
+POST   /api/corp/employees            Enroll employee
+GET    /api/corp/employees/:id        Get employee
+POST   /api/corp/employees/:id/benefits Allocate benefit
+GET    /api/corp/me                   My profile
+GET    /api/corp/me/benefits          My benefits
+```
+
+### GST Invoices
+```
+POST   /api/gst/calculate               Calculate GST
+POST   /api/gst/itc-check             Check ITC eligibility
+POST   /api/gst/invoices              Create invoice
+GET    /api/gst/invoices              List invoices
+GET    /api/gst/invoices/:number      Get invoice
+POST   /api/gst/reports/gstr1         Generate GSTR-1
+POST   /api/gst/einvoice/:number     Submit e-invoice
+```
+
+### Hotels (Makcorps)
+```
+GET    /api/hotels/search              Search hotels
+GET    /api/hotels/:id                 Hotel details
+GET    /api/hotels/:id/availability    Room availability
+POST   /api/hotels/bookings             Create booking
+GET    /api/hotels/bookings             List bookings
+GET    /api/hotels/bookings/:id        Booking details
+POST   /api/hotels/bookings/:id/cancel  Cancel booking
+POST   /api/hotels/pricing/calculate   Calculate price
+```
+
+### Procurement (NextaBizz)
+```
+GET    /api/nextabizz/products           Search products
+GET    /api/nextabizz/products/:id     Product details
+GET    /api/nextabizz/products/recommended Recommended
+POST   /api/nextabizz/orders            Create order
+GET    /api/nextabizz/orders           List orders
+GET    /api/nextabizz/orders/:id      Order details
+POST   /api/nextabizz/quotes           Request quote
+GET    /api/nextabizz/vendors          List vendors
+```
+
+### Rewards
+```
+GET    /api/corp/rewards/summary         My rewards
+GET    /api/corp/rewards/transactions   Transaction history
+POST   /api/corp/rewards/award          Award coins
+GET    /api/corp/rewards/tiers         Reward tiers
+GET    /api/corp/rewards/catalog       Reward catalog
+POST   /api/corp/rewards/redeem         Redeem reward
+GET    /api/corp/rewards/stats          Company stats
+POST   /api/corp/rewards/rules          Configure rules
+POST   /api/corp/rewards/bulk-award     Bulk award
+```
+
+### Campaigns
+```
+GET    /api/corp/campaigns               List campaigns
+POST   /api/corp/campaigns               Create campaign
+GET    /api/corp/campaigns/:id           Campaign details
+PUT    /api/corp/campaigns/:id           Update campaign
+DELETE /api/corp/campaigns/:id           Delete campaign
+GET    /api/corp/campaigns/:id/analytics Campaign analytics
+```
+
+### Health & Integration
+```
+GET    /api/integrations/health           All integration health
+GET    /api/integrations/health/:id       Integration health
+POST   /api/integrations/:provider/check  Trigger health check
+GET    /api/integrations/:provider/status Connection status
+```
+
+### Webhooks
+```
+POST   /api/integrations/makcorps/webhook    Makcorps events
+POST   /api/integrations/nextabizz/webhook   NextaBizz events
+POST   /api/integrations/hris/webhook       HRIS events
+POST   /api/integrations/finance/webhook    Finance events
+```
+
+### OAuth
+```
+GET    /api/integrations/:provider/connect   Initiate OAuth
+GET    /api/integrations/:provider/callback  OAuth callback
+POST   /api/integrations/:provider/disconnect Disconnect
+```
+
 ## Correlation / Tracing
 
 ```
