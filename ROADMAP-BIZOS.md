@@ -5,9 +5,9 @@
 
 ---
 
-## Recent Updates (2026-04-29)
+## Recent Updates (2026-04-29, 2026-04-30)
 
-### HOTEL-OTA-ARCH-001 Completed ✅
+### HOTEL-OTA-ARCH-001 Completed ✅ (2026-04-29)
 
 **Hotel OTA API architectural upgrade completed.** The Hotel OTA backend is now production-ready for horizontal scaling.
 
@@ -2507,6 +2507,13 @@ No new architecture needed — pure UX:
   - Phase 3 KPIs: NextaBiZ signal acceptance >70%
   - Phase 4 KPIs: multi-location merchants >25, inter-store transfers >100/month
   - Phase 5 KPIs: margin improvement +2%, BNPL utilization >60%
+- 2026-04-30: HotelOS Integration Fixes (BIZOS-001/002)
+  - FIX-BIZOS-001: REZ Consumer HotelBookingFlow.tsx now uses hotelOtaApi instead of serviceBookingApi
+  - FIX-BIZOS-002: REZ Merchant Dashboard now fetches PMS status and has working sync button
+  - Added GET /v1/hotel/pms/status endpoint
+  - Added POST /v1/hotel/pms/sync endpoint for inventory push
+  - Updated HotelOS Integration Gaps table with FIXED status for Consumer/Merchant Dashboard
+  - PMS webhook routes verified as mounted (/api/webhooks/pmsOtaWebhookRoutes)
 - 2026-04-29: Updated 5 Strategic Themes to 6 Themes — added User Architecture + Platform Extensibility
 - 2026-04-29: De-emphasized ClinicOS — moved to Phase 2 later, focus on Restaurant/Hotel/Wellness
 - 2026-04-29: Added Role-Specific Copilot Outputs (examples per role)
