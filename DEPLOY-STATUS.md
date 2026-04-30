@@ -1,6 +1,6 @@
 # REZ Platform — Deployment Status
 
-Last updated: 2026-04-30 (Gen 62: Full audit complete — All repos synced; TypeScript passes; EAS build SUCCESS)
+Last updated: 2026-04-30 (Gen 63: scan.tsx restored with expo-camera; new APK ready)
 
 ## Audit Results (2026-04-30)
 
@@ -21,7 +21,12 @@ Last updated: 2026-04-30 (Gen 62: Full audit complete — All repos synced; Type
 - rez-karma-mobile: No errors (expo-doctor clean)
 
 ### EAS Build Status
-- rez-karma-mobile: ✅ SUCCESS — APK at https://expo.dev/artifacts/eas/7KCmK4MPkXSq5uGBDSfMiF.apk
+- rez-karma-mobile: ✅ SUCCESS — APK at https://expo.dev/artifacts/eas/j5jjZyMuBvgmReFZuXnLKD.apk (with expo-camera restored)
+
+## Remaining Tasks
+| Task | Status | Notes |
+|------|--------|-------|
+| **Rendez Deploy** | PENDING | Needs `RENDER_API_TOKEN` in GitHub → Settings → Secrets → Actions |
 
 ## Production (Live on Render/Vercel)
 
