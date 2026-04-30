@@ -231,10 +231,13 @@ This section tracks the resolution of every issue identified in this audit acros
 
 | Service | Optimization | Status |
 |---------|--------------|--------|
-| rez-order-service | Gzip compression, response caching | ✅ Deployed |
+| rez-order-service | Gzip compression, response caching, field filtering | ✅ Deployed |
 | rez-payment-service | Gzip compression | ✅ Deployed |
 | rez-wallet-service | Gzip compression | ✅ Deployed |
-| rez-merchant-service | Gzip compression (already present) | ✅ Verified |
+| rez-merchant-service | Gzip compression | ✅ Verified |
+| rez-auth-service | Gzip compression | ✅ Deployed |
+| rez-catalog-service | Gzip compression | ✅ Deployed |
+| rez-gamification-service | Gzip compression | ✅ Deployed |
 
 ---
 
