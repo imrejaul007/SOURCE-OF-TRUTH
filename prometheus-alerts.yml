@@ -55,6 +55,102 @@ groups:
         annotations:
           summary: "Service {{ $labels.job }} is down"
 
+      # Payment Service Alerts
+      - alert: PaymentFailureRate
+        expr: |
+          sum(rate(payment_failures_total[5m]))
+          / sum(rate(payment_initiated_total[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Payment failure rate exceeds 5%"
+          description: "Payment service is experiencing high failure rates"
+
+      - alert: PaymentLatency
+        expr: |
+          histogram_quantile(0.95, sum(rate(payment_request_duration_seconds_bucket[5m])) by (le)) > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Payment latency exceeds 5s"
+          description: "Payment processing is slow"
+
+      # Wallet Service Alerts
+      - alert: WalletTransactionFailure
+        expr: |
+          sum(rate(wallet_transaction_failures_total[5m])) > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Wallet transaction failures detected"
+          description: "More than 10 wallet transaction failures per minute"
+
+      - alert: InsufficientBalanceErrors
+        expr: |
+          sum(rate(wallet_insufficient_balance_total[5m])) > 50
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High insufficient balance errors"
+          description: "Users experiencing insufficient balance issues"
+
+      # Order Service Alerts
+      - alert: OrderCreationFailures
+        expr: |
+          sum(rate(order_creation_failures_total[5m])) > 20
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High order creation failure rate"
+          description: "More than 20 order creation failures per minute"
+
+      - alert: OrderStatusTransitionErrors
+        expr: |
+          sum(rate(order_status_transition_errors_total[5m])) > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Order status transition errors"
+          description: "State machine transitions failing"
+
+      # Database Alerts
+      - alert: MongoDBConnectionPoolExhausted
+        expr: |
+          mongodb_connection_pool_size / mongodb_connection_pool_max_size > 0.9
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "MongoDB connection pool nearly exhausted"
+          description: "Connection pool usage above 90%"
+
+      - alert: RedisConnectionErrors
+        expr: |
+          sum(rate(redis_connection_errors_total[5m])) > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis connection errors detected"
+          description: "More than 10 Redis errors per minute"
+
+      # Circuit Breaker Alerts
+      - alert: CircuitBreakerOpen
+        expr: |
+          circuit_breaker_state{state="open"} > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Circuit breaker open for {{ $labels.service }}"
+          description: "Circuit breaker is preventing cascading failures"
+
       # High memory usage
       - alert: HighMemoryUsage
         expr: |
