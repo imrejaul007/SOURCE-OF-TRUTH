@@ -196,6 +196,39 @@ This section tracks the resolution of every issue identified in this audit acros
 | Silent Error Swallowing | Added logging to all .catch(() => {}) | ✅ Fixed | httpServer.ts, intentCaptureService.ts |
 | Pagination Limits | Added limit caps to bizdocs route | ✅ Fixed | bizdocs.ts |
 | OAuth Env Vars | Added startup validation for required vars | ✅ Fixed | oauth.ts |
+
+---
+
+## WAVE 12 FIXES (2026-04-30)
+
+| Issue | Description | Status | Files |
+|-------|-------------|--------|-------|
+| Gateway Kong CORS | Replaced wildcard *.vercel.app with explicit domains | ✅ Fixed | kong.yml |
+| Gateway Kong IP Restriction | Removed ineffective 0.0.0.0/0 config | ✅ Fixed | kong.yml |
+| Gateway start.sh Eval | Replaced eval with indirect variable reference | ✅ Fixed | start.sh |
+| Gamification Intent | Removed onrender fallback, added error logging | ✅ Fixed | intentCaptureService.ts |
+
+---
+
+## WAVE 13 FIXES (2026-04-30)
+
+| Issue | Description | Status | Files |
+|-------|-------------|--------|-------|
+| Redis Fallback (notification) | Removed localhost fallback | ✅ Fixed | notification-events/redis.ts |
+| Redis Fallback (analytics) | Removed localhost fallback | ✅ Fixed | analytics-events/redis.ts |
+| Insecure Anonymization Salt | Fail at startup if not set | ✅ Fixed | analytics-events/AnonymizationPipeline.ts |
+| Vesper API Fallbacks | Fail fast if env vars missing | ✅ Fixed | vesper-app/api.ts |
+| Temp ID Generation | Secure counter-based approach | ✅ Fixed | vesper-app/useChat.ts |
+
+---
+
+## CRITICAL ISSUES REQUIRING MANUAL ACTION
+
+| Issue | Risk | Action Required |
+|-------|------|----------------|
+| Exposed .env files | CRITICAL | Rotate credentials, remove from git history |
+| docker-compose.yml secrets | CRITICAL | Move to gitignored .env file |
+| google-services.json in git | CRITICAL | Add to .gitignore, rotate credentials |
 | M12 | Health check endpoints | ✅ Fixed | Standardized health check middleware in rez-shared |
 | L4 | Logger Inconsistency | ✅ Fixed | Centralized logger in rez-shared |
 
