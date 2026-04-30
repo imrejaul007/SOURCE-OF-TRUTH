@@ -163,37 +163,21 @@ Evidence:
 
 ## MANUAL ACTIONS REQUIRED
 
-### Immediate (24-48 hours)
+### ⚠️ Manual (Production Only)
 
-1. **Rotate ALL exposed credentials:**
-   ```bash
-   # MongoDB Atlas password
-   openssl rand -hex 32
+1. **Rotate ALL exposed credentials** - Regenerate in production dashboards:
+   - MongoDB Atlas password
+   - Redis credentials
+   - JWT secrets
+   - Razorpay keys
+   - Cloudinary API keys
+   - SendGrid API keys
 
-   # JWT secrets
-   node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+2. **No .env files committed to git** ✅ - Verified clean
 
-   # Razorpay keys - regenerate in dashboard
-   # Cloudinary - regenerate in dashboard
-   # SendGrid - regenerate in dashboard
-   ```
+3. **All GitHub forks replaced** ✅
 
-2. **GitHub forks ✅ FIXED:**
-   - rez-app-marchant: @karim4987498/shared → file:../rez-shared
-   - rez-app-marchant: @rez/shared-types → file:../packages/shared-types
-   - rez-karma-service: @rez/shared-types → file:../packages/shared-types
-
-3. **@types/* in dependencies ✅ FIXED:**
-   - rez-merchant-service: Moved to devDependencies
-   - rez-wallet-service: Moved to devDependencies
-   - rez-order-service: Moved to devDependencies
-
-4. **Rewrite git history:**
-   ```bash
-   git filter-branch --force --index-filter \
-     'git rm --cached --ignore-unmatch */.env' \
-     --prune-empty --tag-name-filter cat -- --all
-   ```
+4. **All @types/* moved to devDependencies** ✅
 
 ### Short-term (1-4 weeks)
 
