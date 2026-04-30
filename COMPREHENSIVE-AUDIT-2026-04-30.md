@@ -67,12 +67,10 @@ Evidence:
 4. Rewrite git history to remove committed secrets
 
 ### 6. GitHub Fork Supply Chain Risk
-**rez-app-marchant** - `@karim4987498/shared` from personal GitHub
-
-**Action Required:**
-1. Replace with internal npm registry (Verdaccio)
-2. Or copy code into monorepo
-3. Delete the GitHub fork
+**FIXED** ✅
+- rez-app-marchant: @karim4987498/shared → file:../rez-shared
+- rez-app-marchant: @rez/shared-types → file:../packages/shared-types
+- rez-karma-service: @rez/shared-types → file:../packages/shared-types
 
 ---
 
