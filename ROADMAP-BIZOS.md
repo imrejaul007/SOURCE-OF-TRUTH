@@ -1730,14 +1730,17 @@ The Hotel OTA and Hotel PMS are two complete, independent systems. The work is *
 
 | Gap | Description | Priority | Status |
 |-----|-----------|----------|--------|
-| **PMS → OTA webhook** | Hotel PMS fires booking_confirmed/cancelled to Hotel OTA — code exists but not wired in production | **Critical** | Not wired |
-| **PMS → OTA brand coin award** | PMS checkout awards hotel brand coins via Hotel OTA — code exists but not in PMS checkout flow | **Critical** | Not wired |
-| **OTA → PMS inventory push** | Hotel OTA pushes room availability/rate changes to PMS — code exists but not running | **High** | Not running |
-| **REZ Consumer → Hotel OTA booking** | `HotelBookingFlow.tsx` calls wrong API (`serviceBookingApi`) — should call Hotel OTA directly | **High** | Not wired |
+| **PMS → OTA webhook** | Hotel PMS fires booking_confirmed/cancelled to Hotel OTA — code exists but not wired in production | **Critical** | Not wired (PMS side) |
+| **PMS → OTA brand coin award** | PMS checkout awards hotel brand coins via Hotel OTA — code exists but not in PMS checkout flow | **Critical** | Not wired (PMS side) |
+| **OTA → PMS inventory push** | Hotel OTA pushes room availability/rate changes to PMS — code exists but not running | **High** | ✅ Wired (POST /v1/hotel/pms/sync) |
+| **REZ Consumer → Hotel OTA booking** | `HotelBookingFlow.tsx` calls wrong API (`serviceBookingApi`) — should call Hotel OTA directly | **High** | ✅ FIXED (now uses hotelOtaApi) |
 | **Corporate panel completion** | Corporate login scaffolded, booking management is placeholder | Medium | Incomplete |
 | **Channel manager sync** | SiteMinder, STAAH, Rategain integration schema ready but not verified | Medium | Not verified |
-| **REZ Merchant Hotel OTA Dashboard** | UI complete but needs real Hotel OTA backend URL in production | High | Partial |
-| **REZ Now Room Hub → REZ Consumer** | REZ Now Room Hub exists; needs REZ Consumer app integration | Medium | Not integrated |
+| **REZ Merchant Hotel OTA Dashboard** | PMS status not fetched, sync button not wired | High | ✅ FIXED (PMS status + sync now working) |
+| **REZ Now Room Hub → REZ Consumer** | REZ Now Room Hub exists; needs REZ Consumer app integration | Medium | Partial |
+
+**FIX-BIZOS-001:** REZ Consumer now uses `hotelOtaApi.holdBooking()` instead of `serviceBookingApi`
+**FIX-BIZOS-002:** REZ Merchant Dashboard now fetches PMS status and has working sync button
 
 #### Hotel OTA API Architecture Improvements (HOTEL-OTA-ARCH-001 ✅)
 
