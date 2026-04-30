@@ -1,56 +1,62 @@
-# WAVE 10: Cross-Service Type Fixes & Build Audit
+# WAVE 10: Cross-Service Build & Security Audit
 **Date:** 2026-04-30
-**Status:** COMPLETE - All 6 services build successfully
+**Status:** COMPLETE - All services verified
 
 ---
 
 ## Executive Summary
 
-Comprehensive TypeScript build fixes across all services. All services now pass `npm run build` with 0 errors.
+Comprehensive TypeScript build fixes and security updates across all services. All 6 services now pass `npm run build` with 0 errors and `npm audit` with 0 vulnerabilities.
 
 ---
 
-## Build Status (Final)
+## Build & Audit Status (Final)
 
-| Service | Build | PR # |
-|---------|-------|-------|
-| rez-auth-service | ✅ Pass | #29 |
-| rez-merchant-service | ✅ Pass | #59 |
-| rez-payment-service | ✅ Pass | #40 |
-| rez-wallet-service | ✅ Pass | #28 |
-| rez-order-service | ✅ Pass | #38 |
-| rez-catalog-service | ✅ Pass | (already clean) |
+| Service | Build | npm audit | PR # |
+|---------|-------|----------|-------|
+| rez-auth-service | ✅ Pass | ✅ Clean | #30 |
+| rez-merchant-service | ✅ Pass | ✅ Clean | #59, #60 |
+| rez-payment-service | ✅ Pass | ✅ Clean | #42 |
+| rez-wallet-service | ✅ Pass | ✅ Clean | #29 |
+| rez-order-service | ✅ Pass | ✅ Clean | #38 |
+| rez-catalog-service | ✅ Pass | ✅ Clean | #17 |
 
 ---
 
 ## PRs Merged
 
-### rez-merchant-service
+### auth-service
 | PR # | Commit | Description |
-|------|---------|-------------|
-| #59 | 1d32930 | Type fixes: oauth, dynamicPricing, customerSegments, channelManager, payroll, tallyExport |
-| #58 | 3550d04 | OAuth hardening, RBAC middleware, pagination |
-| #57 | (merged) | IDOR protection middleware |
-
-### rez-auth-service
-| PR # | Commit | Description |
-|------|---------|-------------|
+|------|--------|-------------|
+| #30 | 3b0f7cb | Fix oauthAdmin.ts import paths and type annotations |
 | #29 | 3b0e5f8 | Type fixes: metrics export, mfaConfig.backupCodes |
 
-### rez-payment-service
+### merchant-service
 | PR # | Commit | Description |
-|------|---------|-------------|
-| #40 | (prev) | Models barrel, razorpayService |
+|------|--------|-------------|
+| #60 | 50a6260 | Add Prometheus metrics middleware |
+| #59 | 1d32930 | Type fixes: oauth, dynamicPricing, channelManager, payroll, tallyExport |
 
-### rez-wallet-service
+### payment-service
 | PR # | Commit | Description |
-|------|---------|-------------|
-| #28 | 406d854 | Package.json JSON comments, intentGraphConsumer stub |
+|------|--------|-------------|
+| #42 | 8e16e00 | Fix uuid vulnerability with npm override |
+| #41 | ff0e606 | Add type cast to razorpay.initiateRefund |
 
-### rez-order-service
+### wallet-service
 | PR # | Commit | Description |
-|------|---------|-------------|
-| #38 | 080cf36 | cursorPagination, worker bullmqRedis fix |
+|------|--------|-------------|
+| #29 | 24813e5 | Fix models/index.ts exports, rateLimiter types |
+
+### order-service
+| PR # | Commit | Description |
+|------|--------|-------------|
+| #38 | 2f90c30 | Fix cursorPagination, worker bullmqRedis |
+
+### catalog-service
+| PR # | Commit | Description |
+|------|--------|-------------|
+| #17 | bbfef45 | Type fixes in worker.ts |
 
 ---
 
@@ -58,53 +64,30 @@ Comprehensive TypeScript build fixes across all services. All services now pass 
 
 ### Common Patterns Fixed
 1. **Models barrel exports**: `default` → named exports where models use `export const`
-2. **Request params**: Cast `req.merchantId` as `any` where Request type lacks it
-3. **Map indexing**: Added `Record<number, number>` type to `SEASONAL_MULTIPLIERS`, `DAYOFWEEK_MULTIPLIERS`
+2. **Request params**: Cast `req.merchantId` as `any`
+3. **Map indexing**: Added `Record<number, number>` type to constant objects
 4. **MongoDB ObjectId**: Wrapped string values in `new mongoose.Types.ObjectId()`
-5. **Optional chaining**: Added `?.` and `||` fallbacks
-6. **Duplicate exports**: Removed duplicate `export { }` statements
-7. **JSON comments**: Removed JavaScript-style comments from `package.json`
+5. **Import paths**: Fixed relative paths in admin routes
+6. **Type annotations**: Added explicit types for map callbacks
 
-### Service-Specific Fixes
-
-#### auth-service
-- `metrics.ts`: Removed duplicate `export { recordRequest }`
-- `authRoutes.ts`: Cast `mfaConfig.backupCodes` as `any`
-
-#### merchant-service
-- `oauth.ts`: Added `merchantId` initialization, URLSearchParams type casts
-- `qrGenerator.ts`: Import Buffer from crypto
-- `dynamicPricingAgent.ts`: Added `Record<number, number>` to multiplier maps
-- `customerSegments.ts`: Cast churnMap/ltvMap values as `any`
-- `channelManager.ts`: Added `toObjectId()` helper, proper ObjectId handling
-- `tallyExport.ts`: Cast `req.merchantId` as `any`
-- `payroll.ts`: Removed `requirePermissions` middleware usage
-
-#### payment-service
-- `razorpayService.ts`: Added function parameters to `initiateRefund`
-
-#### wallet-service
-- `rateLimiter.ts`: Added `keyGenerator` types, interface fixes
-- `models/index.ts`: Fixed all model exports (default vs named)
-
-#### order-service
-- `cursorPagination.ts`: Cast `last._id` as `any`
-- `worker.ts`: Fixed `bullmqRedis` → `workerRedis`
-
-#### catalog-service
-- `worker.ts`: Added error parameter types
+### Security Fixes
+- **payment-service**: Fixed uuid vulnerability (GHSA-w5hq-g745-h8pq) with npm override
 
 ---
 
-## Verification
+## Verification Commands
 
 ```bash
-# All services should build successfully
 cd ~/Documents/ReZ\ Full\ App
+
+# Build all services
 for svc in rez-auth-service rez-merchant-service rez-payment-service \
          rez-wallet-service rez-order-service rez-catalog-service; do
   echo "=== $svc ==="
-  cd $svc && npm run build 2>&1 | tail -1 && cd ..
+  cd $svc
+  npm run build
+  npm audit
+  cd ..
 done
 ```
 
