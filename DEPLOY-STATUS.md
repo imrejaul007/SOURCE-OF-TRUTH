@@ -79,55 +79,88 @@ See `Rendez/DEPLOY.md` for full documentation.
 | **rez-app-marchant** | https://rez-app-marchant.vercel.app | ✅ Live | Vercel |
 | **rez-web-menu** | https://menu.rez.money | ✅ Live | Vercel |
 
-## CorpPerks Services (Ready to Deploy)
+## CorpPerks Services (Production Ready)
 
-| Service | Port | Status | Type |
-|---------|------|--------|------|
-| **rez-corpperks-service** | 4013 | Ready | Gateway API |
-| **rez-hotel-service** | 4011 | Ready | Makcorps proxy |
-| **rez-procurement-service** | 4012 | Ready | NextaBizz proxy |
-| **CorpPerks Admin** | - | Ready | imrejaul007/CorpPerks |
+| Service | Port | Status | GitHub | Deploy |
+|---------|------|--------|--------|--------|
+| **rez-corpperks-service** | 4013 | ✅ Ready | `CorpPerks/` | render.yaml |
+| **rez-hotel-service** | 4011 | ✅ Ready | `CorpPerks/` | Included |
+| **rez-procurement-service** | 4012 | ✅ Ready | `CorpPerks/` | Included |
+| **CorpPerks Admin** | - | ✅ Ready | imrejaul007/CorpPerks | Vercel |
 
-### CorpPerks Deployment
+### CorpPerks Deploy (2 Options)
 
+**Option 1: Render Blueprint**
 ```bash
-# 1. Clone the repo
+# 1. Go to https://dashboard.render.com/blueprints
+# 2. New Blueprint → Connect GitHub
+# 3. Select imrejaul007/CorpPerks
+# 4. Add MONGODB_URI, MAKCORPS_API_KEY, NEXTABIZZ_API_KEY
+# 5. Apply
+```
+
+**Option 2: Docker Compose**
+```bash
 git clone https://github.com/imrejaul007/CorpPerks.git
 cd CorpPerks
-
-# 2. Set environment variables
 cp .env.example .env
-# Edit .env with your MongoDB Atlas URI
-
-# 3. Docker Compose (recommended)
 docker-compose up -d
-
-# 4. Or deploy to Render
-# Use render.yaml blueprint
 ```
+
+### CorpPerks Architecture
+
+```
+CorpPerks (imrejaul007/CorpPerks)
+├── rez-corpperks-service/  # Gateway API (Port 4013)
+│   ├── routes/              # 9 route modules
+│   ├── models/schemas.js   # 11 MongoDB models
+│   ├── config/database.js   # MongoDB connection
+│   └── scripts/seed.js      # Demo data
+├── rez-hotel-service/       # Makcorps proxy (Port 4011)
+├── rez-procurement-service/ # NextaBizz proxy (Port 4012)
+├── sdk/                     # JS SDK (@rez/corpperks-sdk)
+├── docker-compose.yml       # Docker deployment
+├── render.yaml              # Render blueprint
+├── DEPLOY.md               # Deployment guide
+└── CorpPerks.postman_collection.json
+```
+
+### CorpPerks API Routes
+
+| Route | Module | Endpoints |
+|-------|--------|-----------|
+| `/api/corp` | Benefits, Employees | CRUD, enrollment |
+| `/api/gst` | GST Invoices | Calculate, invoices, GSTR-1 |
+| `/api/rewards` | ReZ Coins | Summary, catalog, redeem |
+| `/api/campaigns` | Campaigns | Gift, Karma, Reward |
+| `/api/hris` | HRIS Sync | GreytHR, BambooHR, Zoho |
+| `/api/integrations` | Health, Webhooks | OAuth, providers |
+| `/api/finance` | RTMN Finance | Wallet, Cards, BNPL |
+| `/api/analytics` | Analytics | Dashboard, reports |
 
 ### CorpPerks MongoDB Models
 
 | Model | Purpose |
 |-------|---------|
-| Company | Company info |
-| Employee | Employee records |
-| Benefit | Benefit packages |
+| Company | Company info, GST |
+| Employee | Records, department |
+| Benefit | Meal, Travel, Wellness, Learning, Gift |
 | BenefitUsage | Usage tracking |
 | Booking | Hotel bookings |
 | Invoice | GST invoices |
 | Order | Gift orders |
-| Campaign | Gift/Karma campaigns |
+| Campaign | Gift/Karma/Reward campaigns |
 | Wallet | Corporate wallet |
-| Card | Expense cards |
-| RewardTransaction | Coin transactions |
+| Card | Virtual/Physical cards |
+| RewardTransaction | Coin earn/redeem |
 
-### Seed Data
+### CorpPerks Seed Data
 
 ```bash
 cd rez-corpperks-service
 npm install
 npm run seed
+# Demo: TechCorp India (C001), 5 employees
 ```
 
 ## Recent Updates (2026-04-20)

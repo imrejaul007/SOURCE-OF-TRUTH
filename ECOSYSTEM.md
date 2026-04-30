@@ -312,6 +312,30 @@ Social impact and karma score system:
 | rez-hotel-service | 4011 | Makcorps proxy |
 | rez-procurement-service | 4012 | NextaBizz proxy |
 
+#### API Routes
+| Route | Description |
+|-------|-------------|
+| `/api/corp` | Benefits, Employees |
+| `/api/gst` | GST Invoices |
+| `/api/rewards` | ReZ Coins, Catalog |
+| `/api/campaigns` | Gift, Karma, Reward |
+| `/api/hris` | GreytHR, BambooHR, Zoho |
+| `/api/integrations` | Health, Webhooks |
+| `/api/finance` | Wallet, Cards, BNPL |
+| `/api/analytics` | Dashboard, Reports |
+
+#### MongoDB Models (11)
+Company, Employee, Benefit, BenefitUsage, Booking, Invoice, Order, Campaign, Wallet, Card, RewardTransaction
+
+#### Deploy
+```bash
+# Docker
+docker-compose up -d
+
+# Render Blueprint
+# https://dashboard.render.com/blueprints
+```
+
 #### Modules
 | Module | Description |
 |--------|-------------|
@@ -323,7 +347,8 @@ Social impact and karma score system:
 | Karma | Volunteer campaigns |
 | Rewards | ReZ Coins, tiers |
 | Analytics | Dashboard, reports |
-| Health | Integration monitoring |
+| Finance | Wallet, Cards, BNPL |
+| HRIS | GreytHR, BambooHR, Zoho |
 
 ---
 

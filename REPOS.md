@@ -85,12 +85,12 @@ All apps connect to the ecosystem through these services.
 
 | # | App | Local Path | Git Remote | Status |
 |---|-----|------------|------------|--------|
-| 1 | CorpPerks Admin | `CorpPerks/src/admin/` | imrejaul007/CorpPerks | Built |
-| 2 | rez-corpperks-service | `rez-corpperks-service/` | - | Built - Gateway API |
-| 3 | rez-hotel-service | `rez-hotel-service/` | - | Built - Makcorps |
-| 4 | rez-procurement-service | `rez-procurement-service/` | - | Built - NextaBizz |
-| 5 | rez-karma-app | `rez-karma-app/src/` | imrejaul007/rez-karma-app | Built |
-| 6 | rez-karma-service | `rez-karma-service/` | imrejaul007/Karma | Live |
+| 1 | CorpPerks Admin | `CorpPerks/` | imrejaul007/CorpPerks | ✅ Built |
+| 2 | rez-corpperks-service | `rez-corpperks-service/` | Built-in | ✅ Built |
+| 3 | rez-hotel-service | `rez-hotel-service/` | Built-in | ✅ Built |
+| 4 | rez-procurement-service | `rez-procurement-service/` | Built-in | ✅ Built |
+| 5 | rez-karma-app | `rez-karma-app/src/` | imrejaul007/rez-karma-app | ✅ Built |
+| 6 | rez-karma-service | `rez-karma-service/` | imrejaul007/Karma | ✅ Live |
 
 ### CorpPerks Services (Ports)
 
@@ -104,11 +104,13 @@ All apps connect to the ecosystem through these services.
 
 | File | Purpose |
 |------|---------|
-| `CorpPerks/docker-compose.yml` | Docker deployment |
+| `CorpPerks/docker-compose.yml` | Docker + MongoDB |
 | `CorpPerks/render.yaml` | Render one-click deploy |
-| `CorpPerks/sdk/` | CorpPerks JS SDK |
+| `CorpPerks/DEPLOY.md` | Deployment guide |
+| `CorpPerks/sdk/` | JS SDK |
+| `CorpPerks/CorpPerks.postman_collection.json` | API testing |
 
-### CorpPerks SDK Usage
+### CorpPerks SDK
 
 ```bash
 npm install @rez/corpperks-sdk
