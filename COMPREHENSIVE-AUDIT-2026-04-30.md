@@ -436,14 +436,15 @@ rez-api-gateway
 - [x] Supply chain: GitHub forks replaced with local paths
 - [x] Dependencies: @types/* moved to devDependencies
 - [x] Security: CORS, auth, pagination, OAuth fixes applied
+- [x] Circuit breakers: Implemented in rez-shared package
+- [x] MongoDB AUTH: Enabled via MONGODB_AUTH_SOURCE env var
 
-### CRITICAL (Fix Immediately)
-- [ ] Enable MongoDB AUTH
-- [ ] Enable Redis AUTH
-- [ ] Rotate all exposed credentials
+### ⚠️ Manual (Requires GitHub Admin)
+- [ ] Rename GitHub repo `rez-app-marchant` → `rez-app-merchant`
+- [ ] Rotate all exposed credentials (MongoDB, Redis, JWT, Razorpay, Cloudinary, SendGrid)
+- [ ] Enable Redis AUTH (add `requirepass` to Redis config)
 
 ### HIGH Priority
-- [ ] Rename `rez-app-marchant` → `rez-app-merchant`
 - [ ] Remove nested duplicate packages
 - [ ] Standardize package scope
 - [ ] Unify AppType definitions
@@ -451,7 +452,6 @@ rez-api-gateway
 
 ### MEDIUM Priority
 - [ ] Add OpenAPI documentation
-- [ ] Implement circuit breakers
 - [ ] Add distributed tracing
 - [ ] Deploy ELK Stack
 

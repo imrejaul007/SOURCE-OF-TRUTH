@@ -1,39 +1,64 @@
-# REZ Platform — Local Development Ports
+# REZ Platform - Local Development Ports
 
 Every service listens on a specific local port. Use these when developing locally.
 
+**Last Updated:** 2026-04-30
+
 ## Service Ports
 
-| Service | Port | Local URL | Notes |
-|---------|------|-----------|-------|
-| **rez-api-gateway** | 5002 | http://localhost:5002 | Routes to all microservices |
-| **rez-backend** | 5001 | http://localhost:5001 | Legacy monolith (fallback) |
-| **rez-auth-service** | 5003 | http://localhost:5003 | Auth, OTP, JWT |
-| **rez-merchant-service** | 3004 | http://localhost:3004 | Merchant CRUD, auth |
-| **rez-wallet-service** | 5006 | http://localhost:5006 | Wallet, coins, balance |
-| **rez-payment-service** | 5005 | http://localhost:5005 | Razorpay, refunds |
-| **rez-order-service** | 3006 | http://localhost:3006 | Order lifecycle, BullMQ |
-| **rez-catalog-service** | 5007 | http://localhost:5007 | Products, categories |
-| **rez-search-service** | 5008 | http://localhost:5008 | Full-text search |
-| **analytics-events** | 5011 | http://localhost:5011 | Event tracking |
-| **rez-gamification-service** | 4003 | http://localhost:4003 | BullMQ + HTTP API |
-| **rez-ads-service** | 4002 | http://localhost:4002 | HTTP API |
-| **rez-marketing-service** | 3007 | http://localhost:3007 | BullMQ worker |
-| **rez-notification-events** | 3009 | http://localhost:3009 | BullMQ worker |
-| **rez-media-events** | 3008 | http://localhost:3008 | BullMQ worker |
-| **rez-contracts** | 3001 | http://localhost:3001 | Smart contracts |
-| **rez-finance-service** | 4005 | http://localhost:4005 | Finance service |
-| **rez-karma-service** | 4006 | http://localhost:4006 | Karma service |
-| **rez-now** | 4007 | http://localhost:4007 | REZ Now app |
+### Core Services
+
+| Service | Port | Local URL | Health Endpoint |
+|---------|------|-----------|-----------------|
+| rez-api-gateway | 5002 | http://localhost:5002 | http://localhost:5002/health |
+| rez-auth-service | 4002 | http://localhost:4002 | http://localhost:4002/health |
+| rez-merchant-service | 4005 | http://localhost:4005 | http://localhost:4005/health |
+| rez-order-service | 3008 | http://localhost:3008 | http://localhost:3008/health |
+| rez-payment-service | 4001 | http://localhost:4001 | http://localhost:4001/health |
+| rez-wallet-service | 3010 | http://localhost:3010 | http://localhost:3010/health |
+| rez-catalog-service | 3005 | http://localhost:3005 | http://localhost:3005/health |
+| rez-search-service | 4003 | http://localhost:4003 | http://localhost:4003/health |
+| rez-gamification-service | 3001 | http://localhost:3001 | http://localhost:3001/health |
+
+### Supporting Services
+
+| Service | Port | Local URL | Health Endpoint |
+|---------|------|-----------|-----------------|
+| rez-ads-service | 4007 | http://localhost:4007 | http://localhost:4007/health |
+| rez-marketing-service | 4000 | http://localhost:4000 | http://localhost:4000/health |
+| rez-scheduler-service | 3012 | http://localhost:3012 | http://localhost:3012/health |
+| rez-finance-service | 4005 | http://localhost:4005 | http://localhost:4005/health |
+| rez-karma-service | 3009 | http://localhost:3009 | http://localhost:3009/health |
+
+### Event Workers
+
+| Service | Port | Local URL | Health Endpoint |
+|---------|------|-----------|-----------------|
+| rez-notification-events | 3005 | http://localhost:3005 | http://localhost:3005/health |
+| analytics-events | 3006 | http://localhost:3006 | http://localhost:3006/health |
+| rez-media-events | 3008 | http://localhost:3008 | http://localhost:3008/health |
 
 ### CorpPerks Services
-| **rez-corpperks-service** | 4013 | http://localhost:4013 | CorpPerks Gateway API |
-| **rez-hotel-service** | 4011 | http://localhost:4011 | Makcorps Hotel Proxy |
-| **rez-procurement-service** | 4012 | http://localhost:4012 | NextaBizz Procurement |
-| **rez-app-consumer** | — | — | Expo / EAS (mobile) |
-| **rez-app-marchant** | — | — | Expo / EAS (mobile) |
-| **rez-app-admin** | — | — | Vercel (web) |
-| **rez-web-menu** | — | — | Vercel (web) |
+
+| Service | Port | Local URL | Health Endpoint |
+|---------|------|-----------|-----------------|
+| rez-corpperks-service | 4013 | http://localhost:4013 | http://localhost:4013/health |
+| rez-hotel-service | 4011 | http://localhost:4011 | http://localhost:4011/health |
+| rez-procurement-service | 4012 | http://localhost:4012 | http://localhost:4012/health |
+
+### Mobile Apps (Expo/EAS)
+
+| App | Platform | Notes |
+|-----|----------|-------|
+| rez-app-consumer | iOS/Android | Expo / EAS Build |
+| rez-app-marchant | iOS/Android | Expo / EAS Build |
+
+### Web Apps
+
+| App | Platform | Deploy |
+|-----|----------|--------|
+| rez-app-admin | Web | Vercel |
+| rez-web-menu | Web | Vercel |
 
 ## CORS Origins (for local dev)
 
@@ -51,22 +76,66 @@ https://ad-bazaar.vercel.app
 https://rez-karma-app.vercel.app
 ```
 
-## Health Endpoints
+## Quick Start - Starting All Services
 
-| Service | Health URL |
-|---------|-----------|
-| rez-api-gateway | http://localhost:5002/health |
-| rez-backend | http://localhost:5001/health |
-| rez-auth-service | http://localhost:5003/health |
-| rez-merchant-service | http://localhost:3004/health |
-| rez-wallet-service | http://localhost:5006/health |
-| rez-payment-service | http://localhost:5005/health |
-| rez-order-service | http://localhost:3006/health |
-| rez-catalog-service | http://localhost:5007/health |
-| rez-search-service | http://localhost:5008/health |
-| analytics-events | http://localhost:5011/health |
-| rez-gamification-service | http://localhost:4003/health |
-| rez-ads-service | http://localhost:4002/health |
-| rez-marketing-service | http://localhost:3007/health |
-| rez-notification-events | http://localhost:3009/health |
-| rez-media-events | http://localhost:3008/health |
+```bash
+# Start MongoDB and Redis first (Docker)
+docker run -d -p 27017:27017 mongo:7
+docker run -d -p 6379:6379 redis:7-alpine
+
+# Start services in parallel (example)
+npm run dev &  # rez-api-gateway
+npm run dev &  # rez-auth-service
+npm run dev &  # rez-wallet-service
+npm run dev &  # rez-payment-service
+npm run dev &  # rez-order-service
+npm run dev &  # rez-merchant-service
+npm run dev &  # rez-catalog-service
+npm run dev &  # rez-search-service
+npm run dev &  # rez-gamification-service
+```
+
+## Service Dependency Map
+
+```
+rez-api-gateway:5002
+    |
+    +-- rez-auth-service:4002
+    +-- rez-wallet-service:3010
+    +-- rez-payment-service:4001
+    +-- rez-order-service:3008
+    +-- rez-merchant-service:4005
+    +-- rez-catalog-service:3005
+    +-- rez-search-service:4003
+    +-- rez-gamification-service:3001
+    +-- rez-ads-service:4007
+    +-- rez-marketing-service:4000
+    +-- rez-scheduler-service:3012
+    +-- rez-finance-service:4005
+    +-- rez-karma-service:3009
+
+rez-corpperks-service:4013
+    |
+    +-- rez-hotel-service:4011
+    +-- rez-procurement-service:4012
+    +-- rez-wallet-service:3010
+    +-- rez-finance-service:4005
+    +-- rez-karma-service:3009
+```
+
+## Port Conflicts
+
+If you encounter port conflicts:
+1. Check which process is using the port: `lsof -i :PORT`
+2. Kill the process: `kill -9 PID`
+3. Or change the port in the service's .env file
+
+## Testing Individual Services
+
+```bash
+# Test health endpoint
+curl http://localhost:4002/health
+
+# Test API endpoint (example)
+curl -H "Authorization: Bearer <token>" http://localhost:4002/api/auth/me
+```

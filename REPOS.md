@@ -1,7 +1,7 @@
-# REZ Platform — All Repositories
+# REZ Platform - All Repositories
 
 GitHub org: `imrejaul007`
-Last updated: 2026-04-25
+Last updated: 2026-04-30
 
 ---
 
@@ -15,29 +15,46 @@ Last updated: 2026-04-25
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────────┐ │
 │  │ CORE APPS    │  │ CORE BACKEND │  │ CORE SERVICES             │ │
 │  │              │  │              │  │                           │ │
-│  │ • Consumer   │  │ • Backend    │  │ • API Gateway             │ │
-│  │ • Merchant   │  │   (Monolith) │  │ • Auth Service            │ │
-│  │ • Admin      │  │              │  │ • Wallet Service          │ │
-│  └──────────────┘  └──────────────┘  │ • Payment Service         │ │
-│                                       │ • Order Service           │ │
-│                                       │ • Catalog Service         │ │
-│                                       │ • Search Service          │ │
-│                                       │ • ... (14 services)       │ │
+│  │ - Consumer   │  │ - Backend    │  │ - API Gateway             │ │
+│  │ - Merchant   │  │   (Monolith) │  │ - Auth Service            │ │
+│  │ - Admin      │  │              │  │ - Wallet Service          │ │
+│  └──────────────┘  └──────────────┘  │ - Payment Service         │ │
+│                                       │ - Order Service           │ │
+│                                       │ - Catalog Service         │ │
+│                                       │ - Search Service          │ │
+│                                       │ - Gamification Service    │ │
+│                                       │ - Ads Service             │ │
+│                                       │ - Marketing Service       │ │
+│                                       │ - Scheduler Service       │ │
+│                                       │ - Finance Service         │ │
+│                                       │ - Karma Service           │ │
+│                                       │ - CorpPerks Service       │ │
+│                                       │ - Hotel Service           │ │
+│                                       │ - Procurement Service     │ │
 │                                       └────────────────────────────┘ │
 │                                                                      │
 │  ┌──────────────────────────────────────────────────────────────┐   │
-│  │ USER-FACING APPS (connected via services)                    │   │
+│  │ USER-FACING APPS                                             │   │
 │  │                                                               │   │
-│  │ • REZ Now (web ordering)  • Rendez (social)                  │   │
-│  │ • REZ Web Menu           • StayOwen (hotel OTA)              │   │
-│  │ • Karma (social impact)  • AdBazaar (ads platform)          │   │
+│  │ - REZ Now (web ordering)  - Rendez (social)                  │   │
+│  │ - REZ Web Menu           - Karma (social impact)              │   │
+│  │ - AdBazaar (ads platform)                                    │   │
+│  └──────────────────────────────────────────────────────────────┘   │
+│                                                                      │
+│  ┌──────────────────────────────────────────────────────────────┐   │
+│  │ HOTEL STACK - StayOwn                                        │   │
+│  │                                                               │   │
+│  │ - OTA Web (booking)  - Mobile (iOS/Android)                   │   │
+│  │ - Admin Dashboard   - Hotel Panel (staff)                   │   │
+│  │ - Corporate Panel    - API (includes Room QR)                │   │
+│  │ - Hotel PMS (property management)                             │   │
 │  └──────────────────────────────────────────────────────────────┘   │
 │                                                                      │
 │  ┌──────────────────────────────────────────────────────────────┐   │
 │  │ MERCHANT PLATFORMS                                           │   │
 │  │                                                               │   │
-│  │ • Restaurian (Resto Papa) - restaurant management            │   │
-│  │ • Hotel PMS - property management                            │   │
+│  │ - REZ Merchant App (POS) - INTEGRATED                      │   │
+│  │ - RestoPapa (restaurant) - STANDALONE, NOT integrated     │   │
 │  └──────────────────────────────────────────────────────────────┘   │
 │                                                                      │
 └─────────────────────────────────────────────────────────────────────┘
@@ -47,7 +64,7 @@ Last updated: 2026-04-25
 
 ## CORE PROJECTS (Source of Truth)
 
-These are the main applications — changes should be made here.
+These are the main applications - changes should be made here.
 
 | # | App | Local Path | Git Remote | Tech Stack | Deploy |
 |---|-----|------------|------------|------------|--------|
@@ -57,58 +74,52 @@ These are the main applications — changes should be made here.
 
 ---
 
-## SERVICES (14 microservices)
+## CORE SERVICES (9 microservices)
 
-All apps connect to the ecosystem through these services.
-
-| # | Service | Local Path | Git Remote | Port | Status |
-|---|---------|------------|------------|------|--------|
-| 1 | rez-api-gateway | `rez-api-gateway/` | imrejaul007/rez-api-gateway | 5002 | Live |
-| 2 | rez-auth-service | `rez-auth-service/` | imrejaul007/rez-auth-service | 5003 | Live |
-| 3 | rez-merchant-service | `rez-merchant-service/` | imrejaul007/rez-merchant-service | 3004 | Live |
-| 4 | rez-wallet-service | `rez-wallet-service/` | imrejaul007/rez-wallet-service | 5006 | Live |
-| 5 | rez-payment-service | `rez-payment-service/` | imrejaul007/rez-payment-service | 5005 | Live |
-| 6 | rez-order-service | `rez-order-service/` | imrejaul007/rez-order-service | 3006 | Live |
-| 7 | rez-catalog-service | `rez-catalog-service/` | imrejaul007/rez-catalog-service | 5007 | Live |
-| 8 | rez-search-service | `rez-search-service/` | imrejaul007/rez-search-service | 5008 | Live |
-| 9 | rez-gamification-service | `rez-gamification-service/` | imrejaul007/rez-gamification-service | 4003 | Live |
-| 10 | rez-ads-service | `rez-ads-service/` | imrejaul007/rez-ads-service | - | Live |
-| 11 | rez-marketing-service | `rez-marketing-service/` | imrejaul007/rez-marketing-service | - | Live |
-| 12 | rez-scheduler-service | `rez-scheduler-service/` | imrejaul007/rez-scheduler-service | - | In Dev |
-| 13 | rez-finance-service | `rez-finance-service/` | imrejaul007/rez-finance-service | - | In Dev |
-| 14 | rez-karma-service | `rez-karma-service/` | imrejaul007/Karma | - | In Dev |
-| 15 | **CorpPerks** | `CorpPerks/` | imrejaul007/CorpPerks | - | New - CorpPerks Admin |
+| # | Service | Local Path | Git Remote | Port | Status | README |
+|---|---------|------------|------------|------|--------|--------|
+| 1 | rez-api-gateway | `rez-api-gateway/` | imrejaul007/rez-api-gateway | 5002 | Live | YES |
+| 2 | rez-auth-service | `rez-auth-service/` | imrejaul007/rez-auth-service | 4002 | Live | YES |
+| 3 | rez-wallet-service | `rez-wallet-service/` | imrejaul007/rez-wallet-service | 3010 | Live | YES |
+| 4 | rez-payment-service | `rez-payment-service/` | imrejaul007/rez-payment-service | 4001 | Live | YES |
+| 5 | rez-order-service | `rez-order-service/` | imrejaul007/rez-order-service | 3008 | Live | YES |
+| 6 | rez-catalog-service | `rez-catalog-service/` | imrejaul007/rez-catalog-service | 3005 | Live | YES |
+| 7 | rez-search-service | `rez-search-service/` | imrejaul007/rez-search-service | 4003 | Live | YES |
+| 8 | rez-gamification-service | `rez-gamification-service/` | imrejaul007/rez-gamification-service | 3001 | Live | YES |
+| 9 | rez-merchant-service | `rez-merchant-service/` | imrejaul007/rez-merchant-service | 4005 | Live | YES |
 
 ---
 
-## CorpPerks (Enterprise Benefits Platform)
+## SUPPORTING SERVICES (5 microservices)
 
-| # | App | Local Path | Git Remote | Status |
-|---|-----|------------|------------|--------|
-| 1 | CorpPerks Admin | `CorpPerks/` | imrejaul007/CorpPerks | ✅ Built |
-| 2 | rez-corpperks-service | `rez-corpperks-service/` | Built-in | ✅ Built |
-| 3 | rez-hotel-service | `rez-hotel-service/` | Built-in | ✅ Built |
-| 4 | rez-procurement-service | `rez-procurement-service/` | Built-in | ✅ Built |
-| 5 | rez-karma-app | `rez-karma-app/src/` | imrejaul007/rez-karma-app | ✅ Built |
-| 6 | rez-karma-service | `rez-karma-service/` | imrejaul007/Karma | ✅ Live |
+| # | Service | Local Path | Git Remote | Port | Status | README |
+|---|---------|------------|------------|------|--------|--------|
+| 1 | rez-ads-service | `rez-ads-service/` | imrejaul007/rez-ads-service | 4007 | Live | YES |
+| 2 | rez-marketing-service | `rez-marketing-service/` | imrejaul007/rez-marketing-service | 4000 | Live | YES |
+| 3 | rez-scheduler-service | `rez-scheduler-service/` | imrejaul007/rez-scheduler-service | 3012 | Live | YES |
+| 4 | rez-finance-service | `rez-finance-service/` | imrejaul007/rez-finance-service | 4005 | Live | YES |
+| 5 | rez-karma-service | `rez-karma-service/` | imrejaul007/Karma | 3009 | Live | YES |
 
-### CorpPerks Services (Ports)
+---
 
-| Service | Port | Purpose |
-|---------|------|---------|
-| rez-corpperks-service | 4013 | CorpPerks Gateway API |
-| rez-hotel-service | 4011 | Hotel OTA (Makcorps) |
-| rez-procurement-service | 4012 | Procurement (NextaBizz) |
+## EVENT WORKERS (3 services)
 
-### CorpPerks Deploy Files
+| # | Service | Local Path | Git Remote | Port | Status |
+|---|---------|------------|------------|------|--------|
+| 1 | analytics-events | `analytics-events/` | imrejaul007/analytics-events | 3006 | Live |
+| 2 | rez-notification-events | `rez-notification-events/` | imrejaul007/rez-notification-events | 3005 | Live |
+| 3 | rez-media-events | `rez-media-events/` | imrejaul007/rez-media-events | 3008 | Live |
 
-| File | Purpose |
-|------|---------|
-| `CorpPerks/docker-compose.yml` | Docker + MongoDB |
-| `CorpPerks/render.yaml` | Render one-click deploy |
-| `CorpPerks/DEPLOY.md` | Deployment guide |
-| `CorpPerks/sdk/` | JS SDK |
-| `CorpPerks/CorpPerks.postman_collection.json` | API testing |
+---
+
+## CORPPERKS SERVICES (4 microservices)
+
+| # | Service | Local Path | Git Remote | Port | Status | README |
+|---|---------|------------|------------|------|--------|--------|
+| 1 | rez-corpperks-service | `rez-corpperks-service/` | Built-in | 4013 | Live | YES |
+| 2 | rez-hotel-service | `rez-hotel-service/` | Built-in | 4011 | Live | YES |
+| 3 | rez-procurement-service | `rez-procurement-service/` | Built-in | 4012 | Live | YES |
+| 4 | rez-karma-service | `rez-karma-service/` | imrejaul007/Karma | 3009 | Live | YES |
 
 ### CorpPerks SDK
 
@@ -129,13 +140,48 @@ const booking = await corp.createBooking({...});
 await corp.redeemReward('R001');
 ```
 
-## Event Workers
+### CorpPerks Deploy Files
 
-| # | Service | Local Path | Git Remote | Status |
-|---|---------|------------|------------|--------|
-| 1 | analytics-events | `analytics-events/` | imrejaul007/analytics-events | Live |
-| 2 | rez-notification-events | `rez-notification-events/` | imrejaul007/rez-notification-events | Live |
-| 3 | rez-media-events | `rez-media-events/` | imrejaul007/rez-media-events | Live |
+| File | Purpose |
+|------|---------|
+| `CorpPerks/docker-compose.yml` | Docker + MongoDB |
+| `CorpPerks/render.yaml` | Render one-click deploy |
+| `CorpPerks/DEPLOY.md` | Deployment guide |
+| `CorpPerks/sdk/` | JS SDK |
+| `CorpPerks/CorpPerks.postman_collection.json` | API testing |
+
+---
+
+## ReZ Mind - AI Intelligence Layer
+
+**Location:** `/Users/rejaulkarim/Documents/rez-intent-graph` (separate repo)
+**Git:** `imrejaul007/rez-intent-graph`
+**Render:** `rez-intent-graph` service
+
+ReZ Mind is the **AI-powered commerce intelligence platform** combining:
+- **RTMN Commerce Memory** - Tracks user intent across all apps
+- **8 Autonomous AI Agents** - Self-operating agents for commerce
+- **Intent Graph** - Dormant intent detection and revival
+
+### 8 Autonomous Agents
+| Agent | Schedule | Purpose |
+|-------|----------|---------|
+| DemandSignalAgent | Every 5 min | Aggregate demand per merchant/category |
+| ScarcityAgent | Every 1 min | Supply/demand ratios, urgency alerts |
+| PersonalizationAgent | Event-driven | User response profiling, A/B testing |
+| AttributionAgent | Event-driven | Multi-touch conversion attribution |
+| AdaptiveScoringAgent | Hourly | ML retraining of intent scoring |
+| FeedbackLoopAgent | Event-driven | Closed-loop optimization, drift detection |
+| NetworkEffectAgent | Daily | Collaborative filtering, user similarity |
+| RevenueAttributionAgent | Every 15 min | GMV tracking, ROI per agent/nudge |
+
+### Ports
+| Server | Port | Purpose |
+|--------|------|---------|
+| API Server | 3001 | Intent capture, commerce memory |
+| Agent Server | 3005 | Autonomous agent swarm |
+
+---
 
 ## Shared Packages
 
@@ -158,72 +204,39 @@ These apps use the core services (auth, wallet, orders, etc.)
 | 1 | **REZ Now** | `rez-now/` | imrejaul007/rez-now | Next.js, React | Vercel |
 | 2 | **REZ Web Menu** | `rez-web-menu/` | imrejaul007/rez-web-menu | Next.js | Vercel |
 | 3 | **Rendez** | `Rendez/` | imrejaul007/Rendez | React Native, Node.js, Prisma | Render + Vercel |
-| 4 | **StayOwen (Hotel OTA)** | `Hotel OTA/` | imrejaul007/hotel-ota | Node.js, Prisma | Render |
-| 5 | **AdBazaar** | `adBazaar/` | imrejaul007/adBazaar | Next.js, Supabase | Vercel |
+| 4 | **AdBazaar** | `adBazaar/` | imrejaul007/adBazaar | Next.js, Supabase | Vercel |
+
+---
+
+## HOTEL STACK - StayOwn (Hotel OTA)
+
+**Brand:** StayOwn - India's First Hotel-Owned OTA
+
+| # | App | Local Path | Purpose | Tech Stack |
+|---|-----|------------|---------|------------|
+| 1 | **OTA Web** | `Hotel OTA/apps/ota-web/` | Customer booking website | Next.js |
+| 2 | **Mobile** | `Hotel OTA/apps/mobile/` | StayOwn Mobile (iOS + Android) | React Native |
+| 3 | **Admin** | `Hotel OTA/apps/admin/` | StayOwn Admin Dashboard | Next.js |
+| 4 | **Hotel Panel** | `Hotel OTA/apps/hotel-panel/` | Hotel staff management | Next.js |
+| 5 | **Corporate Panel** | `Hotel OTA/apps/corporate-panel/` | Corporate account management | Next.js |
+| 6 | **API** | `Hotel OTA/apps/api/` | Backend API (includes Room QR) | Node.js, Prisma |
+| 7 | **Hotel PMS** | `Hotel OTA/hotel-pms/` | Property Management System | Node.js, Prisma |
+
+### Room QR - Guest Services
+
+- **Location:** `Hotel OTA/apps/api/src/routes/room-qr.routes.ts`
+- **Purpose:** Guest services when scanning room QR code
+- **Intent:** `guest_services_scan`
 
 ---
 
 ## MERCHANT PLATFORMS
 
-These are separate platforms for merchants (not connected to REZ core services)
-
 | # | App | Local Path | Git Remote | Tech Stack | Status |
 |---|-----|------------|------------|------------|--------|
-| 1 | **Restaurian** | `Resturistan App/` | imrejaul007/restaurantapp | Node.js, monorepo | Deploy pending |
-| 2 | **Hotel PMS** | `Hotel OTA/` (same as above) | imrejaul007/hotel-ota | Node.js, Prisma | Live |
-
----
-
-## DUPLICATE/Legacy FOLDERS (CLEANED - 2026-04-25)
-
-Deleted after proper audit to preserve all unpushed commits:
-
-| Local Folder | Same As | Action |
-|-------------|---------|--------|
-| `hotel-ota/` | `Hotel OTA/` | ✅ Deleted (955M freed) |
-| `packages/rez-shared/` | `rez-shared/` | ✅ Deleted |
-| `rezapp/rez-master/` | `rez-app-consumer/` | ✅ Deleted |
-| `rez-web-menu/rezbackend/` | `rez-backend/` | ✅ Deleted (empty) |
-| `components/` | - | ✅ Deleted (empty) |
-| `config/` | - | ✅ Deleted (empty) |
-| `test/` | - | ✅ Deleted (empty) |
-| `tests/` | - | ✅ Deleted (empty) |
-
-### Note: `rezbackend/rez-backend-master/` is the CORRECT location for the backend repo - do NOT delete.
-
----
-
-## ARCHITECTURE NOTES
-
-### How Apps Connect to Services
-
-```
-User App (Consumer/Merchant/Now)
-         │
-         ▼
-   API Gateway
-         │
-         ├──► rez-backend (monolith)
-         │
-         ├──► rez-auth-service
-         ├──► rez-wallet-service
-         ├──► rez-payment-service
-         ├──► rez-order-service
-         ├──► rez-catalog-service
-         ├──► rez-search-service
-         └──► ... (other services)
-
-Event Queue: BullMQ + Redis
-```
-
-### Partner Apps (Standalone)
-
-| App | Connection to REZ | Auth |
-|-----|-------------------|------|
-| Rendez | REZ wallet (hold/release), SSO | REZ partner API |
-| StayOwen | REZ wallet, SSO | REZ SSO |
-| AdBazaar | None | Supabase auth |
-| Restaurian | REZ wallet (future) | TBD |
+| 1 | **RestoPapa** | `Resturistan App/` | imrejaul007/restaurantapp | Node.js, monorepo | STANDALONE - NOT integrated |
+| 2 | **REZ Merchant App** | `rez-app-marchant/` | imrejaul007/rez-app-marchant | Expo, React Native | INTEGRATED |
+| 3 | **REZ Admin App** | `rez-app-admin/` | imrejaul007/rez-app-admin | Expo, React Native | INTEGRATED |
 
 ---
 
@@ -244,6 +257,61 @@ rm -rf "tests"
 
 ---
 
+## Architecture Notes
+
+### How Apps Connect to Services
+
+```
+User App (Consumer/Merchant/Now)
+         |
+         v
+   API Gateway
+         |
+         +-- rez-backend (monolith)
+         |
+         +-- rez-auth-service
+         +-- rez-wallet-service
+         +-- rez-payment-service
+         +-- rez-order-service
+         +-- rez-catalog-service
+         +-- rez-search-service
+         +-- rez-gamification-service
+         +-- rez-ads-service
+         +-- rez-marketing-service
+         +-- rez-scheduler-service
+         +-- rez-finance-service
+         +-- rez-karma-service
+
+Event Queue: BullMQ + Redis
+```
+
+### Partner Apps (Standalone)
+
+| App | Connection to REZ | Auth |
+|-----|-------------------|------|
+| Rendez | REZ wallet (hold/release), SSO | REZ partner API |
+| StayOwen | REZ wallet, SSO | REZ SSO |
+| AdBazaar | None | Supabase auth |
+| Restaurian | REZ wallet (future) | TBD |
+
+---
+
 ## Last Updated
 
-- 2026-04-25: Full audit, architecture clarification, duplicate identification
+- 2026-04-30: Phase 0 Documentation complete
+  - Created comprehensive README.md for all 17 services
+  - Updated SERVICE ports in LOCAL-PORTS.md
+  - Updated REPOS.md with correct paths and README status
+
+---
+
+## Known Issues (Audit Findings)
+
+| Issue | Severity | Status |
+|-------|----------|--------|
+| Git conflict markers in 3 services | CRITICAL | To Fix |
+| Wrong package name (rez-workspace) | CRITICAL | To Fix |
+| Missing source for 2 packages | CRITICAL | To Fix |
+| Typo: rez-app-marchant | HIGH | To Fix |
+| Nested duplicate packages | HIGH | To Fix |
+| MongoDB/Redis AUTH not enabled | CRITICAL | Security Risk |

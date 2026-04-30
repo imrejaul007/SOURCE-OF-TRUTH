@@ -2,6 +2,8 @@
 
 **Last Updated:** 2026-04-30
 
+**ReZ Mind** — AI-powered commerce intelligence (separate repo: `rez-intent-graph`)
+
 Single place to find everything about the REZ platform. Read this before solving any issue, building any feature, or debugging anything.
 
 ---
@@ -16,6 +18,12 @@ Single place to find everything about the REZ platform. Read this before solving
 | [ENV-VARS.md](ENV-VARS.md) | All environment variables |
 | [LOCAL-PORTS.md](LOCAL-PORTS.md) | Local development ports |
 | [ALL-FEATURES.md](ALL-FEATURES.md) | Complete feature list |
+
+### Implementation
+| Document | Description |
+|----------|-------------|
+| [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md) | **START HERE** - Full roadmap based on consultant + audit |
+| [INDEX.md](INDEX.md) | Complete file map |
 
 ### Services
 | Document | Description |
@@ -58,17 +66,20 @@ Single place to find everything about the REZ platform. Read this before solving
 
 ## 📊 Audit Summary
 
-**All 84 issues resolved across 7 audit waves.**
+**New audit (2026-04-30):** 87 issues found across 21 apps, 17 services, 13 packages
 
-| Wave | Date | Issues | Status |
-|------|------|--------|--------|
-| Wave 8 | Apr 29 | OPS-003: Rate limiting, auth | ✅ Fixed |
-| Wave 9 | Apr 29 | 84 critical/high/medium/low | ✅ Fixed |
-| Wave 10 | Apr 30 | OAuth2, RBAC | ✅ Fixed |
-| Wave 11 | Apr 30 | Fail-fast startup | ✅ Fixed |
-| Wave 12 | Apr 30 | Gateway CORS, eval fix | ✅ Fixed |
-| Wave 13 | Apr 30 | Frontend security | ✅ Fixed |
-| Wave 14 | Apr 30 | Compression, pagination | ✅ Fixed |
+| Category | Critical | High | Medium | Low | Total |
+|----------|---------|------|--------|-----|-------|
+| Issues | 8 | 15 | 32 | 32 | **87** |
+
+**Previous audit:** 84/84 issues fixed (Waves 8-14)
+
+See [COMPREHENSIVE-AUDIT-2026-04-30.md](COMPREHENSIVE-AUDIT-2026-04-30.md) for details.
+
+### Critical Issues to Fix First
+1. Git conflict markers in 3 services
+2. Wrong package name in rez-scheduler-service
+3. MongoDB/Redis AUTH not enabled
 
 ---
 
@@ -87,12 +98,26 @@ API Gateway (Kong + Nginx)
 └── /api/*           → rez-backend (monolith)
 ```
 
-### Data Flow
+### Data Flow (Current → Target)
+
+**Current State:**
 ```
-Client → Cloudflare → Kong Gateway → Services → MongoDB/Redis
-                              ↓
-                        intent-graph (RTMN)
+API → API → API (loops incomplete)
 ```
+
+**Target State:**
+```
+User Action → Event Bus → Services → ReZ Mind → AI Agents → Insights → Copilot
+                     ↓
+              Analytics / Notifications / Finance
+```
+
+See [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md) for the 5 closed loops:
+1. Consumer → Merchant
+2. Merchant → Operations (BizOS)
+3. Procurement (NextaBiZ)
+4. Hotel (StayOwn)
+5. Growth (AdBazaar)
 
 ---
 
@@ -113,12 +138,31 @@ Client → Cloudflare → Kong Gateway → Services → MongoDB/Redis
 
 | App | GitHub | Platform |
 |-----|--------|----------|
-| consumer-app | [Link](https://github.com/imrejaul007/consumer-app) | Expo/React Native |
-| admin-app | [Link](https://github.com/imrejaul007/admin-app) | Expo/React Native |
+| rez-app-consumer | [Link](https://github.com/imrejaul007/rez-app-consumer) | Expo/React Native |
+| rez-app-marchant | [Link](https://github.com/imrejaul007/rez-app-marchant) | Expo/React Native |
+| rez-app-admin | [Link](https://github.com/imrejaul007/rez-app-admin) | Expo/React Native |
+| rez-now | [Link](https://github.com/imrejaul007/rez-now) | Next.js |
+| rez-web-menu | [Link](https://github.com/imrejaul007/rez-web-menu) | Next.js |
+| Rendez | [Link](https://github.com/imrejaul007/Rendez) | React Native |
+| Hotel OTA (StayOwn) | [Link](https://github.com/imrejaul007/hotel-ota) | Node.js, Next.js |
 
-### Vesper App (Dating)
-| Document | Description |
-|----------|-------------|
+---
+
+## 📱 Hotel Stack — StayOwn
+
+| App | Purpose |
+|-----|---------|
+| ota-web | Customer booking website |
+| mobile | StayOwn Mobile (iOS/Android) |
+| admin | Admin Dashboard |
+| hotel-panel | Hotel staff management |
+| corporate-panel | Corporate account management |
+| api | Backend API (includes Room QR) |
+| hotel-pms | Property Management System |
+
+### Room QR
+- **Location:** `Hotel OTA/apps/api/src/routes/room-qr.routes.ts`
+- **Purpose:** Guest services when scanning room QR code
 
 ---
 
@@ -129,10 +173,10 @@ Client → Cloudflare → Kong Gateway → Services → MongoDB/Redis
 - [x] RBAC middleware implemented
 - [x] CORS explicit domains
 - [x] Security headers
-- [ ] MongoDB AUTH enabled
-- [ ] Redis AUTH enabled
-- [ ] Credentials rotated
-- [ ] ELK deployed
+- [ ] MongoDB AUTH enabled ❌
+- [ ] Redis AUTH enabled ❌
+- [ ] Credentials rotated ❌
+- [ ] ELK deployed ❌
 
 ---
 
