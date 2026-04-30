@@ -74,6 +74,15 @@ See `Rendez/DEPLOY.md` for full documentation.
 | **rez-app-marchant** | https://rez-app-marchant.vercel.app | ✅ Live | Vercel |
 | **rez-web-menu** | https://menu.rez.money | ✅ Live | Vercel |
 
+## CorpPerks Services (Ready to Deploy)
+
+| Service | Port | Status | Type |
+|---------|------|--------|------|
+| **rez-corpperks-service** | 4013 | Built | Gateway API |
+| **rez-hotel-service** | 4011 | Built | Makcorps proxy |
+| **rez-procurement-service** | 4012 | Built | NextaBizz proxy |
+| **CorpPerks Admin** | - | Built | imrejaul007/CorpPerks |
+
 ## Recent Updates (2026-04-20)
 
 - `rez-auth-service`: PR #14 merged — BAK-AUTH-005 lockout on BullMQ queue failure + E8 audit log internal user-lookup. **All 4 PRs (#13, #14, #15, #16) now merged. Zero open PRs across all 18 services.**

@@ -86,8 +86,46 @@ All apps connect to the ecosystem through these services.
 | # | App | Local Path | Git Remote | Status |
 |---|-----|------------|------------|--------|
 | 1 | CorpPerks Admin | `CorpPerks/src/admin/` | imrejaul007/CorpPerks | Built |
-| 2 | rez-karma-app | `rez-karma-app/src/` | imrejaul007/rez-karma-app | Built |
-| 3 | rez-karma-service | `rez-karma-service/` | imrejaul007/Karma | Live |
+| 2 | rez-corpperks-service | `rez-corpperks-service/` | - | Built - Gateway API |
+| 3 | rez-hotel-service | `rez-hotel-service/` | - | Built - Makcorps |
+| 4 | rez-procurement-service | `rez-procurement-service/` | - | Built - NextaBizz |
+| 5 | rez-karma-app | `rez-karma-app/src/` | imrejaul007/rez-karma-app | Built |
+| 6 | rez-karma-service | `rez-karma-service/` | imrejaul007/Karma | Live |
+
+### CorpPerks Services (Ports)
+
+| Service | Port | Purpose |
+|---------|------|---------|
+| rez-corpperks-service | 4013 | CorpPerks Gateway API |
+| rez-hotel-service | 4011 | Hotel OTA (Makcorps) |
+| rez-procurement-service | 4012 | Procurement (NextaBizz) |
+
+### CorpPerks Deploy Files
+
+| File | Purpose |
+|------|---------|
+| `CorpPerks/docker-compose.yml` | Docker deployment |
+| `CorpPerks/render.yaml` | Render one-click deploy |
+| `CorpPerks/sdk/` | CorpPerks JS SDK |
+
+### CorpPerks SDK Usage
+
+```bash
+npm install @rez/corpperks-sdk
+```
+
+```typescript
+import { CorpPerksClient } from '@rez/corpperks-sdk';
+
+const corp = new CorpPerksClient({
+  apiBaseUrl: 'https://api.rez.money',
+  token: userToken,
+});
+
+const benefits = await corp.getMyBenefits();
+const booking = await corp.createBooking({...});
+await corp.redeemReward('R001');
+```
 
 ## Event Workers
 

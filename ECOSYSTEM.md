@@ -267,54 +267,63 @@ Social impact and karma score system:
 **Stack:** React Native (Admin), Node.js (Services)
 **GitHub:** `imrejaul007/CorpPerks`
 
-#### Purpose
-Corporate benefits management for companies:
-- Benefits (meal, travel, wellness, learning)
-- Employee enrollment
-- GST-ready invoicing
-- Hotel bookings (Makcorps OTA)
-- Corporate gifting (NextaBizz)
-- Karma/CSR campaigns
-- ReZ Coins rewards
+#### Architecture
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    CorpPerks Platform                       │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  ┌──────────────────┐    ┌──────────────────────────┐    │
+│  │ Admin Dashboard  │    │ Employee App (ReZ)       │    │
+│  │ (CorpPerks Admin)│    │ /karma/corp/*            │    │
+│  └────────┬─────────┘    └────────────┬─────────────┘    │
+│           │                            │                   │
+│           └──────────┬─────────────────┘                   │
+│                      ▼                                     │
+│         ┌──────────────────────────┐                     │
+│         │ rez-corpperks-service    │ ← Port 4013         │
+│         │ (CorpPerks Gateway API)   │                     │
+│         └──────────┬───────────────┘                     │
+│                    │                                      │
+│    ┌───────────────┼───────────────┐                     │
+│    │               │               │                     │
+│    ▼               ▼               ▼                     │
+│ ┌──────────┐ ┌───────────┐ ┌────────────┐               │
+│ │ GST      │ │ Rewards   │ │ Campaigns  │               │
+│ │ Invoices │ │ & Tiers   │ │ Management │               │
+│ └──────────┘ └───────────┘ └────────────┘               │
+│                                                              │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │              Integration Layer                         │  │
+│  │  ┌─────────────┐  ┌──────────────┐  ┌────────────┐  │  │
+│  │  │Hotel Service│  │Procurement   │  │ Wallet     │  │  │
+│  │  │(Makcorps)  │  │Service       │  │ Service    │  │  │
+│  │  │Port: 4011  │  │(NextaBizz)  │  │Port: 4004 │  │  │
+│  │  └─────────────┘  │Port: 4012   │  └────────────┘  │  │
+│  │                   └──────────────┘                   │  │
+│  └──────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+```
 
-#### Key Features
-| Feature | Description |
-|---------|-------------|
-| Benefits | Meal, Travel, Wellness, Learning, Gift budgets |
-| Employees | HRIS sync, enrollment, role-based access |
-| Hotel Bookings | Makcorps OTA integration |
-| GST Invoices | Invoice generation, GSTR-1 reports |
-| Gifting | NextaBizz procurement, bulk orders |
-| Karma/CSR | Volunteer campaigns, impact tracking |
-| Rewards | Tier system, milestones, campaigns |
-| Finance | Wallet, BNPL, expense cards |
+#### Services
+| Service | Port | Description |
+|---------|------|-------------|
+| rez-corpperks-service | 4013 | Gateway API |
+| rez-hotel-service | 4011 | Makcorps proxy |
+| rez-procurement-service | 4012 | NextaBizz proxy |
 
-#### Connects To
-- **rez-wallet-service** → Benefits ledger
-- **rez-finance-service** → GST calculations
-- **ReZ ecosystem** → Consumer redemptions
-
-#### Service Dependencies
-| Service | Purpose |
-|---------|---------|
-| `rez-wallet-service` | Benefits ledger |
-| `rez-finance-service` | GST invoices |
-| `rez-notification-events` | Email/SMS alerts |
-| `Makcorps API` | Hotel data |
-| `NextaBizz API` | Gift procurement |
-
-#### Admin Pages
-| Page | Description |
-|------|-------------|
-| Dashboard | Overview stats |
-| Benefits | Manage benefit packages |
-| Employees | Employee list, enrollment |
-| Bookings | Hotel bookings |
-| GST Invoices | Invoice management |
-| Campaigns | Gift, Karma campaigns |
+#### Modules
+| Module | Description |
+|--------|-------------|
+| Benefits | Meal, Travel, Wellness, Learning, Gift |
+| Employees | HRIS sync, enrollment |
+| Hotel Bookings | Makcorps OTA, GST invoices |
+| GST | Invoice generation, GSTR-1 |
+| Gifting | NextaBizz procurement |
+| Karma | Volunteer campaigns |
 | Rewards | ReZ Coins, tiers |
-| Analytics | Performance insights |
-| Health | Integration status |
+| Analytics | Dashboard, reports |
+| Health | Integration monitoring |
 
 ---
 
