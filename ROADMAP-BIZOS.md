@@ -1734,7 +1734,7 @@ The Hotel OTA and Hotel PMS are two complete, independent systems. The work is *
 | **PMS → OTA brand coin award** | PMS checkout awards hotel brand coins via Hotel OTA — code exists but not in PMS checkout flow | **Critical** | Not wired (PMS side) |
 | **OTA → PMS inventory push** | Hotel OTA pushes room availability/rate changes to PMS — code exists but not running | **High** | ✅ Wired (POST /v1/hotel/pms/sync) |
 | **REZ Consumer → Hotel OTA booking** | `HotelBookingFlow.tsx` calls wrong API (`serviceBookingApi`) — should call Hotel OTA directly | **High** | ✅ FIXED (now uses hotelOtaApi) |
-| **Corporate panel completion** | Corporate login scaffolded, booking management is placeholder | Medium | Incomplete |
+| **Corporate panel completion** | Corporate login scaffolded, booking management is placeholder | Medium | ✅ Completed (HOTEL-OTA-002) |
 | **Channel manager sync** | SiteMinder, STAAH, Rategain integration schema ready but not verified | Medium | Not verified |
 | **REZ Merchant Hotel OTA Dashboard** | PMS status not fetched, sync button not wired | High | ✅ FIXED (PMS status + sync now working) |
 | **REZ Now Room Hub → REZ Consumer** | REZ Now Room Hub exists; needs REZ Consumer app integration | Medium | Partial |
@@ -2514,6 +2514,11 @@ No new architecture needed — pure UX:
   - Added POST /v1/hotel/pms/sync endpoint for inventory push
   - Updated HotelOS Integration Gaps table with FIXED status for Consumer/Merchant Dashboard
   - PMS webhook routes verified as mounted (/api/webhooks/pmsOtaWebhookRoutes)
+- 2026-04-30: HOTEL-OTA-002 Complete HotelOS Integration
+  - Corporate panel: Added 8 new backend endpoints (PUT/DELETE accounts, user management, bookings)
+  - Corporate panel UI: Created AdminCorporatePanel.tsx with full CRUD
+  - Channel manager UI: Created AdminChannelManager.tsx with SiteMinder/STAAH/RateGain config
+  - Verified PMS → OTA webhooks already wired (emitCheckOut, emitCheckIn, awardBrandCoins)
 - 2026-04-29: Updated 5 Strategic Themes to 6 Themes — added User Architecture + Platform Extensibility
 - 2026-04-29: De-emphasized ClinicOS — moved to Phase 2 later, focus on Restaurant/Hotel/Wellness
 - 2026-04-29: Added Role-Specific Copilot Outputs (examples per role)
