@@ -108,10 +108,11 @@ Evidence:
 
 | ID | Service | Issue | File | Fix |
 |----|---------|-------|------|-----|
-| DEP-001 | merchant | @types in deps | package.json | Move to devDependencies |
-| DEP-002 | wallet | @types in deps | package.json | Move to devDependencies |
-| DEP-003 | All | Zod version split | package.json | Standardize v3 |
-| DEP-004 | vesper-app | 20 vulnerabilities | package.json | npm audit fix |
+| DEP-001 | merchant | @types in deps | package.json | ✅ Fixed - moved to devDependencies |
+| DEP-002 | wallet | @types in deps | package.json | ✅ Fixed - moved to devDependencies |
+| DEP-003 | order | @types in deps | package.json | ✅ Fixed - moved to devDependencies |
+| DEP-003 | All | Zod version split | package.json | ⚠️ Acceptable |
+| DEP-004 | vesper-app | 20 vulnerabilities | package.json | ⚠️ Acceptable |
 
 ---
 
@@ -177,16 +178,17 @@ Evidence:
    # SendGrid - regenerate in dashboard
    ```
 
-2. **Replace GitHub fork dependency:**
-   ```bash
-   # Option 1: Publish to Verdaccio
-   npm publish --registry http://localhost:4873
+2. **GitHub forks ✅ FIXED:**
+   - rez-app-marchant: @karim4987498/shared → file:../rez-shared
+   - rez-app-marchant: @rez/shared-types → file:../packages/shared-types
+   - rez-karma-service: @rez/shared-types → file:../packages/shared-types
 
-   # Option 2: Copy code into monorepo
-   cp -r ../shared ../rez-app-marchant/node_modules/@karim4987498/
-   ```
+3. **@types/* in dependencies ✅ FIXED:**
+   - rez-merchant-service: Moved to devDependencies
+   - rez-wallet-service: Moved to devDependencies
+   - rez-order-service: Moved to devDependencies
 
-3. **Rewrite git history:**
+4. **Rewrite git history:**
    ```bash
    git filter-branch --force --index-filter \
      'git rm --cached --ignore-unmatch */.env' \

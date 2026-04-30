@@ -360,3 +360,33 @@ POST   /api/integrations/:provider/disconnect Disconnect
 X-Correlation-ID: <uuid>   → propagated across all services
 X-Request-ID: <uuid>        → per-request ID
 ```
+
+### Finance (RTMN)
+```
+GET    /api/finance/wallet/:companyId           Get wallet
+POST   /api/finance/wallet/:companyId/topup     Top up wallet
+POST   /api/finance/wallet/:companyId/withdraw  Withdraw
+GET    /api/finance/wallet/:companyId/transactions Transaction history
+GET    /api/finance/cards/:companyId            List cards
+POST   /api/finance/cards                     Create card
+GET    /api/finance/cards/:cardId             Card details
+PUT    /api/finance/cards/:cardId             Update limits
+POST   /api/finance/cards/:cardId/freeze      Freeze card
+POST   /api/finance/cards/:cardId/unfreeze    Unfreeze card
+GET    /api/finance/bnpl/:companyId           BNPL status
+POST   /api/finance/bnpl/:companyId/charge    BNPL charge
+GET    /api/finance/analytics/:companyId      Spend analytics
+GET    /api/finance/limits/:companyId         Spending limits
+```
+
+### Analytics
+```
+GET    /api/analytics/dashboard/:companyId    Dashboard overview
+GET    /api/analytics/benefits/:companyId     Benefits analytics
+GET    /api/analytics/bookings/:companyId    Booking analytics
+GET    /api/analytics/rewards/:companyId      Rewards analytics
+GET    /api/analytics/campaigns/:companyId   Campaign analytics
+GET    /api/analytics/financial/:companyId    Financial analytics
+GET    /api/analytics/employees/:companyId    Employee analytics
+GET    /api/analytics/export/:companyId       Export report
+```
