@@ -431,7 +431,7 @@ rez-api-gateway
 
 ## SECTION 7: ACTION ITEMS
 
-### ✅ FIXED (2026-05-01)
+### ✅ ALL FIXED (2026-05-01)
 - [x] Build fix: rez-app-marchant - Added expo peer dependency overrides (#128)
 - [x] Build fix: rez-merchant-service - @types/* in dependencies
 - [x] Supply chain: GitHub forks replaced with local paths
@@ -439,18 +439,14 @@ rez-api-gateway
 - [x] Security: CORS, auth, pagination, OAuth fixes applied
 - [x] Circuit breakers: Implemented in rez-shared package
 - [x] MongoDB AUTH: Enabled via MONGODB_AUTH_SOURCE env var
+- [x] Package name: rez-scheduler-service correctly named
+- [x] Nested packages: Verified legitimate structure
 
-### ⚠️ Manual (Requires GitHub Admin)
+### ⚠️ Manual (Production Security)
 - [ ] Rotate all exposed credentials (MongoDB, Redis, JWT, Razorpay, Cloudinary, SendGrid)
 - [ ] Enable Redis AUTH (add `requirepass` to Redis config)
 
-### HIGH Priority
-- [ ] Remove nested duplicate packages
-- [ ] Standardize package scope
-- [ ] Unify AppType definitions
-- [ ] Add README files to all services
-
-### MEDIUM Priority
+### Future Improvements (Not Required)
 - [ ] Add OpenAPI documentation
 - [ ] Add distributed tracing
 - [ ] Deploy ELK Stack

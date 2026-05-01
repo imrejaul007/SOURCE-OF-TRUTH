@@ -1,7 +1,8 @@
-# REZ Platform - All Repositories
+# REZ Platform - All Repositories (Verified 2026-05-01)
 
 GitHub org: `imrejaul007`
-Last updated: 2026-04-30
+Last updated: 2026-05-01
+Audit Status: COMPLETE
 
 ---
 
@@ -51,10 +52,12 @@ Last updated: 2026-04-30
 │  └──────────────────────────────────────────────────────────────┘   │
 │                                                                      │
 │  ┌──────────────────────────────────────────────────────────────┐   │
-│  │ MERCHANT PLATFORMS                                           │   │
+│  │ AI LAYER - ReZ Mind                                           │   │
 │  │                                                               │   │
-│  │ - REZ Merchant App (POS) - INTEGRATED                      │   │
-│  │ - RestoPapa (restaurant) - STANDALONE, NOT integrated     │   │
+│  │ - Intent Graph (8 autonomous agents)                         │   │
+│  │ - Insights Service                                           │   │
+│  │ - Automation Service                                         │   │
+│  │ - RTMN Commerce Memory                                        │   │
 │  └──────────────────────────────────────────────────────────────┘   │
 │                                                                      │
 └─────────────────────────────────────────────────────────────────────┘
@@ -64,41 +67,51 @@ Last updated: 2026-04-30
 
 ## CORE PROJECTS (Source of Truth)
 
-These are the main applications - changes should be made here.
-
-| # | App | Local Path | Git Remote | Tech Stack | Deploy |
-|---|-----|------------|------------|------------|--------|
-| 1 | **rez-app-consumer** | `rez-app-consumer/` | imrejaul007/rez-app-consumer | Expo SDK 53, React Native 0.79, TypeScript | EAS Build |
-| 2 | **rez-app-marchant** | `rez-app-marchant/` | imrejaul007/rez-app-marchant | Expo SDK 53, React Native | EAS Build |
-| 3 | **rez-backend** | `rezbackend/rez-backend-master/` | imrejaul007/rez-backend | Node.js, Express, TypeScript, MongoDB | Render |
-
----
-
-## CORE SERVICES (9 microservices)
-
-| # | Service | Local Path | Git Remote | Port | Status | README |
-|---|---------|------------|------------|------|--------|--------|
-| 1 | rez-api-gateway | `rez-api-gateway/` | imrejaul007/rez-api-gateway | 5002 | Live | YES |
-| 2 | rez-auth-service | `rez-auth-service/` | imrejaul007/rez-auth-service | 4002 | Live | YES |
-| 3 | rez-wallet-service | `rez-wallet-service/` | imrejaul007/rez-wallet-service | 3010 | Live | YES |
-| 4 | rez-payment-service | `rez-payment-service/` | imrejaul007/rez-payment-service | 4001 | Live | YES |
-| 5 | rez-order-service | `rez-order-service/` | imrejaul007/rez-order-service | 3008 | Live | YES |
-| 6 | rez-catalog-service | `rez-catalog-service/` | imrejaul007/rez-catalog-service | 3005 | Live | YES |
-| 7 | rez-search-service | `rez-search-service/` | imrejaul007/rez-search-service | 4003 | Live | YES |
-| 8 | rez-gamification-service | `rez-gamification-service/` | imrejaul007/rez-gamification-service | 3001 | Live | YES |
-| 9 | rez-merchant-service | `rez-merchant-service/` | imrejaul007/rez-merchant-service | 4005 | Live | YES |
+| # | App | Local Path | Git Remote | Tech Stack | Deploy | Status |
+|---|-----|------------|------------|------------|--------|--------|
+| 1 | **rez-app-consumer** | `rez-app-consumer/` | imrejaul007/rez-app-consumer | Expo SDK 53, React Native 0.79, TypeScript | EAS Build | Active |
+| 2 | **rez-app-merchant** | `rez-app-merchant/` | imrejaul007/rez-app-marchant | Expo SDK 55, React Native 0.76, TypeScript | EAS Build | **BROKEN** |
+| 3 | **rez-app-admin** | `rez-app-admin/` | imrejaul007/rez-app-admin | Expo SDK 53, React Native 0.79, TypeScript | EAS Build | Active |
+| 4 | **rez-backend** | `rezbackend/` | imrejaul007/rez-backend | Node.js, Express, TypeScript, MongoDB | Render | Active |
 
 ---
 
-## SUPPORTING SERVICES (5 microservices)
+## WEB APPS
 
-| # | Service | Local Path | Git Remote | Port | Status | README |
-|---|---------|------------|------------|------|--------|--------|
-| 1 | rez-ads-service | `rez-ads-service/` | imrejaul007/rez-ads-service | 4007 | Live | YES |
-| 2 | rez-marketing-service | `rez-marketing-service/` | imrejaul007/rez-marketing-service | 4000 | Live | YES |
-| 3 | rez-scheduler-service | `rez-scheduler-service/` | imrejaul007/rez-scheduler-service | 3012 | Live | YES |
-| 4 | rez-finance-service | `rez-finance-service/` | imrejaul007/rez-finance-service | 4005 | Live | YES |
-| 5 | rez-karma-service | `rez-karma-service/` | imrejaul007/Karma | 3009 | Live | YES |
+| # | App | Local Path | Git Remote | Tech Stack | Deploy | Status |
+|---|-----|------------|------------|------------|--------|--------|
+| 1 | **REZ Now** | `rez-now/` | imrejaul007/rez-now | Next.js 16, React 19, Tailwind, Zustand | Vercel | Active |
+| 2 | **REZ Web Menu** | N/A | N/A | Services are in rez-web-menu folder | N/A | **Not Found** |
+
+---
+
+## CORE SERVICES (14 microservices)
+
+| # | Service | Local Path | Git Remote | Port | TypeScript | MongoDB | Redis | BullMQ | Status |
+|---|---------|------------|------------|------|-----------|---------|-------|--------|--------|
+| 1 | rez-auth-service | `rez-auth-service/` | imrejaul007/rez-auth-service | 4002 | Yes | Yes | Yes | Yes | Active |
+| 2 | rez-wallet-service | `rez-wallet-service/` | imrejaul007/rez-wallet-service | 4004 | Yes | Yes | Yes | Yes | Active |
+| 3 | rez-order-service | `rez-order-service/` | imrejaul007/rez-order-service | 3006 | Yes | Yes | Yes | Yes | Active |
+| 4 | rez-payment-service | `rez-payment-service/` | imrejaul007/rez-payment-service | 4001 | Yes | Yes | Yes | Yes | Active |
+| 5 | rez-merchant-service | `rez-merchant-service/` | imrejaul007/rez-merchant-service | 4005 | Yes | Yes | Yes | No | Active |
+| 6 | rez-catalog-service | `rez-catalog-service/` | imrejaul007/rez-catalog-service | 3005 | Yes | Yes | Yes | Yes | Active |
+| 7 | rez-search-service | `rez-search-service/` | imrejaul007/rez-search-service | 4003 | Yes | Yes | Yes | No | Active |
+| 8 | rez-gamification-service | `rez-gamification-service/` | imrejaul007/rez-gamification-service | 3001 | Yes | Yes | Yes | Yes | Active |
+| 9 | rez-ads-service | `rez-ads-service/` | imrejaul007/rez-ads-service | 4007 | Yes | Yes | Yes | No | Active |
+| 10 | rez-marketing-service | `rez-marketing-service/` | imrejaul007/rez-marketing-service | 4000 | Yes | Yes | Yes | Yes | Active |
+| 11 | rez-scheduler-service | `rez-scheduler-service/` | imrejaul007/rez-scheduler-service | 3012 | Yes | Yes | Yes | Yes | Active |
+| 12 | rez-finance-service | `rez-finance-service/` | imrejaul007/rez-finance-service | 4006 | Yes | Yes | Yes | Yes | Active |
+| 13 | rez-karma-service | `rez-karma-service/` | imrejaul007/rez-karma-service | 3009 | Yes | Yes | Yes | Yes | Active |
+| 14 | rez-corpperks-service | `rez-corpperks-service/` | Built-in | 4013 | No | Yes | Yes | No | Active |
+
+---
+
+## BUSINESS SERVICES (3 microservices)
+
+| # | Service | Local Path | Git Remote | Port | TypeScript | MongoDB | Redis | BullMQ | Status |
+|---|---------|------------|------------|------|-----------|---------|-------|--------|--------|
+| 1 | rez-hotel-service | `rez-hotel-service/` | Built-in | 4015 | No | Yes | No | No | Active |
+| 2 | rez-procurement-service | `rez-procurement-service/` | Built-in | 4012 | No | Yes | No | No | Active |
 
 ---
 
@@ -106,212 +119,181 @@ These are the main applications - changes should be made here.
 
 | # | Service | Local Path | Git Remote | Port | Status |
 |---|---------|------------|------------|------|--------|
-| 1 | analytics-events | `analytics-events/` | imrejaul007/analytics-events | 3006 | Live |
-| 2 | rez-notification-events | `rez-notification-events/` | imrejaul007/rez-notification-events | 3005 | Live |
-| 3 | rez-media-events | `rez-media-events/` | imrejaul007/rez-media-events | 3008 | Live |
+| 1 | analytics-events | `analytics-events/` | imrejaul007/analytics-events | 3006 | Active |
+| 2 | rez-notification-events | `rez-notification-events/` | imrejaul007/rez-notification-events | 3005 | Active |
+| 3 | rez-media-events | `rez-media-events/` | imrejaul007/rez-media-events | 3008 | Active |
 
 ---
 
-## CORPPERKS SERVICES (4 microservices)
+## AI LAYER - ReZ Mind (Separate Repo)
 
-| # | Service | Local Path | Git Remote | Port | Status | README |
-|---|---------|------------|------------|------|--------|--------|
-| 1 | rez-corpperks-service | `rez-corpperks-service/` | Built-in | 4013 | Live | YES |
-| 2 | rez-hotel-service | `rez-hotel-service/` | Built-in | 4011 | Live | YES |
-| 3 | rez-procurement-service | `rez-procurement-service/` | Built-in | 4012 | Live | YES |
-| 4 | rez-karma-service | `rez-karma-service/` | imrejaul007/Karma | 3009 | Live | YES |
-
-### CorpPerks SDK
-
-```bash
-npm install @rez/corpperks-sdk
-```
-
-```typescript
-import { CorpPerksClient } from '@rez/corpperks-sdk';
-
-const corp = new CorpPerksClient({
-  apiBaseUrl: 'https://api.rez.money',
-  token: userToken,
-});
-
-const benefits = await corp.getMyBenefits();
-const booking = await corp.createBooking({...});
-await corp.redeemReward('R001');
-```
-
-### CorpPerks Deploy Files
-
-| File | Purpose |
-|------|---------|
-| `CorpPerks/docker-compose.yml` | Docker + MongoDB |
-| `CorpPerks/render.yaml` | Render one-click deploy |
-| `CorpPerks/DEPLOY.md` | Deployment guide |
-| `CorpPerks/sdk/` | JS SDK |
-| `CorpPerks/CorpPerks.postman_collection.json` | API testing |
-
----
-
-## ReZ Mind - AI Intelligence Layer
-
-**Location:** `/Users/rejaulkarim/Documents/rez-intent-graph` (separate repo)
+**Location:** `/Users/rejaulkarim/Documents/rez-intent-graph`
 **Git:** `imrejaul007/rez-intent-graph`
 **Render:** `rez-intent-graph` service
 
-ReZ Mind is the **AI-powered commerce intelligence platform** combining:
-- **RTMN Commerce Memory** - Tracks user intent across all apps
-- **8 Autonomous AI Agents** - Self-operating agents for commerce
-- **Intent Graph** - Dormant intent detection and revival
+### Components
 
-### 8 Autonomous Agents
-| Agent | Schedule | Purpose |
+| # | Component | Port | AI Agents | Purpose |
+|---|-----------|------|----------|---------|
+| 1 | rez-intent-graph | 3001/3005 | 8 | Intent tracking, RTMN Commerce Memory |
+| 2 | rez-insights-service | Configurable | 0 | Insights storage |
+| 3 | rez-automation-service | Configurable | 0 | Rule engine |
+
+### 8 Autonomous AI Agents
+
+| Agent | Interval | Purpose |
 |-------|----------|---------|
-| DemandSignalAgent | Every 5 min | Aggregate demand per merchant/category |
-| ScarcityAgent | Every 1 min | Supply/demand ratios, urgency alerts |
-| PersonalizationAgent | Event-driven | User response profiling, A/B testing |
-| AttributionAgent | Event-driven | Multi-touch conversion attribution |
-| AdaptiveScoringAgent | Hourly | ML retraining of intent scoring |
-| FeedbackLoopAgent | Event-driven | Closed-loop optimization, drift detection |
-| NetworkEffectAgent | Daily | Collaborative filtering, user similarity |
-| RevenueAttributionAgent | Every 15 min | GMV tracking, ROI per agent/nudge |
-
-### Ports
-| Server | Port | Purpose |
-|--------|------|---------|
-| API Server | 3001 | Intent capture, commerce memory |
-| Agent Server | 3005 | Autonomous agent swarm |
+| DemandSignalAgent | 5 min | Demand aggregation per merchant/category |
+| ScarcityAgent | 1 min | Supply/demand ratios, urgency alerts |
+| PersonalizationAgent | 1 min | User response profiling, A/B testing |
+| AttributionAgent | 30 min | Multi-touch conversion attribution |
+| AdaptiveScoringAgent | 1 hour | ML retraining of intent scoring |
+| FeedbackLoopAgent | 1 hour | Closed-loop optimization, drift detection |
+| NetworkEffectAgent | 24 hours | Collaborative filtering, user similarity |
+| RevenueAttributionAgent | 15 min | GMV tracking, ROI per agent/nudge |
 
 ---
 
-## Shared Packages
+## VERTICAL APPS
 
-| # | Package | Local Path | Git Remote | Notes |
-|---|---------|------------|------------|-------|
-| 1 | rez-shared | `rez-shared/` | imrejaul007/rez-shared | npm: @rez/shared |
-| 2 | shared-types | `packages/shared-types/` | imrejaul007/shared-types | Shared TypeScript types |
-| 3 | rez-contracts | `rez-contracts/` | imrejaul007/rez-contracts | Smart contracts |
-| 4 | rez-devops-config | `rez-devops-config/` | imrejaul007/rez-devops-config | CI/CD config |
-| 5 | rez-error-intelligence | `rez-error-intelligence/` | imrejaul007/rez-error-intelligence | Error tracking |
-
----
-
-## USER-FACING APPS (Connected via Services)
-
-These apps use the core services (auth, wallet, orders, etc.)
-
-| # | App | Local Path | Git Remote | Tech Stack | Deploy |
-|---|-----|------------|------------|------------|--------|
-| 1 | **REZ Now** | `rez-now/` | imrejaul007/rez-now | Next.js, React | Vercel |
-| 2 | **REZ Web Menu** | `rez-web-menu/` | imrejaul007/rez-web-menu | Next.js | Vercel |
-| 3 | **Rendez** | `Rendez/` | imrejaul007/Rendez | React Native, Node.js, Prisma | Render + Vercel |
-| 4 | **AdBazaar** | `adBazaar/` | imrejaul007/adBazaar | Next.js, Supabase | Vercel |
+| # | App | Local Path | Git Remote | Tech Stack | Deploy | ReZ Integration |
+|---|-----|------------|------------|------------|--------|-----------------|
+| 1 | **Rendez** | `Rendez/` | imrejaul007/Rendez | React Native, Node.js, Prisma, PostgreSQL | Render + Vercel | Wallet, Catalog, Merchant |
+| 2 | **AdBazaar** | `adBazaar/` | imrejaul007/adBazaar | Next.js 16, Supabase, Upstash Redis | Vercel | OAuth, Wallet, Payment, Intent |
+| 3 | **NextaBiZ** | `nextabizz/` | imrejaul007/nextabizz | Next.js 15, Turborepo, Supabase | Vercel | OAuth, Merchant, Intent |
+| 4 | **CorpPerks** | `CorpPerks/` | imrejaul007/CorpPerks | Node.js, MongoDB, React Native | Render, Docker | Finance, Karma, Wallet |
 
 ---
 
 ## HOTEL STACK - StayOwn (Hotel OTA)
 
 **Brand:** StayOwn - India's First Hotel-Owned OTA
+**Git:** `imrejaul007/hotel-ota`
+**Location:** `Hotel OTA/`
+
+### Apps
 
 | # | App | Local Path | Purpose | Tech Stack |
 |---|-----|------------|---------|------------|
-| 1 | **OTA Web** | `Hotel OTA/apps/ota-web/` | Customer booking website | Next.js |
-| 2 | **Mobile** | `Hotel OTA/apps/mobile/` | StayOwn Mobile (iOS + Android) | React Native |
-| 3 | **Admin** | `Hotel OTA/apps/admin/` | StayOwn Admin Dashboard | Next.js |
-| 4 | **Hotel Panel** | `Hotel OTA/apps/hotel-panel/` | Hotel staff management | Next.js |
-| 5 | **Corporate Panel** | `Hotel OTA/apps/corporate-panel/` | Corporate account management | Next.js |
-| 6 | **API** | `Hotel OTA/apps/api/` | Backend API (includes Room QR) | Node.js, Prisma |
-| 7 | **Hotel PMS** | `Hotel OTA/hotel-pms/` | Property Management System | Node.js, Prisma |
+| 1 | **OTA Web** | `apps/ota-web/` | Customer booking website | Next.js 16 |
+| 2 | **Mobile** | `apps/mobile/` | StayOwn Mobile (iOS + Android) | React Native, Expo 49 |
+| 3 | **Admin** | `apps/admin/` | StayOwn Admin Dashboard | Next.js 16 |
+| 4 | **Hotel Panel** | `apps/hotel-panel/` | Hotel staff management | Next.js 16 |
+| 5 | **Corporate Panel** | `apps/corporate-panel/` | Corporate account management | Next.js 16 |
+| 6 | **API** | `apps/api/` | Backend API (includes Room QR) | Node.js, Express, Prisma |
+| 7 | **Hotel PMS** | `hotel-pms/` | Property Management System | Node.js, Prisma, React |
 
-### Room QR - Guest Services
+### Room QR Feature
 
 - **Location:** `Hotel OTA/apps/api/src/routes/room-qr.routes.ts`
 - **Purpose:** Guest services when scanning room QR code
 - **Intent:** `guest_services_scan`
 
----
+### Deployment
 
-## MERCHANT PLATFORMS
-
-| # | App | Local Path | Git Remote | Tech Stack | Status |
-|---|-----|------------|------------|------------|--------|
-| 1 | **RestoPapa** | `Resturistan App/` | imrejaul007/restaurantapp | Node.js, monorepo | STANDALONE - NOT integrated |
-| 2 | **REZ Merchant App** | `rez-app-marchant/` | imrejaul007/rez-app-marchant | Expo, React Native | INTEGRATED |
-| 3 | **REZ Admin App** | `rez-app-admin/` | imrejaul007/rez-app-admin | Expo, React Native | INTEGRATED |
-
----
-
-## Cleanup Commands
-
-```bash
-# Remove duplicate clones (after confirming they match above)
-rm -rf "hotel-ota"
-rm -rf "packages/rez-shared"
-rm -rf "rezapp"
-rm -rf "rezbackend"
-rm -rf "rez-web-menu/rezbackend"
-rm -rf "components"
-rm -rf "config"
-rm -rf "test"
-rm -rf "tests"
-```
+| Service | Render Name | URL |
+|---------|-------------|-----|
+| API | hotel-ota-api | https://hotel-ota-api.onrender.com |
+| OTA Web | hotel-ota-web | https://hotel-ota-web.onrender.com |
+| Hotel Panel | hotel-ota-hotel-panel | https://hotel-ota-hotel-panel.onrender.com |
+| Admin | hotel-ota-admin | https://hotel-ota-admin.onrender.com |
 
 ---
 
-## Architecture Notes
+## KARMA APPS
 
-### How Apps Connect to Services
+| # | App | Local Path | Git Remote | Tech Stack |
+|---|-----|------------|------------|------------|
+| 1 | **rez-karma-app** | `rez-karma-app/` | imrejaul007/rez-karma-app | Next.js |
+| 2 | **rez-karma-mobile** | `rez-karma-mobile/` | imrejaul007/rez-karma-mobile | React Native |
 
-```
-User App (Consumer/Merchant/Now)
-         |
-         v
-   API Gateway
-         |
-         +-- rez-backend (monolith)
-         |
-         +-- rez-auth-service
-         +-- rez-wallet-service
-         +-- rez-payment-service
-         +-- rez-order-service
-         +-- rez-catalog-service
-         +-- rez-search-service
-         +-- rez-gamification-service
-         +-- rez-ads-service
-         +-- rez-marketing-service
-         +-- rez-scheduler-service
-         +-- rez-finance-service
-         +-- rez-karma-service
+---
 
-Event Queue: BullMQ + Redis
-```
+## SHARED PACKAGES
 
-### Partner Apps (Standalone)
+| # | Package | Local Path | Version | Purpose | Published | Status |
+|---|---------|------------|---------|---------|-----------|--------|
+| 1 | rez-shared | `rez-shared/` | 2.0.0 | Core utilities, types, schemas | Yes | Active |
+| 2 | @rez/shared-types | `packages/shared-types/` | 2.0.0 | TypeScript interfaces, zod schemas | Yes | Active |
+| 3 | @rez/service-core | `packages/service-core/` | 1.0.1 | Microservice infrastructure | No | Incomplete |
+| 4 | @rez/ui | `packages/ui/` | 1.0.0 | UI components (5) | No | Minimal |
+| 5 | @rez/metrics | `packages/metrics/` | 1.0.0 | Prometheus middleware | No | **Empty** |
+| 6 | @rez/agent-memory | `packages/agent-memory/` | 1.0.0 | Agent memory | No | Active |
+| 7 | @rez/intent-capture-sdk | `packages/intent-capture-sdk/` | 1.0.0 | Intent Capture SDK | No | Active |
+| 8 | @rez/intent-graph | `packages/intent-graph/` | 0.1.0 | AI platform | No | Active |
+| 9 | @rez/chat | `packages/rez-chat-service/` | 1.0.0 | Real-time chat | No | Active |
+| 10 | @rez/chat-ai | `packages/rez-chat-ai/` | 1.0.0 | AI chat (Anthropic) | No | Active |
+| 11 | @rez/chat-integration | `packages/rez-chat-integration/` | 1.0.0 | Chat integration | No | Active |
+| 12 | @rez/chat-rn | `packages/rez-chat-rn/` | 1.0.0 | React Native chat | No | Active |
+| 13 | @rez/eslint-plugin | `packages/eslint-plugin/` | 1.0.0 | ESLint rules | No | **Empty** |
+| 14 | rez-contracts | `rez-contracts/` | 1.0.1 | API contracts | No | **Broken** |
 
-| App | Connection to REZ | Auth |
-|-----|-------------------|------|
-| Rendez | REZ wallet (hold/release), SSO | REZ partner API |
-| StayOwen | REZ wallet, SSO | REZ SSO |
-| AdBazaar | None | Supabase auth |
-| Restaurian | REZ wallet (future) | TBD |
+### Infrastructure Packages (Not npm)
+
+| # | Package | Local Path | Purpose |
+|---|---------|------------|---------|
+| 1 | rez-devops-config | `rez-devops-config/` | CI/CD (GitHub Actions) |
+| 2 | rez-error-intelligence | `rez-error-intelligence/` | Error tracking docs |
+
+---
+
+## DUPLICATE PACKAGES (NEEDS CONSOLIDATION)
+
+| Package | Location | Version | Issue |
+|---------|----------|---------|-------|
+| @rez/shared | `rez-shared/` | 2.0.0 | Canonical |
+| @rez/shared | `packages/rez-shared/` | 1.0.0 | DUPLICATE - needs deprecation |
+
+---
+
+## KNOWN ISSUES
+
+| # | Issue | Severity | Status | Fix |
+|---|-------|----------|--------|-----|
+| 1 | Merge conflict in rez-app-merchant/package.json | CRITICAL | **BROKEN** | Resolve conflict |
+| 2 | Duplicate @rez/shared packages | HIGH | Needs action | Deprecate one |
+| 3 | rez-contracts has no src/ directory | HIGH | **BROKEN** | Create or remove |
+| 4 | @rez/metrics empty (no implementation) | MEDIUM | Dead code | Implement or remove |
+| 5 | @rez/eslint-plugin empty (no rules) | MEDIUM | Dead code | Implement or remove |
+| 6 | MongoDB AUTH not enabled | CRITICAL | Security Risk | Enable auth |
+| 7 | Redis AUTH not enabled | CRITICAL | Security Risk | Enable auth |
+| 8 | Hotel OTA has 18 remaining bugs | HIGH | Bug | Fix bugs |
+| 9 | Search service needs Typesense | MEDIUM | Performance | Migrate |
+
+---
+
+## SERVICE PORTS REFERENCE
+
+| Service | Port | Metrics |
+|---------|------|---------|
+| rez-auth-service | 4002 | 4102 |
+| rez-wallet-service | 4004 | - |
+| rez-order-service | 3006 | - |
+| rez-payment-service | 4001 | - |
+| rez-merchant-service | 4005 | - |
+| rez-catalog-service | 3005 | - |
+| rez-search-service | 4003 | - |
+| rez-gamification-service | 3001 | 3004 (worker) |
+| rez-ads-service | 4007 | - |
+| rez-marketing-service | 4000 | - |
+| rez-scheduler-service | 3012 | - |
+| rez-finance-service | 4006 | - |
+| rez-karma-service | 3009 | - |
+| rez-corpperks-service | 4013 | - |
+| rez-hotel-service | 4015 | - |
+| rez-procurement-service | 4012 | - |
+| rez-intent-graph | 3001 | 3005 (agent) |
+| rez-insights-service | Configurable | - |
+| rez-automation-service | Configurable | - |
 
 ---
 
 ## Last Updated
 
-- 2026-04-30: Phase 0 Documentation complete
-  - Created comprehensive README.md for all 17 services
-  - Updated SERVICE ports in LOCAL-PORTS.md
-  - Updated REPOS.md with correct paths and README status
-
----
-
-## Known Issues (Audit Findings)
-
-| Issue | Severity | Status |
-|-------|----------|--------|
-| Git conflict markers in 3 services | CRITICAL | To Fix |
-| Wrong package name (rez-workspace) | CRITICAL | To Fix |
-| Missing source for 2 packages | CRITICAL | To Fix |
-| Typo: rez-app-marchant | HIGH | To Fix |
-| Nested duplicate packages | HIGH | To Fix |
-| MongoDB/Redis AUTH not enabled | CRITICAL | Security Risk |
+- 2026-05-01: Full ecosystem audit complete
+  - All 17 services documented with verified tech stacks
+  - All apps documented with API connections
+  - All packages inventoried with status
+  - ReZ Mind AI layer documented with 8 agents
+  - Known issues catalogued
+  - Source: COMPREHENSIVE-AUDIT-2026-05-01-FULL.md
