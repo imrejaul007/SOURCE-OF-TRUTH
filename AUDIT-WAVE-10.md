@@ -1,5 +1,5 @@
 # WAVE 10: Cross-Service Build & Security Audit
-**Date:** 2026-05-01
+**Date:** 2026-05-02
 **Status:** COMPLETE - All services verified
 
 ---
@@ -15,6 +15,7 @@
 | rez-order-service | ✅ Pass | ✅ Clean | - |
 | rez-catalog-service | ✅ Pass | ✅ Clean | - |
 | rez-intent-graph | ✅ Pass | ✅ Clean | #9 |
+| rez-backend | ✅ Pass | ⚠️ Partial | #159 |
 
 ---
 
@@ -39,6 +40,12 @@
 - streamService.ts: Added types for map callbacks
 - cache.ts: Added error type annotation
 
+### rez-backend (PR #159)
+- Zod v4: Change error.errors to error.issues
+- Fix SchemaWithSafeParse interface for Zod v4 compatibility
+- Fix file-type import: fromBuffer -> fileTypeFromBuffer from file-type/core
+- Run npm audit fix --force
+
 ---
 
 ## Verification Commands
@@ -46,7 +53,8 @@
 ```bash
 cd ~/Documents/ReZ\ Full\ App
 for svc in rez-auth-service rez-merchant-service rez-payment-service \
-         rez-wallet-service rez-order-service rez-catalog-service rez-intent-graph; do
+         rez-wallet-service rez-order-service rez-catalog-service \
+         rez-intent-graph rez-backend; do
   echo "=== $svc ==="
   cd $svc
   npm run build
@@ -57,4 +65,4 @@ done
 
 ---
 
-## Last Updated: 2026-05-01
+## Last Updated: 2026-05-02
