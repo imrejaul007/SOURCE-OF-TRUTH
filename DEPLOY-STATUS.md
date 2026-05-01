@@ -1,5 +1,5 @@
 # REZ Platform — Deployment Status
-**Last Updated:** 2026-04-30
+**Last Updated:** 2026-05-01 (Gen 66: Full audit complete - all repos synced, TypeScript passing)
 
 ## REZ Ecosystem Services
 
@@ -7,6 +7,7 @@
 
 | Service | GitHub | Status |
 |---------|--------|--------|
+| rez-backend (main) | [Link](https://github.com/imrejaul007/rez-backend) | ✅ Building |
 | rez-auth-service | [Link](https://github.com/imrejaul007/rez-auth-service) | ✅ Deployed |
 | rez-merchant-service | [Link](https://github.com/imrejaul007/rez-merchant-service) | ✅ Deployed |
 | rez-order-service | [Link](https://github.com/imrejaul007/rez-order-service) | ✅ Deployed |
@@ -18,12 +19,21 @@
 | analytics-events | [Link](https://github.com/imrejaul007/analytics-events) | ✅ Deployed |
 | rez-api-gateway | [Link](https://github.com/imrejaul007/rez-api-gateway) | ✅ Deployed |
 
+### Karma Suite
+
+| Service | GitHub | Status |
+|---------|--------|--------|
+| rez-karma-service | [Link](https://github.com/imrejaul007/Karma) | ✅ Building |
+| rez-karma-app | [Link](https://github.com/imrejaul007/rez-karma-app) | ✅ Deployed |
+| rez-karma-mobile | [Link](https://github.com/imrejaul007/rez-karma-mobile) | ✅ APK Ready |
+
 ### Mobile Apps
 
 | App | GitHub | Platform | Status |
 |-----|--------|---------|--------|
-| consumer-app | [Link](https://github.com/imrejaul007/consumer-app) | React Native | ✅ Live |
-| admin-app | [Link](https://github.com/imrejaul007/admin-app) | React Native | ✅ Live |
+| rez-app-consumer | [Link](https://github.com/imrejaul007/rez-app-consumer) | React Native | ✅ Live |
+| rez-app-marchant | [Link](https://github.com/imrejaul007/rez-app-marchant) | React Native | ✅ Live |
+| rez-app-admin | [Link](https://github.com/imrejaul007/rez-app-admin) | React Native | ✅ Live |
 
 ---
 
