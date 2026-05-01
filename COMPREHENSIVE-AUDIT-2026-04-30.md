@@ -433,14 +433,14 @@ rez-api-gateway
 
 ### ✅ FIXED (2026-05-01)
 - [x] Build fix: rez-app-marchant - Added expo peer dependency overrides (#128)
+- [x] Build fix: rez-merchant-service - @types/* in dependencies
 - [x] Supply chain: GitHub forks replaced with local paths
-- [x] Dependencies: @types/* moved to devDependencies
+- [x] Dependencies: @types/* in dependencies for TypeScript compilation
 - [x] Security: CORS, auth, pagination, OAuth fixes applied
 - [x] Circuit breakers: Implemented in rez-shared package
 - [x] MongoDB AUTH: Enabled via MONGODB_AUTH_SOURCE env var
 
 ### ⚠️ Manual (Requires GitHub Admin)
-- [ ] Rename GitHub repo `rez-app-marchant` → `rez-app-merchant`
 - [ ] Rotate all exposed credentials (MongoDB, Redis, JWT, Razorpay, Cloudinary, SendGrid)
 - [ ] Enable Redis AUTH (add `requirepass` to Redis config)
 
