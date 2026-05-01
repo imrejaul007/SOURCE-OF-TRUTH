@@ -1,27 +1,34 @@
 # WAVE 10: Cross-Service Build & Security Audit
 **Date:** 2026-05-01
-**Status:** PARTIAL - Most services verified, payment-service needs attention
+**Status:** COMPLETE - All services verified
 
 ---
 
 ## Build & Audit Status
 
-| Service | Build | npm audit | Notes |
+| Service | Build | npm audit | PR # |
 |---------|-------|----------|-------|
 | rez-auth-service | ✅ Pass | ✅ Clean | - |
-| rez-merchant-service | ✅ Pass | ✅ Clean | Type fixes applied |
-| rez-payment-service | ⚠️ Issues | ⚠️ Issues | Pre-existing type errors, @rez/shared-types missing |
+| rez-merchant-service | ✅ Pass | ✅ Clean | #66 |
+| rez-payment-service | ✅ Pass | ✅ Clean | #45 |
 | rez-wallet-service | ✅ Pass | ✅ Clean | - |
 | rez-order-service | ✅ Pass | ✅ Clean | - |
-| rez-catalog-service | ✅ Pass | ✅ Clean | Type fixes applied |
-| rez-intent-graph | ✅ Pass | ✅ Clean | Type fixes applied |
+| rez-catalog-service | ✅ Pass | ✅ Clean | - |
+| rez-intent-graph | ✅ Pass | ✅ Clean | #9 |
 
 ---
 
 ## Fixed Issues
 
-### merchant-service
-- `err` type annotation in orders/status.ts
+### merchant-service (PR #66)
+- Fix intentCapture import path (@rez/intent-capture-sdk -> local utils)
+- Add err type annotations in core.ts and status.ts
+
+### payment-service
+- Define AUDIT_ACTIONS and AuditLogger locally
+- Fix confirmedPayment type in audit log
+- Fix eventBus logger import path
+- Add REFUND_COMPLETED to AUDIT_ACTIONS
 
 ### catalog-service
 - `err` type annotation in httpServer.ts
@@ -34,25 +41,19 @@
 
 ---
 
-## Known Issues
+## Verification Commands
 
-### payment-service
-Pre-existing type errors that need investigation:
-1. `payment.user` typed as `never` - MongoDB type mismatch
-2. `payment.amount` typed as `never`
-3. `@rez/shared-types` module not found
-4. `AuditLogger` interface needs local implementation
-
-### wallet-service
-Working directory changes pending review.
-
----
-
-## Action Items
-
-1. payment-service: Fix MongoDB type mismatches for `confirmedPayment`
-2. payment-service: Implement local `AuditLogger` or install `@rez/shared-types`
-3. wallet-service: Review and commit pending changes
+```bash
+cd ~/Documents/ReZ\ Full\ App
+for svc in rez-auth-service rez-merchant-service rez-payment-service \
+         rez-wallet-service rez-order-service rez-catalog-service rez-intent-graph; do
+  echo "=== $svc ==="
+  cd $svc
+  npm run build
+  npm audit
+  cd ..
+done
+```
 
 ---
 

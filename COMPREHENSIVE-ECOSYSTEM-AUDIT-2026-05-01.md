@@ -1,500 +1,456 @@
 # ReZ Ecosystem - Comprehensive Audit Report
-**Date:** 2026-05-01
+**Generated:** 2026-05-01
+**Last Updated:** 2026-05-01
 **Status:** COMPLETE
-**Auditor:** Claude Code
 
 ---
 
 ## Executive Summary
 
-The ReZ ecosystem contains:
-- **4 Mobile Apps** (consumer, merchant, admin, karma)
-- **6 Web Apps** (rez-now, adBazaar, nextabizz, rendez, corpperks-landing)
-- **18 Backend Services** (microservices + event workers)
-- **13 Shared Packages** (shared-types, chat, AI, intent graph)
-- **1 Hotel OTA Stack** (6 apps + API + PMS)
-- **1 Main Monolith** (rezbackend)
+This document is the definitive audit of the entire ReZ ecosystem, covering:
+- **10 Frontend Apps** (Mobile + Web)
+- **17 Backend Services** (Microservices)
+- **15 Shared Packages**
+- **12 AI/Intelligence Components**
 
-**Total Components: 49**
+### Key Metrics
+
+| Category | Count | Status |
+|----------|-------|--------|
+| Frontend Apps | 10 | 7 Active, 3 Minimal |
+| Backend Services | 17 | 14 Active, 3 New |
+| Shared Packages | 15 | 13 Built, 2 Standalone |
+| AI Components | 12 | 8 Active, 4 Minimal |
 
 ---
 
-## SECTION 1: MOBILE APPS
+## Part 1: Frontend Applications
 
-### 1.1 rez-app-consumer
+### 1.1 Mobile Apps
+
+#### A. rez-app-consumer (Consumer App - "Nuqta")
+**Location:** `rez-app-consumer`
+**Platform:** React Native/Expo | **Version:** 1.0.0
+
 | Attribute | Value |
 |-----------|-------|
-| **Tech Stack** | Expo SDK 53, React Native 0.79, React 19 |
-| **Navigation** | expo-router 5.1.11 |
-| **State** | Zustand 35 stores, React Query |
-| **Bundle ID** | `money.rez.app` |
-| **Screens** | 200+ |
-| **API Services** | 227 |
-| **GitHub** | imrejaul007/rez-app-consumer |
+| Framework | Expo SDK 53, React Native 0.79, React 19 |
+| Navigation | expo-router ~5.1.11 |
+| State | zustand ^5.0.11, @tanstack/react-query ^5.90.21 |
+| Payments | react-native-razorpay ^2.3.0 |
+| Real-time | socket.io-client ^4.8.1 |
+| Shared | @rez/chat, @rez/shared-types |
 
 **Features:**
-- E-commerce (products, cart, checkout)
-- Wallet (ReZ Cash, coins)
-- Bookings (flights, hotels, trains)
-- In-store (QR pay, dine-in)
-- Bill payments, recharges
-- Gamification (points, badges, missions)
-- Creator dashboard
-- Finance (savings, insurance)
-- Karma score tracking
+- OTP/PIN authentication with SecureStore
+- Product browsing with category search and filters
+- Cart & checkout with multi-item support
+- Wallet & cashback with transaction history
+- Referral program with tier benefits
+- Push notifications via Firebase FCM
+- Real-time order tracking
+- Offline support with request deduplication
 
-**API Connections:**
-- Gateway: `rez-api-gateway.onrender.com`
-- Auth Service: `rez-auth-service.onrender.com`
-- Wallet Service: `rez-wallet-service.onrender.com`
-- Order Service: `rez-order-service.onrender.com`
+**API Services Called:**
+| Service | URL |
+|---------|-----|
+| API Gateway | https://rez-api-gateway.onrender.com/api |
+| Auth | https://rez-auth-service.onrender.com |
+| Wallet | https://rez-wallet-service-36vo.onrender.com |
+| Payment | https://rez-payment-service.onrender.com |
+| Catalog | https://rez-catalog-service-1.onrender.com |
+
+**Issues/TODOs:**
+- Push notification delivery tracking incomplete
+- Certificate pinning not implemented
 
 ---
 
-### 1.2 rez-app-merchant
+#### B. rez-app-merchant (Merchant App)
+**Location:** `rez-app-merchant`
+**Platform:** React Native/Expo | **Version:** 1.0.0
+
 | Attribute | Value |
 |-----------|-------|
-| **Tech Stack** | Expo SDK 53, React Native 0.76 |
-| **Bundle ID** | `com.rez.admin` |
-| **GitHub** | imrejaul007/rez-app-marchant |
+| Framework | Expo SDK 55, React Native 0.76, React 18.3 |
+| Navigation | expo-router ~4.0.0 |
+| State | @tanstack/react-query ^5.45.0 |
+| Charts | victory-native 36.9.2 |
+| Shared | @rez/shared, @rez/shared-types |
 
 **Features:**
-- Order management
-- Menu management
-- Analytics dashboard
-- Payment tracking
+- Dashboard with revenue/orders/cashback metrics
+- Product CRUD with inventory tracking
+- Real-time order processing
+- Cashback administration
+- POS terminal, KDS, Khata
+- Settlements & payouts
+- Campaigns with ROI simulator
+- Loyalty punch cards
+- AI Copilot dashboard
+
+**Issues/TODOs:**
+- i18n: All UI strings hardcoded (Phase 2)
 
 ---
 
-### 1.3 rez-app-admin
+#### C. rez-app-admin (Admin Dashboard)
+**Location:** `rez-app-admin`
+**Platform:** React Native/Expo | **Version:** 1.0.0
+
 | Attribute | Value |
 |-----------|-------|
-| **Tech Stack** | Expo SDK 53, React Native 0.79 |
-| **GitHub** | imrejaul007/rez-app-admin |
+| Framework | Expo SDK 53, React Native 0.79, React 19 |
+| State | @tanstack/react-query ^5.85.3 |
+| Shared | @rez/shared |
+
+**Features:**
+- User management (search, verify, block)
+- Merchant onboarding with KYC verification
+- Settlement & payout management
+- Fraud detection with device fingerprint blocking
+- Campaign management
+- Push/SMS/email broadcasting
+- Analytics dashboards
+- Role-based access (super_admin, finance_admin, trust_safety_admin, marketing_admin, support_admin)
 
 ---
 
-### 1.4 rez-karma-mobile
+#### D. rez-karma-mobile (Karma Mobile)
+**Location:** `rez-karma-mobile`
+**Platform:** React Native/Expo | **Version:** 1.0.0
+
 | Attribute | Value |
 |-----------|-------|
-| **Tech Stack** | React Native |
-| **Purpose** | Karma score tracking |
+| Framework | Expo SDK 52, React Native 0.76, React 18.3 |
+| HTTP | axios ^1.7.9 |
+| Camera | expo-camera ~16.0.18 |
+
+**Features:**
+- Karma home with snapshot card
+- Karma passport with history
+- Event listings and details
+- Mission tracking, Micro-actions
+- Leaderboard, QR scanning
+- Community groups
+
+**Issues/TODOs:**
+- No Sentry or analytics
+- No offline support
+- Simpler auth (no SecureStore)
 
 ---
 
-## SECTION 2: WEB APPS
+### 1.2 Web Apps
 
-### 2.1 rez-now
+#### A. rez-now (Consumer Web App)
+**Location:** `rez-now`
+**Platform:** Next.js 16.2.3
+
 | Attribute | Value |
 |-----------|-------|
-| **Tech Stack** | Next.js 16.2.3, React 19, Tailwind 4 |
-| **State** | Zustand 5.0.12 |
-| **Real-time** | Socket.io-client 4.8.3 |
-| **URL** | https://rez-now.vercel.app |
-| **GitHub** | imrejaul007/rez-now |
+| Framework | Next.js 16.2.3 |
+| State | zustand ^5.0.12 |
+| i18n | next-intl (en, hi locales) |
+| Output | standalone |
+| Hosting | Vercel |
 
-**Pages:** Home, Scan, Search, Profile, Wallet, Orders, Join, Store pages, Cart, Checkout, Pay, Bill, Reserve, Schedule, Staff dashboard
-
-**API Connections:**
-- Socket events: join-store, menu:item-availability, web-order:status-update
+**Key Routes:**
+| Route | Purpose |
+|-------|---------|
+| `/` | Home with search |
+| `/:storeSlug` | Restaurant/menu page |
+| `/orders` | Order history |
+| `/wallet` | REZ coins |
+| `/scan` | QR scanning |
 
 ---
 
-### 2.2 adBazaar
+#### B. adBazaar (Ad Marketplace)
+**Location:** `adBazaar`
+**Platform:** Next.js 16.2.4
+
 | Attribute | Value |
 |-----------|-------|
-| **Tech Stack** | Next.js 16.2.4, React 19, Supabase, Upstash Redis |
-| **Payments** | Razorpay 2.9.6 |
-| **Features** | Ad marketplace, QR attribution, Vendor dashboard, Admin KYC |
-
----
-
-### 2.3 nextabizz
-| Attribute | Value |
-|-----------|-------|
-| **Tech Stack** | Next.js 15.1.0, Turborepo, Supabase |
-| **Features** | B2B procurement, RFQ system, Supplier portal |
-
-**Webhook Integrations:**
-- REZ Merchant webhook
-- RestoPapa webhook
-- Hotel PMS webhook
-
----
-
-### 2.4 Rendez
-| Attribute | Value |
-|-----------|-------|
-| **Stack** | Next.js 14 (admin), React Native (app) |
-| **Features** | Meetup management, User moderation, Fraud detection |
-
----
-
-## SECTION 3: HOTEL OTA STACK
-
-### 3.1 Structure
-```
-Hotel OTA/
-├── apps/
-│   ├── api/          # Express.js API (port 3000)
-│   ├── ota-web/      # Consumer web (port 3003)
-│   ├── mobile/       # React Native
-│   ├── admin/        # Admin dashboard (port 3002)
-│   ├── hotel-panel/  # Hotel management (port 3001)
-│   └── corporate-panel/  # Corporate accounts (port 3004)
-├── packages/database/ # Prisma client
-└── prisma/schema.prisma  # PostgreSQL schema
-```
-
-### 3.2 Tech Stack
-| Component | Technology |
-|-----------|------------|
-| API | Express.js 4.21, TypeScript |
-| Database | PostgreSQL, Prisma 5.22 |
-| Queue | Redis, BullMQ |
-| Real-time | Socket.IO 4.8 |
+| Database | Supabase (PostgreSQL) |
+| Auth | Supabase Auth |
 | Payments | Razorpay |
+| Maps | @react-google-maps/api |
 
-### 3.3 Key Features
-- Multi-coin wallet (OTA, REZ, Hotel Brand coins)
-- PMS integration (webhooks)
-- Room QR validation
-- Dynamic pricing & demand forecasting
-- RTMN Commerce Memory
-- Governance/DAO
-
-### 3.4 API Routes
-- `/v1/auth` - OTP, SSO, staff auth
-- `/v1/hotels` - Hotel search, availability
-- `/v1/bookings` - Hold, confirm, cancel
-- `/v1/wallet` - Coin balance, transactions
-- `/v1/room-qr` - QR validation
-- `/v1/room-service` - Service requests
-- `/v1/room-chat` - Guest-staff chat
-- `/api/webhooks/pms/*` - PMS webhooks
+**CRITICAL Issues (64 open of 111 total):**
+| ID | Issue |
+|----|-------|
+| AB-C3 | Bank data exposed in API |
+| AB-C4 | No idempotency on booking |
+| AB-C5 | Payment amount never verified |
+| AB3-C1 | Buyer can remove others' bookings |
+| AB3-C2 | Any user can create listing |
 
 ---
 
-## SECTION 4: BACKEND SERVICES
+#### C. CorpPerks (Enterprise Portal)
+**Location:** `CorpPerks`
 
-### 4.1 Service Inventory
+**Services:**
+| Service | Port | Description |
+|---------|------|-------------|
+| rez-corpperks-service | 4014 | Gateway API |
+| rez-hotel-service | 4011 | Makcorps integration |
+| rez-procurement-service | 4012 | NextaBizz integration |
 
-| # | Service | Port | MongoDB | Redis | BullMQ | Status |
-|---|---------|------|---------|-------|--------|--------|
-| 1 | rez-auth-service | 4002 | Yes | Yes | Yes | |
-| 2 | rez-wallet-service | 4004 | Yes | Yes | Yes | |
-| 3 | rez-order-service | 3006 | Yes | Yes | Yes | |
-| 4 | rez-payment-service | 4001 | Yes | Yes | Yes | |
-| 5 | rez-merchant-service | 4005 | Yes | Yes | Yes | |
-| 6 | rez-catalog-service | 3005 | Yes | Yes | Yes | |
-| 7 | rez-search-service | 4003 | Yes | Yes | No | |
-| 8 | rez-gamification-service | 3001 | Yes | Yes | Yes | |
-| 9 | rez-ads-service | 4007 | Yes | Yes | No | |
-| 10 | rez-marketing-service | 4000 | Yes | Yes | Yes | |
-| 11 | rez-scheduler-service | 3012 | Yes | Yes | Yes | |
-| 12 | rez-finance-service | 4006 | Yes | Yes | Yes | |
-| 13 | rez-karma-service | 3009 | Yes | Yes | Yes | |
-| 14 | rez-corpperks-service | 4013 | Yes | Yes | No | |
-| 15 | rez-hotel-service | 4015 | Yes | No | No | |
-| 16 | rez-procurement-service | 4012 | Yes | No | No | |
-| 17 | rez-insights-service | - | Yes | Yes | No | |
-| 18 | rez-automation-service | - | Yes | Yes | No | |
+**Modules:**
+- Benefits (Meal, Travel, Wellness, Learning, Gift)
+- Employees (HRIS sync)
+- Hotel Bookings (GST-ready invoices)
+- GST Invoicing
+- Corporate Gifting
+- Karma/CSR
 
 ---
 
-## SECTION 5: SHARED PACKAGES
+### 1.3 Mobile Apps Comparison
 
-| Package | Purpose | Active | Issues |
-|---------|---------|--------|--------|
-| shared-types | Type definitions, Zod schemas | Yes | File references |
-| rez-shared | Utilities, rate limiting | Yes | No src files |
-| service-core | Infra (BullMQ, Redis) | Unknown | Not used |
-| agent-memory | Supabase + Redis memory | Unknown | Singleton anti-pattern |
-| chat-ai | AI chat (Anthropic) | Yes | Circular deps |
-| chat-integration | Ecosystem connectors | Unknown | No consumers |
-| chat-service | Socket.IO client | Yes | Naming conflict |
-| chat-rn | React Native chat | Unknown | No dist build |
-| intent-graph | Commerce AI | Yes | ESM/CJS mismatch |
-| intent-capture-sdk | Intent tracking SDK | Unknown | Global singleton |
-| metrics | Prometheus middleware | Unknown | In-memory only |
-| ui | Shared components | Unknown | Naming mismatch |
-| eslint-plugin | Linting rules | Unknown | Missing rule files |
+| Feature | Consumer | Merchant | Admin | Karma-Mobile |
+|---------|---------|---------|-------|--------------|
+| Auth | OTP + PIN | Email/Password | 2FA | OTP |
+| Token Storage | SecureStore | AsyncStorage | AsyncStorage | AsyncStorage |
+| Framework | Expo 53 | Expo 55 | Expo 53 | Expo 52 |
+| React | 19 | 18.3 | 19 | 18.3 |
+| Sentry | Yes | Yes | Yes | **No** |
+| Analytics | Yes | No | No | **No** |
+| i18n | Phase 2 | Phase 2 | Phase 2 | No |
 
 ---
 
-## SECTION 6: CONNECTIVITY MAP
+## Part 2: Backend Services
 
-### 6.1 Consumer App → Services
-```
-rez-app-consumer
-    ├── rez-api-gateway (gateway)
-    ├── rez-auth-service
-    ├── rez-wallet-service
-    ├── rez-order-service
-    ├── rez-payment-service
-    ├── rez-catalog-service
-    └── Socket.io events
-```
+### 2.1 Core Services Port Map
 
-### 6.2 Merchant App → Services
-```
-rez-app-merchant
-    ├── rez-api-gateway
-    ├── rez-merchant-service
-    └── rez-order-service
-```
+| Service | HTTP Port | Health Port |
+|---------|-----------|-------------|
+| rez-auth-service | 4002 | 4102 |
+| rez-order-service | 3006 | - |
+| rez-payment-service | 4001 | 4101 |
+| rez-wallet-service | 4004 | - |
+| rez-merchant-service | 4005 | - |
+| rez-catalog-service | 3005 | - |
+| rez-search-service | 4003 | 4103 |
+| rez-karma-service | 3009 | - |
+| rez-notification-events | 3001 | - |
+| rez-gamification-service | 3004 | - |
+| rez-scheduler-service | 3012 | 3112 |
+| rez-ads-service | 4007 | - |
+| rez-corpperks-service | 4014 | - |
+| rez-event-platform | 4008 | - |
+| rez-action-engine | 4009 | - |
+| rez-feedback-service | 4010 | - |
 
-### 6.3 rez-now → Services
-```
-rez-now
-    ├── rez-auth-service (OTP)
-    ├── rez-catalog-service (menu)
-    ├── rez-order-service
-    ├── rez-payment-service
-    ├── rez-wallet-service
-    ├── Socket.io (real-time)
-    └── Hotel OTA (room service)
-```
+### 2.2 Services Summary
 
-### 6.4 Hotel OTA → ReZ Services
-```
-Hotel OTA API
-    ├── ReZ Backend (booking sync, SSO)
-    ├── ReZ Auth Service (OAuth2)
-    ├── ReZ Wallet Service (coin sync)
-    ├── Finance Service (BNPL)
-    ├── Payment Service (webhooks)
-    └── @rez/chat, @rez/chat-ai
-```
+| Service | Features | Events Emitted | Events Consumed |
+|---------|----------|----------------|----------------|
+| rez-auth-service | OTP, TOTP, PIN, JWT | notification-events | - |
+| rez-order-service | Order lifecycle, SSE | wallet-events, notification-events | order-events |
+| rez-payment-service | Razorpay, refunds | wallet-events, notification-events | payment-events |
+| rez-wallet-service | Multi-coin, BNPL | wallet-events | wallet-events |
+| rez-merchant-service | Store, product, team | notification-events | - |
+| rez-catalog-service | Catalog, caching | - | catalog-events |
+| rez-search-service | Search, recommendations | Redis pub/sub | catalog:invalidate |
+| rez-karma-service | Karma, communities | Redis pub/sub | coin-credit |
+| rez-notification-events | Push, email, SMS | - | notification-events |
+| rez-gamification-service | Achievements, streaks | notification-events | gamification-events |
+| rez-scheduler-service | 16 cron jobs | Various | - |
+| rez-ads-service | Self-serve ads | intent capture | - |
 
-### 6.5 nextabizz → ReZ Services
+---
+
+## Part 3: Shared Packages
+
+### 3.1 Package Inventory
+
+| Package | Version | Purpose | Consumers |
+|---------|---------|---------|----------|
+| @rez/shared-types | 2.0.0 | FSM, Branded IDs, Zod schemas | 8+ services |
+| @rez/shared | 1.0.0 | Rate limiting, health, audit | All services |
+| @rez/ui | 1.0.0 | Button, Card, Input, Modal | React Native |
+| @rez/service-core | 1.0.1 | Redis, MongoDB, BullMQ, Sentry | 8+ services |
+| @rez/agent-memory | 1.0.0 | Cross-app preferences | Agent OS |
+| @rez/chat-ai | 1.0.0 | Claude integration, sanitization | Chat services |
+| @rez/chat | 1.0.0 | Socket.IO client, hooks | 5+ apps |
+| @rez/chat-integration | 1.0.0 | Service orchestration | Chat AI |
+| @rez/chat-rn | 1.0.0 | React Native AI chat | React Native |
+| @rez/intent-capture-sdk | 1.0.0 | Intent tracking | All apps |
+| shared-types | 2.0.0 | Enums, interfaces | Multiple |
+
+### 3.2 Package Dependencies
+
 ```
-nextabizz
-    ├── REZ OAuth (auth)
-    ├── REZ Merchant webhook
-    ├── RestoPapa webhook
-    └── Hotel PMS webhook
+@rez/chat-integration → @rez/chat-ai
+@rez/chat → @rez/chat-ai (optional)
+Other packages: No internal dependencies
 ```
 
 ---
 
-## SECTION 7: DATA MODELS MAPPING
+## Part 4: AI & Intelligence
 
-### 7.1 User Data Flow
-| Location | Model | Fields |
-|---------|-------|--------|
-| rez-auth-service | User | phone, email, password, role |
-| rezbackend | User | full profile |
-| Hotel OTA | User | customer accounts, tiers |
+### 4.1 Components
 
-**ISSUE:** User data exists in multiple places. No single source of truth.
+| Component | Port | Features |
+|-----------|------|----------|
+| rez-intent-graph (ReZ Mind) | 3001/3005 | 8 Autonomous Agents, Intent capture, Dormant revival |
+| rez-agent-os | - | @rez/agent-core, @rez/agent-rn, @rez/agent-web |
+| rez-event-platform | 4008 | Central event bus, Zod validation, DLQ |
+| rez-action-engine | 4009 | Decision execution, Guardrails, Action levels |
+| rez-feedback-service | 4010 | Explicit/implicit feedback, Pattern detection |
 
-### 7.2 Order Data Flow
-| Location | Model |
-|---------|-------|
-| rez-order-service | Order |
-| rezbackend | Order |
-| Hotel OTA | Booking |
+### 4.2 8 Autonomous Agents
 
-**ISSUE:** Orders in main services vs Bookings in Hotel OTA - separate systems.
-
-### 7.3 Wallet/Coin Data Flow
-| Location | Model | Coins |
-|---------|-------|-------|
-| rez-wallet-service | Wallet, CoinTransaction | ReZ coins |
-| Hotel OTA | CoinWallet, CoinTransaction | OTA, REZ, Hotel Brand |
-
-**ISSUE:** Dual coin systems - not synchronized.
-
-### 7.4 Product/Catalog Data Flow
-| Location | Model |
-|---------|-------|
-| rez-catalog-service | Product, Menu |
-| Hotel OTA | RoomType, InventorySlot |
-
-**ISSUE:** Different product models for different verticals.
+| Agent | Schedule | Purpose |
+|-------|----------|---------|
+| DemandSignalAgent | 5 min | Demand per merchant/category |
+| ScarcityAgent | 1 min | Supply/demand ratios, urgency |
+| PersonalizationAgent | Event | User response profiling |
+| AttributionAgent | Event | Multi-touch conversion |
+| AdaptiveScoringAgent | Hourly | ML retraining |
+| FeedbackLoopAgent | Event | Closed-loop optimization |
+| NetworkEffectAgent | Daily | Collaborative filtering |
+| RevenueAttributionAgent | 15 min | GMV tracking, ROI |
 
 ---
 
-## SECTION 8: GAP ANALYSIS
+## Part 5: Cross-Component Analysis
 
-### 8.1 CRITICAL GAPS
+### 5.1 API Gateway Routing
 
-| Gap | Impact | Files Affected |
-|-----|--------|----------------|
-| **No unified user identity** | Users have separate accounts across apps | All apps |
-| **Dual coin systems** | ReZ coins vs Hotel OTA coins not linked | rez-wallet-service, Hotel OTA |
-| **No order sync** | Main orders vs Hotel bookings separate | All |
-| **Missing shared-types consumers** | 6 packages have no active consumers | packages/* |
-| **File path dependencies** | All apps use `file:../` instead of npm | All apps |
+| Path | Routes To |
+|------|-----------|
+| `/api/auth/*` | rez-auth-service:4002 |
+| `/api/orders/*` | rez-order-service:3006 |
+| `/api/payments/*` | rez-payment-service:4001 |
+| `/api/wallet/*` | rez-wallet-service:4004 |
+| `/api/merchant/*` | rez-merchant-service:4005 |
+| `/api/search/*` | rez-search-service:4003 |
+| `/api/karma/*` | rez-karma-service:3009 |
+| `/api/notifications/*` | rez-notification-events:3001 |
+| `/api/gamification/*` | rez-gamification-service:3004 |
+| `/api/ads/*` | rez-ads-service:4007 |
 
-### 8.2 HIGH PRIORITY GAPS
+### 5.2 Event Bus Topology
 
-| Gap | Impact | Status |
-|-----|--------|--------|
-| **Circular dependencies** | chat-ai ↔ intent-graph | Risk |
-| **No API versioning** | Intent graph routes not versioned | All services |
-| **Missing validation** | No Zod on many routes | Intent graph |
-| **In-memory metrics** | Metrics lost on restart | rez-metrics |
-| **Singleton anti-patterns** | Global state in packages | agent-memory, intent-capture-sdk |
+```
+BULLMQ QUEUES:
+  notification-events  → rez-notification-events
+  wallet-events     → rez-wallet-service
+  order-events     → rez-order-service
+  payment-events   → rez-payment-service
+  catalog-events   → rez-catalog-service
+  gamification-events → rez-gamification-service
 
-### 8.3 MEDIUM PRIORITY GAPS
-
-| Gap | Recommendation |
-|-----|----------------|
-| Version mismatches | Align React, Zod, Next.js versions |
-| Missing tests | Only agent-memory has test config |
-| Console logging | Some files still use console.* |
-| No migrations | Schema changes manual |
-| No request tracing | Request IDs not tracked |
-
----
-
-## SECTION 9: MISMATCHES
-
-### 9.1 Authentication Mismatch
-
-| App | Auth Method | Token Storage |
-|-----|-------------|---------------|
-| rez-app-consumer | JWT | SecureStore |
-| rez-now | OTP/PIN | localStorage + httpOnly |
-| adBazaar | Supabase Auth | Supabase session |
-| nextabizz | REZ OAuth | httpOnly cookies |
-| Hotel OTA | JWT + OTP | Redis |
-| rendez-admin | Bearer token | sessionStorage |
-
-**ISSUE:** 6 different auth patterns. No unified auth SDK.
-
-### 9.2 Database Mismatch
-
-| System | Database | ORM |
-|--------|----------|-----|
-| Main Services | MongoDB | Mongoose |
-| Hotel OTA | PostgreSQL | Prisma |
-| adBazaar | Supabase | - |
-| nextabizz | Supabase | - |
-
-**ISSUE:** 4 different databases. No data sharing.
-
-### 9.3 Real-time Mismatch
-
-| App | Real-time |
-|-----|-----------|
-| rez-app-consumer | Socket.io |
-| rez-now | Socket.io |
-| Hotel OTA | Socket.io |
-| adBazaar | None |
-| nextabizz | None |
-
-**ISSUE:** Inconsistent real-time adoption.
-
-### 9.4 Naming Conflicts
-
-| Package | Directory Name | npm Name |
-|---------|---------------|----------|
-| @rez/chat | rez-chat-service | @rez/chat |
-| @rez/ui | rez-ui | @rez/ui |
-| intent-graph | rez-intent-graph | @rez/intent-graph |
+REDIS PUB/SUB:
+  catalog:invalidate → rez-search-service
+  coin-credit       → rez-karma-service
+```
 
 ---
 
-## SECTION 10: MISSING PIECES FOR LIVE SYSTEM
+## Part 6: Issues & Gaps
 
-### 10.1 Authentication & Identity
-- [ ] Unified user identity across all apps
-- [ ] Single sign-on (SSO) between apps
-- [ ] Shared auth package (@rez/auth)
-- [ ] Session management service
+### 6.1 Critical Issues
 
-### 10.2 Data Synchronization
-- [ ] Wallet sync between main and Hotel OTA
-- [ ] Order sync between services
-- [ ] User profile sync
-- [ ] Loyalty points sync
+| ID | Component | Issue | Impact |
+|----|-----------|-------|--------|
+| AB-C3 | adBazaar | Bank data exposed in API | Security |
+| AB-C4 | adBazaar | No idempotency on booking | Financial |
+| AB-C5 | adBazaar | Payment amount never verified | Financial |
+| AB3-C1 | adBazaar | Authorization bypass | Security |
+| AB3-C2 | adBazaar | Any user can create listing | Security |
 
-### 10.3 API Gateway
-- [ ] Centralized routing for all services
-- [ ] Rate limiting at gateway level
-- [ ] Request logging/tracing
-- [ ] Auth validation at gateway
+### 6.2 High Priority Gaps
 
-### 10.4 Monitoring & Observability
-- [ ] Prometheus metrics for all services
-- [ ] Distributed tracing (OpenTelemetry)
-- [ ] Centralized logging (ELK stack)
-- [ ] Health check aggregation
+| Gap | Services | Recommendation |
+|-----|----------|----------------|
+| karma-mobile: No Sentry/analytics | karma-mobile | Add monitoring |
+| karma-mobile: Simpler auth | karma-mobile | Upgrade auth |
+| Search passive indexing | rez-search | Event-driven |
+| i18n pending | All apps | Prioritize Phase 2 |
+| Certificate pinning | Mobile apps | Implement |
 
-### 10.5 Shared Infrastructure
-- [ ] Publish shared-types to npm
-- [ ] Fix file:../ dependencies
-- [ ] Shared error handling middleware
-- [ ] Shared validation schemas
+### 6.3 Version Mismatches
+
+| Dependency | Consumer | Merchant | Admin | Karma-Mobile |
+|-----------|----------|----------|-------|--------------|
+| React | 19 | 18.3 | 19 | 18.3 |
+| Expo SDK | 53 | 55 | 53 | 52 |
+| React Native | 0.79 | 0.76 | 0.79 | 0.76 |
 
 ---
 
-## SECTION 11: RECOMMENDATIONS
+## Part 7: Security Status
 
-### Phase 1: Make System Live (Critical)
-1. **Fix dependencies** - Replace file:../ with npm workspace or published packages
-2. **Unified auth** - Create @rez/auth package with common auth patterns
-3. **API Gateway** - Deploy centralized gateway for routing
-4. **Health checks** - All services need /health endpoints
-5. **Environment variables** - Standardize across all services
+### 7.1 Security Controls
 
-### Phase 2: Data Integrity (High)
-1. **User sync** - Implement user identity service
-2. **Wallet sync** - Link Hotel OTA coins with main wallet
-3. **Order tracking** - Unified order tracking across apps
-4. **Profile sync** - Keep user profiles in sync
+| Control | Status |
+|---------|--------|
+| Rate Limiting | ✅ All services |
+| JWT Auth | ✅ All services |
+| Internal Tokens | ✅ All services |
+| CORS | ✅ All services |
+| Helmet | ✅ All services |
+| MongoDB Sanitize | ✅ All services |
+| MongoDB AUTH | ❌ TODO |
+| Redis AUTH | ❌ TODO |
+| Certificate Pinning | ❌ Planned |
 
-### Phase 3: Polish (Medium)
-1. **Remove dead code** - Delete unused packages
-2. **Add tests** - Unit tests for all services
-3. **API versioning** - Version all public APIs
-4. **Documentation** - OpenAPI specs for all services
+### 7.2 Security TODOs
 
----
-
-## SECTION 12: FILES NEEDED FOR SOURCE OF TRUTH
-
-Update these files with audit findings:
-- [x] REPOS.md - ✅ Updated with correct service list
-- [x] ECOSYSTEM-ARCHITECTURE.md - ✅ Architecture documented
-- [ ] API-ENDPOINTS.md - Needs full endpoint list
-- [ ] DATA-MODELS.md - Create - document all schemas
-- [ ] CONNECTIVITY.md - Create - document connections
-- [ ] DEPLOYMENT-STATUS.md - Update with current status
+| Item | Priority |
+|------|----------|
+| Enable MongoDB AUTH | Critical |
+| Enable Redis AUTH | Critical |
+| Fix adBazaar security | Critical |
+| Certificate Pinning | High |
+| Credential Rotation | High |
 
 ---
 
-## Summary
+## Part 8: Recommendations
 
-**Components:** 49 total
-- 4 Mobile Apps
-- 6 Web Apps  
-- 18 Backend Services
-- 13 Shared Packages
-- 6 Hotel OTA Apps
-- 2 Monoliths (rezbackend, intent-graph)
+### Immediate (1-2 weeks)
+1. Fix adBazaar CRITICAL issues
+2. Enable MongoDB AUTH across all services
+3. Enable Redis AUTH across all services
+4. Add Sentry to karma apps
 
-**Critical Issues:** 8
-- Dual coin systems not synced
-- User identity fragmented
-- File path dependencies
-- Circular package dependencies
+### Short-term (2-4 weeks)
+1. Standardize auth patterns
+2. Complete i18n
+3. Implement certificate pinning
+4. Add offline support
 
-**High Priority:** 12
-- Missing API versioning
-- No unified auth
-- Dead packages
-- Incomplete validation
-
-**Medium Priority:** 15
-- Version mismatches
-- Missing tests
-- Console logging
-- No request tracing
+### Medium-term (1-2 months)
+1. Event-driven search indexing
+2. ML-based fraud detection
+3. Expand ReZ Mind integration
+4. Complete rez-api-gateway
 
 ---
 
-*Report generated: 2026-05-01*
+## Appendix: Production URLs
+
+```
+API Gateway:     https://rez-api-gateway.onrender.com
+Auth:           https://rez-auth-service.onrender.com
+Order:          https://rez-order-service.onrender.com
+Payment:        https://rez-payment-service.onrender.com
+Wallet:         https://rez-wallet-service-36vo.onrender.com
+Merchant:       https://rez-merchant-service.onrender.com
+ReZ Mind:       https://rez-intent-graph.onrender.com
+WebSocket:      https://rez-backend-8dfu.onrender.com
+```
+
+---
+
+**Document Version:** 2.0
+**Audit Date:** 2026-05-01
+**Next Review:** 2026-05-15

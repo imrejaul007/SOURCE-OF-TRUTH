@@ -70,8 +70,40 @@
 
 ---
 
+## CorpPerks - Enterprise Benefits Platform
+
+**GitHub:** [CorpPerks](https://github.com/imrejaul007/CorpPerks)
+
+### Services (Ready to Deploy)
+
+| Service | Port | Status |
+|---------|------|--------|
+| rez-corpperks-service | 4013 | Ready |
+| rez-hotel-service | 4015 | Ready |
+| rez-procurement-service | 4012 | Ready |
+
+### Deploy
+```bash
+git clone https://github.com/imrejaul007/CorpPerks.git
+cd CorpPerks
+docker-compose up -d
+```
+
+### Features
+- Corporate Gifting
+- Corporate Hotel Booking
+- Corporate Procurement
+- Dual Wallet System
+- Benefits Configuration
+- GST Invoicing
+- HRIS Integration
+- Analytics Dashboard
+
+---
+
 ## Quick Links
 
 - [Render Dashboard](https://dashboard.render.com)
 - [MongoDB Atlas](https://cloud.mongodb.com)
 - [GitHub Organization](https://github.com/imrejaul007)
+- [CorpPerks](https://github.com/imrejaul007/CorpPerks)
