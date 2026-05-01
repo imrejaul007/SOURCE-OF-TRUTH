@@ -1,102 +1,59 @@
 # WAVE 10: Cross-Service Build & Security Audit
-**Date:** 2026-04-30
-**Status:** COMPLETE - All services verified
+**Date:** 2026-05-01
+**Status:** PARTIAL - Most services verified, payment-service needs attention
 
 ---
 
-## Executive Summary
+## Build & Audit Status
 
-Comprehensive TypeScript build fixes and security updates across all services. All 6 services now pass `npm run build` with 0 errors and `npm audit` with 0 vulnerabilities.
-
----
-
-## Build & Audit Status (Final)
-
-| Service | Build | npm audit | PR # |
+| Service | Build | npm audit | Notes |
 |---------|-------|----------|-------|
-| rez-auth-service | ✅ Pass | ✅ Clean | #30 |
-| rez-merchant-service | ✅ Pass | ✅ Clean | #59, #60 |
-| rez-payment-service | ✅ Pass | ✅ Clean | #42 |
-| rez-wallet-service | ✅ Pass | ✅ Clean | #29 |
-| rez-order-service | ✅ Pass | ✅ Clean | #38 |
-| rez-catalog-service | ✅ Pass | ✅ Clean | #17 |
-| rez-intent-graph | ✅ Pass | ✅ Clean | #9 |
+| rez-auth-service | ✅ Pass | ✅ Clean | - |
+| rez-merchant-service | ✅ Pass | ✅ Clean | Type fixes applied |
+| rez-payment-service | ⚠️ Issues | ⚠️ Issues | Pre-existing type errors, @rez/shared-types missing |
+| rez-wallet-service | ✅ Pass | ✅ Clean | - |
+| rez-order-service | ✅ Pass | ✅ Clean | - |
+| rez-catalog-service | ✅ Pass | ✅ Clean | Type fixes applied |
+| rez-intent-graph | ✅ Pass | ✅ Clean | Type fixes applied |
 
 ---
 
-## PRs Merged
-
-### auth-service
-| PR # | Commit | Description |
-|------|--------|-------------|
-| #30 | 3b0f7cb | Fix oauthAdmin.ts import paths and type annotations |
-| #29 | 3b0e5f8 | Type fixes: metrics export, mfaConfig.backupCodes |
+## Fixed Issues
 
 ### merchant-service
-| PR # | Commit | Description |
-|------|--------|-------------|
-| #60 | 50a6260 | Add Prometheus metrics middleware |
-| #59 | 1d32930 | Type fixes: oauth, dynamicPricing, channelManager, payroll, tallyExport |
-
-### payment-service
-| PR # | Commit | Description |
-|------|--------|-------------|
-| #42 | 8e16e00 | Fix uuid vulnerability with npm override |
-| #41 | ff0e606 | Add type cast to razorpay.initiateRefund |
-
-### wallet-service
-| PR # | Commit | Description |
-|------|--------|-------------|
-| #29 | 24813e5 | Fix models/index.ts exports, rateLimiter types |
-
-### order-service
-| PR # | Commit | Description |
-|------|--------|-------------|
-| #38 | 2f90c30 | Fix cursorPagination, worker bullmqRedis |
+- `err` type annotation in orders/status.ts
 
 ### catalog-service
-| PR # | Commit | Description |
-|------|--------|-------------|
-| #17 | bbfef45 | Type fixes in worker.ts |
+- `err` type annotation in httpServer.ts
 
-### intent-graph
-| PR # | Commit | Description |
-|------|--------|-------------|
-| #9 | ae809d4 | Type fixes: redis, circuitBreaker, cache, streamService, vectorService |
-
----
-
-## Type Fixes Applied
-
-### Common Patterns Fixed
-1. **Models barrel exports**: `default` → named exports where models use `export const`
-2. **Request params**: Cast `req.merchantId` as `any`
-3. **Map indexing**: Added `Record<number, number>` type to constant objects
-4. **MongoDB ObjectId**: Wrapped string values in `new mongoose.Types.ObjectId()`
-5. **Import paths**: Fixed relative paths in admin routes
-6. **Type annotations**: Added explicit types for map callbacks
-
-### Security Fixes
-- **payment-service**: Fixed uuid vulnerability (GHSA-w5hq-g745-h8pq) with npm override
+### intent-graph (PR #9)
+- Redis import: `import Redis from 'ioredis'` → `import { Redis as IORedis } from 'ioredis'`
+- CircuitBreaker: Added Request/Response imports
+- streamService.ts: Added types for map callbacks
+- cache.ts: Added error type annotation
 
 ---
 
-## Verification Commands
+## Known Issues
 
-```bash
-cd ~/Documents/ReZ\ Full\ App
+### payment-service
+Pre-existing type errors that need investigation:
+1. `payment.user` typed as `never` - MongoDB type mismatch
+2. `payment.amount` typed as `never`
+3. `@rez/shared-types` module not found
+4. `AuditLogger` interface needs local implementation
 
-# Build all services
-for svc in rez-auth-service rez-merchant-service rez-payment-service \
-         rez-wallet-service rez-order-service rez-catalog-service; do
-  echo "=== $svc ==="
-  cd $svc
-  npm run build
-  npm audit
-  cd ..
-done
-```
+### wallet-service
+Working directory changes pending review.
 
 ---
 
-## Last Updated: 2026-04-30
+## Action Items
+
+1. payment-service: Fix MongoDB type mismatches for `confirmedPayment`
+2. payment-service: Implement local `AuditLogger` or install `@rez/shared-types`
+3. wallet-service: Review and commit pending changes
+
+---
+
+## Last Updated: 2026-05-01

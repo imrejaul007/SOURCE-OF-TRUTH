@@ -1,6 +1,6 @@
 # REZ Platform — Source of Truth
 
-**Last Updated:** 2026-04-30
+**Last Updated:** 2026-05-01
 
 **ReZ Mind** — AI-powered commerce intelligence (separate repo: `rez-intent-graph`)
 
@@ -14,123 +14,209 @@ Single place to find everything about the REZ platform. Read this before solving
 | Document | Description |
 |----------|-------------|
 | [ARCHITECTURE.md](ARCHITECTURE.md) | System architecture overview |
-| [DEPLOY-STATUS.md](DEPLOY-STATUS.md) | Live deployment URLs and status |
-| [ENV-VARS.md](ENV-VARS.md) | All environment variables |
-| [LOCAL-PORTS.md](LOCAL-PORTS.md) | Local development ports |
-| [ALL-FEATURES.md](ALL-FEATURES.md) | Complete feature list |
-
-### Implementation
-| Document | Description |
-|----------|-------------|
-| [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md) | **START HERE** - Full roadmap based on consultant + audit |
-| [INDEX.md](INDEX.md) | Complete file map |
-
-### Services
-| Document | Description |
-|----------|-------------|
 | [SERVICES.md](SERVICES.md) | All microservices catalog |
-| [API-ENDPOINTS.md](API-ENDPOINTS.md) | API endpoints reference |
-| [API-DOCUMENTATION.md](API-DOCUMENTATION.md) | API documentation |
-| [REPOS.md](REPOS.md) | All 20+ repositories |
+| [APPS.md](APPS.md) | All applications |
+| [PACKAGES.md](PACKAGES.md) | Shared packages |
+| [DEPLOYMENT.md](DEPLOYMENT.md) | Deployment guide |
+| [CONNECTIVITY.md](CONNECTIVITY.md) | Architecture diagrams |
 
-### Apps & Integration
+### Intelligence Layer (NEW)
 | Document | Description |
 |----------|-------------|
-| [APP-INTEGRATION-GUIDE.md](APP-INTEGRATION-GUIDE.md) | Consumer/admin app integration |
-| [AGENT-SWARM-API.md](AGENT-SWARM-API.md) | Agent swarm API |
-| [BUSINESS-MODEL.md](BUSINESS-MODEL.md) | Business model and revenue |
+| [EVENT-SCHEMAS.md](EVENT-SCHEMAS.md) | Event schemas (inventory.low, order.completed, payment.success) |
+| [OPERATIONAL-LAYER.md](OPERATIONAL-LAYER.md) | Event Platform, Action Engine, Feedback Service |
+
+### First Loop Testing (NEW)
+| Document | Description |
+|----------|-------------|
+| [STRESS-TEST-PLAN.md](STRESS-TEST-PLAN.md) | Comprehensive stress test plan with failure scenarios |
+| [LOOP-MONITORING.md](LOOP-MONITORING.md) | Monitoring dashboard and Prometheus metrics |
 
 ### Security & Audit
 | Document | Description |
 |----------|-------------|
-| [MASTER-AUDIT-2026.md](MASTER-AUDIT-2026.md) | **Start here** - Complete audit (84/84 fixed) |
-| [AUDIT-WAVE-9-COMPLETE.md](AUDIT-WAVE-9-COMPLETE.md) | Wave 9 audit |
-| [AUDIT-WAVE-10.md](AUDIT-WAVE-10.md) | Wave 10 audit |
-| [AUDIT-WAVE-11-COMPLETE.md](AUDIT-WAVE-11-COMPLETE.md) | Wave 11 audit |
-| [AUDIT-WAVE-12-COMPLETE.md](AUDIT-WAVE-12-COMPLETE.md) | Wave 12 audit |
-| [AUDIT-WAVE-13-COMPLETE.md](AUDIT-WAVE-13-COMPLETE.md) | Wave 13 audit |
-| [SECURITY-HARDENING-PLAN.md](SECURITY-HARDENING-PLAN.md) | Security roadmap |
-| [OPS-003-NO-API-GATEWAY.md](OPS-003-NO-API-GATEWAY.md) | API Gateway fixes |
-| [REDIS-AUTH-GUIDE.md](REDIS-AUTH-GUIDE.md) | Redis authentication |
+| [SECURITY.md](SECURITY.md) | Security hardening guide |
 | [MONGODB-AUTH-GUIDE.md](MONGODB-AUTH-GUIDE.md) | MongoDB authentication |
+| [REDIS-AUTH-GUIDE.md](REDIS-AUTH-GUIDE.md) | Redis authentication |
+| [COMPREHENSIVE-AUDIT-2026-05-01-FULL.md](COMPREHENSIVE-AUDIT-2026-05-01-FULL.md) | Full ecosystem audit |
 
-### Performance & Observability
+---
+
+## 🏗️ Architecture (2026-05-01)
+
+### NEW: Complete Loop Architecture
+
+```
+Events → Intelligence → Decisions → Actions → Feedback → Repeat
+```
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    OPERATIONAL LAYER (NEW)                              │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ┌─────────────┐    ┌─────────────────┐    ┌─────────────────┐       │
+│  │   BizOS     │───►│ Event Platform  │───►│   ReZ Mind     │       │
+│  │ (emit)     │    │ (route/validate)│    │ (AI agents)    │       │
+│  └─────────────┘    └─────────────────┘    └────────┬────────┘       │
+│                                                     │                 │
+│  ┌─────────────┐    ┌─────────────────┐    ┌────────▼────────┐       │
+│  │ Feedback   │◄───│  Action Engine  │◄───│  Decision      │       │
+│  │ Service    │    │  (guardrails)   │    │  Engine        │       │
+│  └─────────────┘    └─────────────────┘    └─────────────────┘       │
+│                                                     │                 │
+│                             ┌─────────────────────────┘                 │
+│                             ▼                                         │
+│                    ┌─────────────────┐                              │
+│                    │   NextaBiZ     │                              │
+│                    │ (Procurement)  │                              │
+│                    └─────────────────┘                              │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### First Closed Loop: Inventory → Reorder
+
+```
+Stock drops below threshold
+         ↓
+emit inventory.low event
+         ↓
+Event Platform validates & routes
+         ↓
+ReZ Mind processes intent
+         ↓
+Action Engine decides action level
+         ↓
+Draft PO created in NextaBiZ
+         ↓
+Merchant approves/rejects
+         ↓
+Feedback recorded
+         ↓
+AdaptiveScoringAgent learns
+```
+
+---
+
+## 🧠 Intelligence Layer (NEW)
+
+### Components Created (2026-05-01)
+
+| Component | Path | Purpose |
+|-----------|------|---------|
+| **rez-event-platform** | `../rez-event-platform/` | Central event bus with schema registry |
+| **rez-action-engine** | `../rez-action-engine/` | Decision execution with guardrails |
+| **rez-feedback-service** | `../rez-feedback-service/` | Learning infrastructure |
+| **rez-first-loop** | `../rez-first-loop/` | First closed loop integration |
+
+### Event Schemas
+
+| Event | Schema | Status |
+|-------|--------|--------|
+| `inventory.low` | [EVENT-SCHEMAS.md](EVENT-SCHEMAS.md) | ✅ Defined |
+| `order.completed` | [EVENT-SCHEMAS.md](EVENT-SCHEMAS.md) | ✅ Defined |
+| `payment.success` | [EVENT-SCHEMAS.md](EVENT-SCHEMAS.md) | ✅ Defined |
+
+---
+
+## 🧪 First Loop Testing (NEW)
+
+### Stress Test Plan
+
+Run comprehensive tests on the first loop:
+
+| Test | Purpose | Target |
+|------|---------|--------|
+| Event Platform Failure | System recovery | 100% recovery |
+| Duplicate Events | Idempotency | 0 duplicates |
+| ReZ Mind Timeout | Fallback handling | < 5s |
+| Action Engine Failure | Retry logic | 100% recovery |
+| NextaBiZ Unavailable | Graceful degradation | Pending status |
+| Rapid Fire Events | Coalescing | < 5 actions |
+| Feedback Missing | Implicit capture | > 90% |
+
+### Run Tests
+
+```bash
+cd rez-first-loop
+npm run test:stress
+```
+
+### Loop Reliability Score
+
+```
+Target: > 99% before scaling
+Warning: < 95%
+Critical: < 90%
+```
+
+Components:
+- Event Delivery (20%)
+- Idempotency (20%)
+- Action Success (25%)
+- Feedback Capture (20%)
+- Learning Loop (15%)
+
+### Monitoring
+
+- **Dashboard:** `http://localhost:3000/d/first-loop-monitor`
+- **Metrics:** Prometheus queries in [LOOP-MONITORING.md](LOOP-MONITORING.md)
+
+---
+
+## 🔒 Security (Updated 2026-05-01)
+
+### ✅ Fixed
+- [x] Rate limiting on all services
+- [x] Fail-fast startup (env vars required)
+- [x] RBAC middleware implemented
+- [x] CORS explicit domains
+- [x] Security headers
+
+### ⚠️ In Progress
+- [ ] MongoDB AUTH - Guide created, deployment pending
+- [ ] Redis AUTH - Guide created, deployment pending
+- [ ] Credentials rotation - Need to execute
+
+### 📋 Security Guides
 | Document | Description |
 |----------|-------------|
-| [PERFORMANCE-OPTIMIZATION-PLAN.md](PERFORMANCE-OPTIMIZATION-PLAN.md) | Performance roadmap |
-| [OBSERVABILITY-PLAN.md](OBSERVABILITY-PLAN.md) | Logging, metrics, tracing |
-| [ELK-DEPLOYMENT-GUIDE.md](ELK-DEPLOYMENT-GUIDE.md) | ELK stack deployment |
-| [prometheus-alerts.yml](prometheus-alerts.yml) | Prometheus alert rules |
+| [SECURITY.md](SECURITY.md) | Complete security hardening guide |
+| [MONGODB-AUTH-GUIDE.md](MONGODB-AUTH-GUIDE.md) | MongoDB auth setup |
+| [REDIS-AUTH-GUIDE.md](REDIS-AUTH-GUIDE.md) | Redis auth setup |
 
 ---
 
-## 📊 Audit Summary
+## 📊 Services (Updated)
 
-**New audit (2026-04-30):** 87 issues found across 21 apps, 17 services, 13 packages
-
-| Category | Critical | High | Medium | Low | Total |
-|----------|---------|------|--------|-----|-------|
-| Issues | 8 | 15 | 32 | 32 | **87** |
-
-**Previous audit:** 84/84 issues fixed (Waves 8-14)
-
-See [COMPREHENSIVE-AUDIT-2026-04-30.md](COMPREHENSIVE-AUDIT-2026-04-30.md) for details.
-
-### Critical Issues to Fix First
-1. Git conflict markers in 3 services
-2. Wrong package name in rez-scheduler-service
-3. MongoDB/Redis AUTH not enabled
-
----
-
-## 🏗️ Architecture
-
-### Services
-```
-API Gateway (Kong + Nginx)
-├── /api/auth/*        → rez-auth-service
-├── /api/merchant/*   → rez-merchant-service
-├── /api/orders/*     → rez-order-service
-├── /api/payments/*   → rez-payment-service
-├── /api/wallet/*     → rez-wallet-service
-├── /api/catalog/*    → rez-catalog-service
-├── /api/gamification → rez-gamification-service
-└── /api/*           → rez-backend (monolith)
-```
-
-### Data Flow (Current → Target)
-
-**Current State:**
-```
-API → API → API (loops incomplete)
-```
-
-**Target State:**
-```
-User Action → Event Bus → Services → ReZ Mind → AI Agents → Insights → Copilot
-                     ↓
-              Analytics / Notifications / Finance
-```
-
-See [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md) for the 5 closed loops:
-1. Consumer → Merchant
-2. Merchant → Operations (BizOS)
-3. Procurement (NextaBiZ)
-4. Hotel (StayOwn)
-5. Growth (AdBazaar)
+| Service | Port | Git | Status |
+|---------|------|-----|--------|
+| **NEW: rez-event-platform** | 4008 | TBD | Ready |
+| **NEW: rez-action-engine** | 4009 | TBD | Ready |
+| **NEW: rez-feedback-service** | 4010 | TBD | Ready |
 
 ---
 
 ## 🔗 Quick Links
 
+### Core Services
 | Service | GitHub | Deploy |
-|---------|--------|---------|
-| rez-auth-service | [Link](https://github.com/imrejaul007/rez-auth-service) | [Render](https://rez-auth-service.onrender.com) |
-| rez-merchant-service | [Link](https://github.com/imrejaul007/rez-merchant-service) | [Render](https://rez-merchant-service.onrender.com) |
-| rez-order-service | [Link](https://github.com/imrejaul007/rez-order-service) | [Render](https://rez-order-service.onrender.com) |
-| rez-payment-service | [Link](https://github.com/imrejaul007/rez-payment-service) | [Render](https://rez-payment-service.onrender.com) |
-| rez-wallet-service | [Link](https://github.com/imrejaul007/rez-wallet-service) | [Render](https://rez-wallet-service.onrender.com) |
-| rez-api-gateway | [Link](https://github.com/imrejaul007/rez-api-gateway) | [Render](https://rez-api-gateway.onrender.com) |
+|---------|--------|--------|
+| rez-auth-service | imrejaul007/rez-auth-service | Render |
+| rez-wallet-service | imrejaul007/rez-wallet-service | Render |
+| rez-order-service | imrejaul007/rez-order-service | Render |
+| rez-payment-service | imrejaul007/rez-payment-service | Render |
+| rez-merchant-service | imrejaul007/rez-merchant-service | Render |
+| rez-api-gateway | imrejaul007/rez-api-gateway | Render |
+
+### NEW: Intelligence Services
+| Service | Local Path | Purpose |
+|---------|------------|---------|
+| rez-event-platform | `../rez-event-platform/` | Central event bus |
+| rez-action-engine | `../rez-action-engine/` | Action execution |
+| rez-feedback-service | `../rez-feedback-service/` | Learning feedback |
+| rez-first-loop | `../rez-first-loop/` | First loop integration |
 
 ---
 
@@ -138,57 +224,12 @@ See [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md) for the 5 closed loops:
 
 | App | GitHub | Platform |
 |-----|--------|----------|
-| rez-app-consumer | [Link](https://github.com/imrejaul007/rez-app-consumer) | Expo/React Native |
-| rez-app-marchant | [Link](https://github.com/imrejaul007/rez-app-marchant) | Expo/React Native |
-| rez-app-admin | [Link](https://github.com/imrejaul007/rez-app-admin) | Expo/React Native |
-| rez-now | [Link](https://github.com/imrejaul007/rez-now) | Next.js |
-| rez-web-menu | [Link](https://github.com/imrejaul007/rez-web-menu) | Next.js |
-| Rendez | [Link](https://github.com/imrejaul007/Rendez) | React Native |
-| Hotel OTA (StayOwn) | [Link](https://github.com/imrejaul007/hotel-ota) | Node.js, Next.js |
-
----
-
-## 📱 Hotel Stack — StayOwn
-
-| App | Purpose |
-|-----|---------|
-| ota-web | Customer booking website |
-| mobile | StayOwn Mobile (iOS/Android) |
-| admin | Admin Dashboard |
-| hotel-panel | Hotel staff management |
-| corporate-panel | Corporate account management |
-| api | Backend API (includes Room QR) |
-| hotel-pms | Property Management System |
-
-### Room QR
-- **Location:** `Hotel OTA/apps/api/src/routes/room-qr.routes.ts`
-- **Purpose:** Guest services when scanning room QR code
-
----
-
-## 🔒 Security Checklist
-
-- [x] Rate limiting on all services
-- [x] Fail-fast startup (env vars required)
-- [x] RBAC middleware implemented
-- [x] CORS explicit domains
-- [x] Security headers
-- [ ] MongoDB AUTH enabled ❌
-- [ ] Redis AUTH enabled ❌
-- [ ] Credentials rotated ❌
-- [ ] ELK deployed ❌
-
----
-
-## ⚡ Performance Checklist
-
-- [x] Gzip compression (all services)
-- [x] Cursor pagination (orders)
-- [x] Database indexes (migration ready)
-- [x] Security headers
-- [x] Prometheus metrics
-- [ ] ELK deployed
-- [ ] Response caching optimization
+| rez-app-consumer | imrejaul007/rez-app-consumer | Expo/React Native |
+| rez-app-marchant | imrejaul007/rez-app-marchant | Expo/React Native |
+| rez-app-admin | imrejaul007/rez-app-admin | Expo/React Native |
+| rez-now | imrejaul007/rez-now | Next.js |
+| Rendez | imrejaul007/Rendez | React Native |
+| Hotel OTA | imrejaul007/hotel-ota | Node.js, Next.js |
 
 ---
 
@@ -200,15 +241,51 @@ See [IMPLEMENTATION-PLAN.md](IMPLEMENTATION-PLAN.md) for the 5 closed loops:
 4. **Types** — import from `rez-shared` or local `types/`
 5. **Auth** — use `x-internal-token` for service-to-service
 6. **Logging** — use structured JSON format
+7. **Events** — emit via rez-event-platform with schema validation
 
 ---
 
-## 🐛 Bug Tracking
+## 🚀 Deployment Order
 
-See `docs/Gaps/` for detailed issue tracking:
-- `10-REZ-NOW/` - ReZ Now issues (13 fixed, 1 partial)
-- `09-CROSS-SERVICE-2026/` - Cross-service inconsistencies
-- `11-CROSS-SERVICE-CONNECTIONS/` - Connection issues
+### Week 1: Security
+```bash
+# Enable MongoDB AUTH
+docker compose up -d mongodb
+# See MONGODB-AUTH-GUIDE.md
+
+# Enable Redis AUTH
+docker compose up -d redis
+# See REDIS-AUTH-GUIDE.md
+```
+
+### Week 1-2: Event Platform
+```bash
+# Deploy Event Platform
+cd rez-event-platform
+npm install && npm run build
+npm start
+
+# Deploy Action Engine
+cd ../rez-action-engine
+npm install && npm run build
+npm start
+
+# Deploy Feedback Service
+cd ../rez-feedback-service
+npm install && npm run build
+npm start
+```
+
+### Week 2-4: First Loop
+```bash
+# Integrate with BizOS
+cd rez-merchant-service/src/events
+# See inventory.events.ts
+
+# Test the loop
+cd ../rez-first-loop
+npm test
+```
 
 ---
 
@@ -218,3 +295,11 @@ See `docs/Gaps/` for detailed issue tracking:
 2. Document all changes here
 3. Security issues → responsible disclosure
 4. Deployment changes → PR review required
+5. New events → Update EVENT-SCHEMAS.md
+
+---
+
+**Last Major Update:** 2026-05-01
+- Added Event Platform, Action Engine, Feedback Service
+- Added First Closed Loop integration
+- Enabled MongoDB/Redis AUTH guides
