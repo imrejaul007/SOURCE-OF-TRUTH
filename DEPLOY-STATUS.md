@@ -7,7 +7,7 @@
 
 | Service | GitHub | Status |
 |---------|--------|--------|
-| rez-backend (main) | [Link](https://github.com/imrejaul007/rez-backend) | ✅ Building |
+| rez-backend (main) | [Link](https://github.com/imrejaul007/rez-backend) | ✅ Deployed |
 | rez-auth-service | [Link](https://github.com/imrejaul007/rez-auth-service) | ✅ Deployed |
 | rez-merchant-service | [Link](https://github.com/imrejaul007/rez-merchant-service) | ✅ Deployed |
 | rez-order-service | [Link](https://github.com/imrejaul007/rez-order-service) | ✅ Deployed |
@@ -23,7 +23,7 @@
 
 | Service | GitHub | Status |
 |---------|--------|--------|
-| rez-karma-service | [Link](https://github.com/imrejaul007/Karma) | ✅ Building |
+| rez-karma-service | [Link](https://github.com/imrejaul007/Karma) | ✅ Deployed |
 | rez-karma-app | [Link](https://github.com/imrejaul007/rez-karma-app) | ✅ Deployed |
 | rez-karma-mobile | [Link](https://github.com/imrejaul007/rez-karma-mobile) | ✅ APK Ready |
 
