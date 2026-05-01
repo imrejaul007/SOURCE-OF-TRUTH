@@ -45,34 +45,37 @@ Audit Status: COMPLETE
 │  │ ├── Catalog Service (rez-catalog-service)         - port 4005                │  │
 │  │ ├── Search Service (rez-search-service)           - port 4006                │  │
 │  │ ├── Gamification Service (rez-gamification-service) - port 4007               │  │
-│  │ ├── Ads Service (rez-ads-service)                 - port 4008                │  │
-│  │ ├── Automation Service (rez-automation-service)                              │  │
-│  │ ├── Finance Service (rez-finance-service)                                   │  │
-│  │ ├── Insights Service (rez-insights-service)                                 │  │
-│  │ ├── Intent Graph (rez-intent-graph)                                         │  │
-│  │ └── Error Intelligence (rez-error-intelligence)                              │  │
+│  │ ├── Merchant Service (rez-merchant-service)       - port 4005                │  │
+│  │ └── More services...                                                        │  │
 │  └──────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                      │
 │  ┌──────────────────────────────────────────────────────────────────────────────┐  │
 │  │ REZ MIND - INTELLIGENCE LAYER                                               │  │
 │  │                                                                              │  │
-│  │ ├── Event Platform (rez-event-platform)            - port 4008                │  │
-│  │ ├── Action Engine (rez-action-engine)               - port 4009                │  │
-│  │ ├── Feedback Service (rez-feedback-service)        - port 4010                │  │
-│  │ ├── User Intelligence (rez-user-intelligence)      - port 3004                │  │
-│  │ ├── Merchant Intelligence (rez-merchant-intelligence) - port 4012               │  │
-│  │ ├── Intent Predictor (rez-intent-predictor)       - port 4018                │  │
-│  │ ├── Intelligence Hub (rez-intelligence-hub)        - port 4020                │  │
-│  │ ├── Ad Copilot (rez-ad-copilot)                   - port 4021                │  │
-│  │ └── Merchant Copilot (rez-merchant-copilot)       - port 4022                │  │
-│  └──────────────────────────────────────────────────────────────────────────────┘  │
-│                                                                                      │
-│  ┌──────────────────────────────────────────────────────────────────────────────┐  │
-│  │ TARGETING & DELIVERY                                                        │  │
-│  │ ├── Targeting Engine (rez-targeting-engine)        - port 3003                │  │
-│  │ ├── Recommendation Engine (rez-recommendation-engine) - port 3001              │  │
-│  │ ├── Personalization Engine (rez-personalization-engine) - port 4017            │  │
-│  │ └── Push Service (rez-push-service)               - port 4013                │  │
+│  │ EVENT FLOW:                                                                 │  │
+│  │ Consumer/Merchant Apps → Event Platform → Action Engine → Feedback → Learning│  │
+│  │                                                                              │  │
+│  │ INTELLIGENCE:                                                               │  │
+│  │ ├── User Intelligence (Port 3004)                                            │  │
+│  │ ├── Merchant Intelligence (Port 4012)                                         │  │
+│  │ ├── Intent Predictor (Port 4018)                                             │  │
+│  │ └── Intelligence Hub (Port 4020)                                              │  │
+│  │                                                                              │  │
+│  │ TARGETING & DELIVERY:                                                        │  │
+│  │ ├── Targeting Engine (Port 3003)                                             │  │
+│  │ ├── Recommendation Engine (Port 3001)                                         │  │
+│  │ ├── Personalization Engine (Port 4017)                                       │  │
+│  │ ├── Push Service (Port 4013)                                                 │  │
+│  │ └── AdBazaar (Port 4025)                                                     │  │
+│  │                                                                              │  │
+│  │ COPILOTS:                                                                   │  │
+│  │ ├── Merchant Copilot (Port 4022)                                             │  │
+│  │ ├── Consumer Copilot (Port 4021)                                             │  │
+│  │ └── Ad Copilot (Port 4021)                                                   │  │
+│  │                                                                              │  │
+│  │ SAFETY:                                                                     │  │
+│  │ ├── Feature Flags (Port 4030)                                                │  │
+│  │ └── Observability (Port 4031)                                                │  │
 │  └──────────────────────────────────────────────────────────────────────────────┘  │
 │                                                                                      │
 └─────────────────────────────────────────────────────────────────────────────────────┘
@@ -80,62 +83,41 @@ Audit Status: COMPLETE
 
 ---
 
-## REZ MIND - THE BRAIN
+## REZ Mind - The Brain
 
-### What It Knows
+### Philosophy
+```
+Raw Events → Process → Derive Signals → Store Intelligence
 
-#### User Profile (Derived Signals)
+❌ NOT: Store everything
+✅ YES: Store structured, usable intelligence
+```
+
+### User Flow Example (Rejaul)
+```
+1. Rejaul uses ReZ App, ReZ Now, rendez, Karma
+2. Events flow to Event Platform
+3. ReZ Mind derives intelligence (NOT raw data)
+4. Stores: preferences, intent, segments, scores
+5. Powers: search, recommendations, ads, insights
+```
+
+### User Intelligence Stored
 ```json
 {
-  "user_id": "user_123",
-  "preferences": {
-    "cuisines": ["biryani", "pizza"],
-    "price_sensitivity": "medium",
-    "time_pattern": "evening_user",
-    "dietary_restrictions": []
-  },
-  "intent_signals": {
-    "current_intent": "looking_for_dinner",
-    "confidence": 0.78,
-    "purchase_probability": 0.65
-  },
-  "behavior": {
-    "frequency": "weekly",
-    "avg_order_value": 450,
-    "engagement_level": "high"
-  },
+  "user_id": "rejaul_123",
+  "preferences": ["biryani", "pizza"],
+  "intent": "looking_for_dinner",
   "segments": ["foodies", "deal_seekers"],
-  "lifetime_value": 15000,
-  "churn_risk": "low"
+  "scores": { "ltv": 15000, "churn_risk": 0.2 }
 }
 ```
 
-#### Merchant Profile (Derived Signals)
-```json
-{
-  "merchant_id": "merchant_456",
-  "demand_pattern": "weekend_spike",
-  "customer_types": ["budget_minders", "foodies"],
-  "pricing_behavior": "discount_sensitive",
-  "segments": ["high_volume", "deal_responsive"],
-  "health_score": 85,
-  "growth_score": 72
-}
-```
-
-### User Segments
-| Segment | Criteria |
-|---------|----------|
-| `high_value` | Top 20% by LTV |
-| `vip` | LTV > 50,000 |
-| `foodies` | High frequency, variety |
-| `deal_seekers` | Always discount responsive |
-| `budget_minders` | Low AOV, price sensitive |
-| `churned` | 30+ days inactive |
-| `at_risk` | 14+ days inactive |
-| `window_shoppers` | Browse, no buy |
-| `new_users` | First order < 7 days |
-| `power_users` | 5+ sessions/week |
+### What ReZ Mind Does NOT Store
+- ❌ Raw search queries
+- ❌ Individual transactions
+- ❌ Location history
+- ❌ Personal details
 
 ---
 
@@ -171,28 +153,22 @@ Audit Status: COMPLETE
 | [rez-wallet-service](https://github.com/imrejaul007/rez-wallet-service) | 4002 | Wallet/Points |
 | [rez-payment-service](https://github.com/imrejaul007/rez-payment-service) | 4003 | Payments |
 | [rez-order-service](https://github.com/imrejaul007/rez-order-service) | 4004 | Order management |
-| [rez-catalog-service](https://github.com/imrejaul007/rez-catalog-service) | 4005 | Product catalog |
-| [rez-search-service](https://github.com/imrejaul007/rez-search-service) | 4006 | Search |
-| [rez-gamification-service](https://github.com/imrejaul007/rez-gamification-service) | 4007 | Gamification |
-| [rez-ads-service](https://github.com/imrejaul007/rez-ads-service) | 4008 | Ad management |
-| [rez-automation-service](https://github.com/imrejaul007/rez-automation-service) | - | Workflows |
-| [rez-finance-service](https://github.com/imrejaul007/rez-finance-service) | - | Finance |
-| [rez-insights-service](https://github.com/imrejaul007/rez-insights-service) | - | Analytics |
-| [rez-intent-graph](https://github.com/imrejaul007/rez-intent-graph) | - | Intent tracking |
-| [rez-error-intelligence](https://github.com/imrejaul007/rez-error-intelligence) | - | Error tracking |
+| [rez-merchant-service](https://github.com/imrejaul007/rez-merchant-service) | 4005 | Merchant management |
+| [rez-catalog-service](https://github.com/imrejaul007/rez-catalog-service) | 4006 | Product catalog |
+| [rez-search-service](https://github.com/imrejaul007/rez-search-service) | 4007 | Search |
+| [rez-gamification-service](https://github.com/imrejaul007/rez-gamification-service) | 4008 | Gamification |
+| [rez-marketing-service](https://github.com/imrejaul007/rez-marketing-service) | - | Marketing + AdBazaar |
 
 ### REZ Mind - Intelligence Layer
 | Repo | Port | Description |
 |------|------|-------------|
-| [rez-event-platform](https://github.com/imrejaul007/rez-event-platform) | 4008 | Event ingestion |
-| [rez-action-engine](https://github.com/imrejaul007/rez-action-engine) | 4009 | Decision engine |
-| [rez-feedback-service](https://github.com/imrejaul007/rez-feedback-service) | 4010 | Learning loop |
+| [rez-event-platform](https://github.com/imrejaul007/REZ-event-platform) | 4008 | Event ingestion |
+| [rez-action-engine](https://github.com/imrejaul007/REZ-action-engine) | 4009 | Decision engine |
+| [rez-feedback-service](https://github.com/imrejaul007/REZ-feedback-service) | 4010 | Learning loop |
 | [rez-user-intelligence](https://github.com/imrejaul007/REZ-user-intelligence-service) | 3004 | User profiles |
 | [rez-merchant-intelligence](https://github.com/imrejaul007/REZ-merchant-intelligence-service) | 4012 | Merchant profiles |
 | [rez-intent-predictor](https://github.com/imrejaul007/REZ-intent-predictor) | 4018 | Intent prediction |
 | [rez-intelligence-hub](https://github.com/imrejaul007/REZ-intelligence-hub) | 4020 | Unified profiles |
-| [rez-ad-copilot](https://github.com/imrejaul007/REZ-ad-copilot) | 4021 | Ad intelligence |
-| [rez-merchant-copilot](https://github.com/imrejaul007/REZ-merchant-copilot) | 4022 | Merchant insights |
 
 ### Targeting & Delivery
 | Repo | Port | Description |
@@ -201,14 +177,133 @@ Audit Status: COMPLETE
 | [rez-recommendation-engine](https://github.com/imrejaul007/REZ-recommendation-engine) | 3001 | Product recommendations |
 | [rez-personalization-engine](https://github.com/imrejaul007/REZ-personalization-engine) | 4017 | Content ranking |
 | [rez-push-service](https://github.com/imrejaul007/REZ-push-service) | 4013 | Notifications |
+| [rez-adbazaar](https://github.com/imrejaul007/REZ-adbazaar) | 4025 | Intent-based ads |
 
-### Supporting
+### Copilots
+| Repo | Port | Description |
+|------|------|-------------|
+| [rez-merchant-copilot](https://github.com/imrejaul007/REZ-merchant-copilot) | 4022 | Merchant insights |
+| [rez-consumer-copilot](https://github.com/imrejaul007/REZ-consumer-copilot) | 4021 | Consumer personalization |
+| [rez-ad-copilot](https://github.com/imrejaul007/REZ-ad-copilot) | 4021 | Ad optimization |
+
+### Safety & Operations
+| Repo | Port | Description |
+|------|------|-------------|
+| [rez-feature-flags](https://github.com/imrejaul007/REZ-feature-flags) | 4030 | Feature toggles |
+| [rez-observability](https://github.com/imrejaul007/REZ-observability) | 4031 | Logs & traces |
+
+### Integration SDK
 | Repo | Description |
 |------|-------------|
-| [rez-devops-config](https://github.com/imrejaul007/rez-devops-config) | DevOps configs |
-| [rez-contracts](https://github.com/imrejaul007/rez-contracts) | Smart contracts |
-| [rez-corpperks-service](https://github.com/imrejaul007/rez-corpperks-service) | Corporate perks |
-| [rez-hotel-service](https://github.com/imrejaul007/rez-hotel-service) | Hotel integration |
+| [REZ-mind-client](https://github.com/imrejaul007/REZ-mind-client) | App integration SDK |
+
+---
+
+## AdBazaar - Intent-Based Ad Targeting
+
+### What is AdBazaar?
+AdBazaar shows ads based on **user intent**, not surveillance.
+
+### How It Works
+```
+User searches "spa"
+    ↓
+ReZ Mind detects: Intent = "looking_for_service"
+    ↓
+AdBazaar shows: Spa/salon ads
+    ↓
+NOT: Shows ads based on past browsing history
+```
+
+### User Segments
+| Segment | Description | Users |
+|--------|-------------|-------|
+| Foodies | Frequent food orders | 1.8K |
+| Deal Seekers | Price sensitive | 950 |
+| VIP | High LTV | 180 |
+| New Users | < 7 days | 1.2K |
+| At Risk | 14+ days inactive | 340 |
+| Wellness | Spa/salon/fitness | 620 |
+
+### Intent Mapping
+| User Intent | Ad Types Shown |
+|-------------|----------------|
+| looking_for_food | restaurant, food delivery |
+| looking_for_dinner | dinner deals, biryani |
+| looking_for_service | spa, salon |
+| ordering | free delivery, discounts |
+| booking | appointments, hotels |
+| browsing | general promotions |
+
+### Privacy First
+- ❌ No personal data stored
+- ❌ No browsing history
+- ❌ No location tracking
+- ✅ Intent-based targeting
+- ✅ Consent-based personalization
+- ✅ Users can opt-out
+
+### AdBazaar Endpoints
+```
+GET  /segments          - List all segments
+GET  /ads               - List all ads
+POST /ads               - Create new ad
+POST /targeting/predict - Predict targeting match
+GET  /stats             - Campaign statistics
+POST /track/impression  - Track ad view
+POST /track/click       - Track ad click
+POST /track/conversion   - Track conversion
+GET  /dashboard         - Dashboard data
+```
+
+---
+
+## Integration - Connecting Apps to ReZ Mind
+
+### Quick Setup
+```bash
+# Copy REZ Mind Client to your app
+cp -r REZ-MIND-CLIENT your-app/services/
+```
+
+### Merchant App Integration
+```typescript
+import { rezMind } from '../services/ReZMindClient';
+
+// Order completed
+await rezMind.merchant.sendOrderCompleted({
+  merchant_id: 'merchant_123',
+  order_id: 'order_456',
+  items: [{ item_id: 'biryani', quantity: 2, price: 250 }],
+  total_amount: 580
+});
+
+// Inventory low
+await rezMind.merchant.sendInventoryLow({
+  merchant_id: 'merchant_123',
+  item_id: 'biryani',
+  current_stock: 3,
+  threshold: 5
+});
+```
+
+### Consumer App Integration
+```typescript
+// User searches
+await rezMind.consumer.sendSearch({
+  user_id: 'user_123',
+  query: 'biryani',
+  results_count: 15,
+  clicked_item: 'biryani_large'
+});
+
+// User views item
+await rezMind.consumer.sendView({
+  user_id: 'user_123',
+  item_id: 'biryani',
+  duration_seconds: 15
+});
+```
 
 ---
 
@@ -216,112 +311,78 @@ Audit Status: COMPLETE
 
 | Port | Service | Status |
 |------|---------|--------|
-| 4001 | Auth Service | Live |
-| 4002 | Wallet Service | Live |
-| 4003 | Payment Service | Live |
-| 4004 | Order Service | Live |
-| 4005 | Catalog Service | Live |
-| 4006 | Search Service | Live |
-| 4007 | Gamification | Live |
 | 3001 | Recommendation Engine | Ready |
 | 3003 | Targeting Engine | Ready |
 | 3004 | User Intelligence | Ready |
-| 4008 | Event Platform | Running |
-| 4009 | Action Engine | Running |
-| 4010 | Feedback Service | Running |
+| 4008 | Event Platform | Ready |
+| 4009 | Action Engine | Ready |
+| 4010 | Feedback Service | Ready |
 | 4012 | Merchant Intelligence | Ready |
 | 4013 | Push Service | Ready |
 | 4017 | Personalization | Ready |
 | 4018 | Intent Predictor | Ready |
 | 4020 | Intelligence Hub | Ready |
-| 4021 | Ad Copilot | Ready |
+| 4021 | Consumer Copilot | Ready |
 | 4022 | Merchant Copilot | Ready |
+| 4025 | AdBazaar | Ready |
+| 4030 | Feature Flags | Ready |
+| 4031 | Observability | Ready |
 
 ---
 
-## Data Flow
+## Feature Flags (Safe Mode)
 
-```
-┌─────────────────────────────────────────────────────────────────────────────────────┐
-│ DATA SOURCES                                                                        │
-├─────────────────────────────────────────────────────────────────────────────────────┤
-│ Consumer Apps                    Merchant Apps                                     │
-│ ├── ReZ App                      ├── Merchant OS                                    │
-│ ├── ReZ Now                      ├── RestoPapa                                     │
-│ ├── Web Menu                     └── PMS                                           │
-│ ├── rendez                                                                        │
-│ └── Karma                                                                           │
-└─────────────────────────────────────────────────────────────────────────────────────┘
-                                      ↓
-┌─────────────────────────────────────────────────────────────────────────────────────┐
-│ EVENT LAYER - REZ MIND                                                             │
-├─────────────────────────────────────────────────────────────────────────────────────┤
-│                                                                                      │
-│ Events (correlation_id) → Event Platform → Action Engine → Feedback                  │
-│                                                                                      │
-│ USER INTELLIGENCE          MERCHANT INTELLIGENCE       INTENT PREDICTOR            │
-│ ├── preferences            ├── demand_pattern         ├── current_intent           │
-│ ├── behavior              ├── insights               ├── confidence                │
-│ ├── segments              ├── trends                 ├── urgency                   │
-│ ├── LTV                   ├── competitors           ├── mood                      │
-│ └── churn_risk            └── recommendations       └── exit_intent              │
-│                                                                                      │
-└─────────────────────────────────────────────────────────────────────────────────────┘
-                                      ↓
-┌─────────────────────────────────────────────────────────────────────────────────────┐
-│ TARGETING & DELIVERY                                                                 │
-├─────────────────────────────────────────────────────────────────────────────────────┤
-│                                                                                      │
-│ TARGETING ENGINE               PERSONALIZATION              PUSH SERVICE              │
-│ ├── segments                   ├── collaborative           ├── FCM                    │
-│ ├── campaigns                  ├── content_based          ├── APNs                   │
-│ ├── frequency_caps             ├── contextual             ├── SMS                    │
-│ └── budget_pacing             └── diversity              ├── Email                  │
-│                                                                   └── WhatsApp       │
-└─────────────────────────────────────────────────────────────────────────────────────┘
-                                      ↓
-┌─────────────────────────────────────────────────────────────────────────────────────┐
-│ DELIVERY CHANNELS                                                                   │
-├─────────────────────────────────────────────────────────────────────────────────────┤
-│                                                                                      │
-│ AdBazaar → Targeted Ads        Push → Notifications      In-App → Content          │
-│                                                                                      │
-└─────────────────────────────────────────────────────────────────────────────────────┘
+| Flag | Default | Description |
+|------|---------|-------------|
+| learning_enabled | OFF | ML learning |
+| adaptive_enabled | OFF | Adaptive decisions |
+| personalization_enabled | ON | Personalization |
+| recommendations_enabled | ON | Product recommendations |
+| ads_enabled | OFF | Targeted ads |
+| push_enabled | ON | Push notifications |
+| auto_execute_safe | ON | Auto-execute SAFE |
+
+---
+
+## Safety Thresholds
+
+```javascript
+RISKY: confidence < 0.7 OR decisions < 5
+SEMI_SAFE: confidence >= 0.7 AND decisions >= 5
+SAFE: confidence >= 0.9 AND approval_rate >= 0.8 AND decisions >= 10
 ```
 
 ---
 
-## MongoDB Atlas
+## 5-Layer Database Design
 
-Primary Cluster: `mongodb+srv://work_db_user:ZAFYAYH1zK0C74Ap@rez-intent-graph.a8ilqgi.mongodb.net`
-
-Databases:
-- `rez-events` - Event Platform
-- `rez-actions` - Action Engine
-- `rez-feedback` - Feedback Service
-- `rez-user-intelligence` - User Profiles
-- `rez-merchant-intelligence` - Merchant Profiles
-- `rez-targeting` - Campaigns
-- `rez-recommendations` - Recommendations
+```
+┌─────────────────────────────────────────────────────┐
+│ 1. IDENTITY (users, merchants) │
+├─────────────────────────────────────────────────────┤
+│ 2. EVENTS (raw, short-term, 30 days TTL) │
+├─────────────────────────────────────────────────────┤
+│ 3. INTELLIGENCE (CORE - derived, permanent) │
+├─────────────────────────────────────────────────────┤
+│ 4. DECISIONS (suggestions) │
+├─────────────────────────────────────────────────────┤
+│ 5. FEEDBACK (outcomes) │
+└─────────────────────────────────────────────────────┘
+```
 
 ---
 
-## Deployment
-
-Services are deployed on **Render** with auto-scaling.
+## Deployment URLs (Production)
 
 | Service | URL |
 |---------|-----|
-| Auth | https://rez-auth-service.onrender.com |
-| Wallet | https://rez-wallet-service-36vo.onrender.com |
-| Payment | https://rez-payment-service.onrender.com |
-| Order | https://rez-backend-8dfu.onrender.com |
-| Catalog | https://rez-catalog-service-1.onrender.com |
-| Search | https://rez-search-service.onrender.com |
-| Gamification | https://rez-gamification-service-3b5d.onrender.com |
-| Intent Graph | https://rez-intent-graph.onrender.com |
-| Merchant | https://rez-merchant-service-n3q2.onrender.com |
-| Analytics | https://analytics-events-37yy.onrender.com |
+| Event Platform | https://rez-event-platform.onrender.com |
+| Action Engine | https://rez-action-engine.onrender.com |
+| Feedback Service | https://rez-feedback-service.onrender.com |
+| Merchant Copilot | https://rez-merchant-copilot.onrender.com |
+| Consumer Copilot | https://rez-consumer-copilot.onrender.com |
+| AdBazaar | https://rez-adbazaar.onrender.com |
+| Feature Flags | https://rez-feature-flags.onrender.com |
 
 ---
 
@@ -332,10 +393,10 @@ Services are deployed on **Render** with auto-scaling.
 | Consumer Apps | 5 | Built |
 | Merchant Apps | 3 | Built |
 | Core Backend | 3 | Built |
-| Core Services | 14 | Built |
-| Intelligence Layer | 9 | Built |
-| Targeting & Delivery | 4 | Built |
-| **Total** | **38** | **Complete** |
+| Core Services | 10+ | Built |
+| REZ Mind Services | 15+ | Built |
+| Integration SDK | 1 | Built |
+| **Total** | **40+** | **Complete** |
 
 ---
 
