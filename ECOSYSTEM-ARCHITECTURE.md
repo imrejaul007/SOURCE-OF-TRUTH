@@ -23,14 +23,14 @@ Your services exist in **TWO places**:
 
 ```
 github.com/imrejaul007/
-├── shared-types           ← Monorepo (dev workspace)
-├── rez-auth-service       ← Individual service repo
-├── rez-wallet-service     ← Individual service repo
-├── rez-order-service      ← Individual service repo
-├── rez-payment-service    ← Individual service repo
-├── rez-merchant-service   ← Individual service repo
-├── rez-catalog-service    ← Individual service repo
-├── rez-search-service     ← Individual service repo
+├── shared-types              ← Monorepo (dev workspace)
+├── rez-auth-service          ← Individual service repo
+├── rez-wallet-service        ← Individual service repo
+├── rez-order-service         ← Individual service repo
+├── rez-payment-service       ← Individual service repo
+├── rez-merchant-service      ← Individual service repo
+├── rez-catalog-service       ← Individual service repo
+├── rez-search-service        ← Individual service repo
 ├── rez-gamification-service
 ├── rez-marketing-service
 ├── rez-scheduler-service
@@ -40,10 +40,10 @@ github.com/imrejaul007/
 ├── rez-hotel-service
 ├── rez-ads-service
 ├── rez-procurement-service
-├── rez-insights-service   ← NEW (needs repo)
-├── rez-automation-service ← NEW (needs repo)
-├── rez-intent-graph       ← ReZ Mind repo
-└── SOURCE-OF-TRUTH        ← Documentation repo
+├── rez-insights-service      ← NEW ✓ (2026-05-01)
+├── rez-automation-service    ← NEW ✓ (2026-05-01)
+├── rez-intent-graph          ← ReZ Mind repo
+└── SOURCE-OF-TRUTH           ← Documentation repo
 ```
 
 ---
@@ -182,15 +182,64 @@ If you want monorepo to be THE source:
 
 ---
 
-## ACTION ITEMS FOR NEW SERVICES
+## NEW SERVICES (2026-05-01)
 
-For `rez-insights-service` and `rez-automation-service`:
+### rez-insights-service
+- **Repo:** https://github.com/imrejaul007/rez-insights-service
+- **Status:** Pushed ✓
+- **CI/CD:** GitHub Actions ✓
+- **Render:** Ready to connect
 
-- [ ] Create GitHub repos
-- [ ] Copy code from monorepo to individual repos
-- [ ] Connect to Render
-- [ ] Set environment variables
-- [ ] Deploy
+**Next Steps:**
+1. Go to Render → New → Connect GitHub repo
+2. Add environment variables:
+   - `MONGODB_URI`
+   - `REDIS_URL`
+   - `JWT_SECRET`
+   - `INTERNAL_SERVICE_TOKEN`
+   - `INTENT_API_URL=https://rez-intent-graph.onrender.com`
+3. Deploy
+
+### rez-automation-service
+- **Repo:** https://github.com/imrejaul007/rez-automation-service
+- **Status:** Pushed ✓
+- **CI/CD:** GitHub Actions ✓
+- **Render:** Ready to connect
+
+**Next Steps:**
+1. Go to Render → New → Connect GitHub repo
+2. Add environment variables:
+   - `MONGODB_URI`
+   - `REDIS_URL`
+   - `INTERNAL_SERVICE_TOKEN`
+   - `EVENT_BUS_URL`
+3. Deploy
+
+---
+
+## ALL SERVICES STATUS
+
+| Service | GitHub Repo | Render Status |
+|---------|-------------|---------------|
+| rez-auth-service | ✓ | Deployed |
+| rez-wallet-service | ✓ | Deployed |
+| rez-order-service | ✓ | Deployed |
+| rez-payment-service | ✓ | Deployed |
+| rez-merchant-service | ✓ | Deployed |
+| rez-catalog-service | ✓ | Deployed |
+| rez-search-service | ✓ | Deployed |
+| rez-gamification-service | ✓ | Deployed |
+| rez-marketing-service | ✓ | Deployed |
+| rez-scheduler-service | ✓ | Deployed |
+| rez-finance-service | ✓ | Deployed |
+| rez-karma-service | ✓ | Deployed |
+| rez-corpperks-service | ✓ | Deployed |
+| rez-hotel-service | ✓ | Deployed |
+| rez-ads-service | ✓ | Deployed |
+| rez-procurement-service | ✓ | Deployed |
+| rez-insights-service | ✓ NEW | **NEEDS RENDER** |
+| rez-automation-service | ✓ NEW | **NEEDS RENDER** |
+| rez-intent-graph | ✓ | Deployed |
 
 ---
 
