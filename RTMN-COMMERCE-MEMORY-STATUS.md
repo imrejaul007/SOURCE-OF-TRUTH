@@ -57,6 +57,20 @@ All 15 services: No errors
 
 ---
 
+## CRITICAL FIX (2026-05-01)
+
+### shared-types CorpRole Error
+
+**Issue:** `Cannot set property CorpRole of #<Object> which has only a getter`
+
+**Fix:** Added `isolatedModules: true` to tsconfig.json and rebuilt dist/
+
+**Commit:** `5e6ec88` in shared-types repo
+
+**Status:** FIXED - Redeploy required
+
+---
+
 ## FINAL STATUS
 
 ```
@@ -65,13 +79,15 @@ SECURITY: PASSED
 TYPESCRIPT: CLEAN
 DEPENDENCIES: 95% CLEAN
 DOCUMENTATION: COMPLETE
+SHARED-TYPES: FIXED
 ```
 
 ---
 
 ## REMAINING
 
-Manual Render configuration only:
+1. Redeploy services using shared-types
+2. Manual Render configuration
 
 1. Upgrade rez-intent-api to Starter plan
 2. Add Redis To Go
