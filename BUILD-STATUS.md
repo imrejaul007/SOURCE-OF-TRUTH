@@ -30,7 +30,8 @@
 - Fixed type conversions in amlComplianceService
 - Fixed notification service callable issues
 - Fixed referral service type issues
-- Fixed mongoose override conflict (removed duplicate override)
+- Fixed mongoose override conflict
+- Fixed zod override conflict
 
 ### rez-payment-service
 - No changes needed - already builds
