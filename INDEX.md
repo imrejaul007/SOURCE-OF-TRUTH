@@ -44,6 +44,7 @@
 | Document | Purpose |
 |---------|---------|
 | [ECOSYSTEM-REPOS.md](ECOSYSTEM-REPOS.md) | **All 56 repos with links** |
+| [AI-CHAT-SUPPORT.md](AI-CHAT-SUPPORT.md) | **AI Copilots & Customer Support** |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | System architecture |
 | [ECOSYSTEM.md](ECOSYSTEM.md) | Ecosystem overview |
 
