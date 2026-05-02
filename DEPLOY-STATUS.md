@@ -84,30 +84,71 @@
 
 **GitHub:** [CorpPerks](https://github.com/imrejaul007/CorpPerks)
 
-### Services (Ready to Deploy)
+### For Developer - Deploy Now
 
-| Service | Port | Status |
-|---------|------|--------|
-| rez-corpperks-service | 4013 | Ready |
-| rez-hotel-service | 4015 | Ready |
-| rez-procurement-service | 4012 | Ready |
-
-### Deploy
 ```bash
 git clone https://github.com/imrejaul007/CorpPerks.git
 cd CorpPerks
 docker-compose up -d
 ```
 
+### Required Environment Variables
+
+```env
+# rez-corpperks-service
+MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/corpperks
+CORS_ORIGIN=https://admin.rez.money,https://rez-app.vercel.app
+
+# rez-hotel-service
+MAKCORPS_API_KEY=your_key
+
+# rez-procurement-service
+NEXTABIZZ_API_KEY=your_key
+```
+
+### Services & Ports
+
+| Service | Port | Health Endpoint |
+|---------|------|-----------------|
+| rez-corpperks-service | 4013 | /health |
+| rez-hotel-service | 4015 | /health |
+| rez-procurement-service | 4012 | /health |
+
+### Key API Endpoints
+
+| Endpoint | Purpose |
+|----------|---------|
+| `GET /api/wallet/combined/:employeeId` | Get both wallets |
+| `POST /api/benefits-config/resolve` | Check benefits |
+| `POST /api/wallet/employee-corporate/:id/allocate` | Allocate |
+| `POST /api/campaigns` | Create campaign |
+| `POST /api/gst/invoices` | Create invoice |
+
 ### Features
-- Corporate Gifting
-- Corporate Hotel Booking
-- Corporate Procurement
-- Dual Wallet System
-- Benefits Configuration
+
+- Corporate Gifting (campaigns)
+- Corporate Hotel Booking (Makcorps)
+- Corporate Procurement (NextaBizz)
+- Dual Wallet System (Personal + Corporate)
+- Benefits Configuration (Merchant > Company > Platform)
 - GST Invoicing
-- HRIS Integration
+- HRIS Integration (GreytHR, BambooHR, Zoho)
 - Analytics Dashboard
+
+### Documentation
+
+| File | Purpose |
+|------|---------|
+| `docs/DEPLOYMENT-GUIDE.md` | Full deploy instructions |
+| `docs/API-REFERENCE.md` | Complete API docs |
+| `docs/QUICK-REFERENCE.md` | Quick commands |
+| `docs/WALLET-SYSTEM.md` | Wallet architecture |
+
+### Deploy Options
+
+1. **Docker:** `docker-compose up -d`
+2. **Render Blueprint:** Use `render.yaml`
+3. **Manual:** Deploy each service separately
 
 ---
 

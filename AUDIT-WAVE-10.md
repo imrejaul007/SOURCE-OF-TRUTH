@@ -16,6 +16,7 @@
 | rez-catalog-service | ✅ Pass | ✅ Clean | - |
 | rez-intent-graph | ✅ Pass | ✅ Clean | #9 |
 | rez-backend | ✅ Pass | ⚠️ Partial | #159 |
+| rez-notification-events | ✅ Pass | ⚠️ Partial | #21 |
 
 ---
 
@@ -39,6 +40,9 @@
 - CircuitBreaker: Added Request/Response imports
 - streamService.ts: Added types for map callbacks
 - cache.ts: Added error type annotation
+
+### rez-notification-events (PR #21)
+- Fix @rez/shared package reference: ^1.0.0 -> file:../rez-shared
 
 ### rez-backend (PR #159)
 - Zod v4: Change error.errors to error.issues

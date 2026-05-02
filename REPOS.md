@@ -233,4 +233,29 @@ See SOURCE-OF-TRUTH folder:
 
 ---
 
+## CorpPerks - Enterprise Benefits Platform
+
+**GitHub:** https://github.com/imrejaul007/CorpPerks
+
+### Services
+| Service | Port |
+|---------|------|
+| rez-corpperks-service | 4013 |
+| rez-hotel-service | 4015 |
+| rez-procurement-service | 4012 |
+
+### Quick Deploy
+```bash
+git clone https://github.com/imrejaul007/CorpPerks.git
+cd CorpPerks
+docker-compose up -d
+```
+
+### Required Env Vars
+- MONGODB_URI
+- MAKCORPS_API_KEY
+- NEXTABIZZ_API_KEY
+
+---
+
 Last updated: 2026-05-02
