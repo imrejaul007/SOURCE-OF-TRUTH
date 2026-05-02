@@ -132,6 +132,13 @@ export async function disconnectRedis(): Promise<void> {
 ### REZ-user-intelligence-service
 - Required fixes: #1, #2, #3
 
+### REZ-targeting-engine
+- Required fixes: #1, #2, #3
+- Relax strict mode (noImplicitAny: false)
+- Add `as any` casts for model methods
+- Fix `toObject()` calls - remove or cast
+- Fix exports in services/index.ts
+
 ### Plain JavaScript services (no TypeScript fixes needed)
 - REZ-intent-predictor - Use Fix #8
 - REZ-recommendation-engine
