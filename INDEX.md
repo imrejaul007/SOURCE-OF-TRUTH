@@ -8,7 +8,8 @@
 
 | Document | Purpose |
 |---------|---------|
-| **[INTEGRATION-EXECUTION-PLAN.md](INTEGRATION-EXECUTION-PLAN.md)** | **NEW! - Research Complete, Ready to Execute** |
+| **[SEGMENT-GAP-FIX-COMPLETE.md](SEGMENT-GAP-FIX-COMPLETE.md)** | **NEW! - All Segment Gaps Addressed** |
+| **[GAP-EXECUTION-PLAN.md](GAP-EXECUTION-PLAN.md)** | **NEW! - Detailed Execution Roadmap** |
 | **[INTEGRATION-PLAN.md](INTEGRATION-PLAN.md)** | Detailed Integration Plan |
 | [BUILD-COMPLETE.md](BUILD-COMPLETE.md) | Unified Support Build Complete |
 | [ECOSYSTEM-REPOS.md](ECOSYSTEM-REPOS.md) | All 56 repos with links |
@@ -122,6 +123,11 @@ RENDER (7 services to deploy):
 ├── REZ-feedback-service
 └── REZ-ad-copilot
 
+NEW SEGMENT SERVICES:
+├── rez-student-service (4025)          ⭐ NEW - Student Partnership
+├── rez-corporate-service (4030)        ⭐ NEW - Corporate Integration
+└── rez-merchant-integrations (4040)    ⭐ NEW - Merchant Integrations
+
 NEW REPOS TO DEPLOY:
 ├── rez-knowledge-base-service
 ├── rez-admin-training-panel
@@ -146,6 +152,11 @@ For all new services:
 
 | Date | Change |
 |------|--------|
+| 2026-05-02 | ✅ SEGMENT GAPS COMPLETE - All gaps addressed for Merchant, Student, Corporate |
+| 2026-05-02 | ✅ Built rez-student-service (4025) - Student Partnership System |
+| 2026-05-02 | ✅ Built rez-corporate-service (4030) - Corporate Integration (HRIS, Cards, GST, Travel) |
+| 2026-05-02 | ✅ Built rez-merchant-integrations (4040) - AdBazaar ROI, Aggregators, Delivery |
+| 2026-05-02 | ✅ Fixed Merchant Copilot - Replaced mock data with real ML |
 | 2026-05-02 | ✅ BUILD COMPLETE - All 4 unified support components built |
 | 2026-05-02 | Updated all deployment status docs |
 | 2026-05-02 | Added AI Chat & Support documentation |

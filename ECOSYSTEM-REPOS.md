@@ -1,7 +1,7 @@
 # REZ ECOSYSTEM - COMPLETE REPOSITORY LIST
 
 **Date:** 2026-05-02
-**Total Repos:** 55
+**Total Repos:** 59
 **Status:** ALL SYNCED ✅
 
 ---
@@ -231,4 +231,34 @@ https://github.com/imrejaul007
 ---
 
 **Last Updated:** 2026-05-02
-**Status:** All 56 repos synced to main ✅
+**Status:** All 59 repos synced to main ✅
+
+---
+
+## NEW SERVICES (Added 2026-05-02)
+
+| # | Repo | Purpose | Port |
+|---|------|---------|------|
+| 57 | **rez-student-service** | Student Partnership System | 4025 |
+| 58 | **rez-corporate-service** | Corporate Integration (HRIS, Cards, GST, Travel) | 4030 |
+| 59 | **rez-merchant-integrations** | AdBazaar ROI, Aggregators, Delivery | 4040 |
+
+### rez-student-service Features
+- Document verification with upload
+- Student wallet with parental controls
+- Gamification (5-tier system)
+- Campus partnerships
+- Student-specific pricing
+
+### rez-corporate-service Features
+- Real HRIS integration (GreytHR, BambooHR, Zoho)
+- Corporate card issuing (Razorpay)
+- GST e-Invoice with IRN
+- Travel booking (TBO)
+- Budget & expense management
+
+### rez-merchant-integrations Features
+- AdBazaar ROI tracking (click/view/conversion)
+- Aggregator sync (Swiggy, Zomato)
+- Delivery partner integration (Dunzo, Shadowfax)
+
