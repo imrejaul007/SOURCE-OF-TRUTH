@@ -9,7 +9,7 @@
 | Service | Build | npm audit | PR # |
 |---------|-------|----------|-------|
 | rez-auth-service | ✅ Pass | ✅ Clean | - |
-| rez-merchant-service | ✅ Pass | ✅ Clean | #66 |
+| rez-merchant-service | ✅ Pass | ✅ Clean | #66, #67 |
 | rez-payment-service | ✅ Pass | ✅ Clean | #45 |
 | rez-wallet-service | ✅ Pass | ✅ Clean | - |
 | rez-order-service | ✅ Pass | ✅ Clean | - |
@@ -22,9 +22,13 @@
 
 ## Fixed Issues
 
-### merchant-service (PR #66)
+### merchant-service (PR #66, #67)
 - Fix intentCapture import path (@rez/intent-capture-sdk -> local utils)
 - Add err type annotations in core.ts and status.ts
+- **NEW:** Enhanced intent capture points:
+  - Product search queries
+  - Customer profile views
+  - Campaign list and detail views
 
 ### payment-service
 - Define AUDIT_ACTIONS and AuditLogger locally
