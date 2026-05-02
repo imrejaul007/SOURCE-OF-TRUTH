@@ -217,8 +217,48 @@ EVENT_PLATFORM_URL=https://rez-event-platform.onrender.com
 
 ---
 
+## CorpPerks - Enterprise Benefits Platform
+
+**GitHub:** https://github.com/imrejaul007/CorpPerks
+
+### Services
+| Service | Port | Description |
+|---------|------|-------------|
+| rez-corpperks-service | 4013 | Gateway API |
+| rez-stayown-service | 4015 | Hotel (using StayOwn) |
+| rez-procurement-service | 4012 | Procurement (NextaBizz) |
+
+### Quick Deploy
+```bash
+git clone https://github.com/imrejaul007/CorpPerks.git
+cd CorpPerks
+docker-compose up -d
+```
+
+### Required Env Vars
+```env
+# Each service needs:
+MONGODB_URI=mongodb+srv://...
+
+# StayOwn
+STAYOWN_API_URL=https://hotel-ota-api.onrender.com
+
+# NextaBizz
+NEXTABIZZ_API_KEY=your_key
+```
+
+### Features
+- Corporate Gifting (NextaBizz)
+- Corporate Hotel Booking (StayOwn)
+- Dual Wallet System
+- Benefits Configuration
+- GST Invoicing
+
+---
+
 ## Quick Links
 
 - [Render Dashboard](https://dashboard.render.com)
 - [MongoDB Atlas](https://cloud.mongodb.com)
 - [GitHub Organization](https://github.com/imrejaul007)
+- [CorpPerks](https://github.com/imrejaul007/CorpPerks)

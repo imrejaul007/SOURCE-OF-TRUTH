@@ -114,6 +114,31 @@
 
 ---
 
+## CorpPerks - Enterprise Benefits Platform
+
+**GitHub:** https://github.com/imrejaul007/CorpPerks
+
+### Services
+| Service | Port | Description |
+|---------|------|-------------|
+| rez-corpperks-service | 4013 | Gateway API |
+| rez-stayown-service | 4015 | Hotel (using StayOwn) |
+| rez-procurement-service | 4012 | Procurement (NextaBizz) |
+
+### Quick Deploy
+```bash
+git clone https://github.com/imrejaul007/CorpPerks.git
+cd CorpPerks
+docker-compose up -d
+```
+
+### Required Env Vars
+- MONGODB_URI (for each service)
+- STAYOWN_API_URL
+- NEXTABIZZ_API_KEY
+
+---
+
 ## DEPLOYMENT SUMMARY
 
 | Category | Count | Ready |
