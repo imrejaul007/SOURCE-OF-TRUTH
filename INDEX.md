@@ -45,6 +45,7 @@
 |---------|---------|
 | [ECOSYSTEM-REPOS.md](ECOSYSTEM-REPOS.md) | **All 56 repos with links** |
 | [AI-CHAT-SUPPORT.md](AI-CHAT-SUPPORT.md) | **AI Copilots & Customer Support** |
+| [REZ-MIND-UNIFIED-SUPPORT.md](REZ-MIND-UNIFIED-SUPPORT.md) | **Unified Customer Support Vision** |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | System architecture |
 | [ECOSYSTEM.md](ECOSYSTEM.md) | Ecosystem overview |
 
