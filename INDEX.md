@@ -8,12 +8,11 @@
 
 | Document | Purpose |
 |---------|---------|
-| **[SEGMENT-GAP-FIX-COMPLETE.md](SEGMENT-GAP-FIX-COMPLETE.md)** | **NEW! - All Segment Gaps Addressed** |
-| **[DEPLOYMENT-STATUS-2026-05-02.md](DEPLOYMENT-STATUS-2026-05-02.md)** | **NEW! - Ready for Deployment** |
-| **[GAP-EXECUTION-PLAN.md](GAP-EXECUTION-PLAN.md)** | **NEW! - Detailed Execution Roadmap** |
-| **[INTEGRATION-PLAN.md](INTEGRATION-PLAN.md)** | Detailed Integration Plan |
-| [BUILD-COMPLETE.md](BUILD-COMPLETE.md) | Unified Support Build Complete |
-| [ECOSYSTEM-REPOS.md](ECOSYSTEM-REPOS.md) | All 56 repos with links |
+| **[DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md)** | **NEW! - Week 4: Deploy & Test** |
+| **[SEGMENT-GAP-FIX-COMPLETE.md](SEGMENT-GAP-FIX-COMPLETE.md)** | All Segment Gaps Addressed |
+| [WEEK1-INTEGRATION-COMPLETE.md](WEEK1-INTEGRATION-COMPLETE.md) | Consumer Chat Complete |
+| [WEEK2-INTEGRATION-COMPLETE.md](WEEK2-INTEGRATION-COMPLETE.md) | Merchant Copilot Complete |
+| [WEEK3-INTEGRATION-COMPLETE.md](WEEK3-INTEGRATION-COMPLETE.md) | Backend Connections Complete |
 
 ---
 
