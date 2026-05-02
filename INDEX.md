@@ -9,7 +9,8 @@
 | Document | Purpose |
 |---------|---------|
 | **[DEPLOYMENT-CHECKLIST.md](DEPLOYMENT-CHECKLIST.md)** | **NEW! - Week 4: Deploy & Test** |
-| **[SEGMENT-GAP-FIX-COMPLETE.md](SEGMENT-GAP-FIX-COMPLETE.md)** | All Segment Gaps Addressed |
+| **[STUDENT-FEATURES-ARCHITECTURE.md](STUDENT-FEATURES-ARCHITECTURE.md)** | **NEW! - Student Features in rez-backend** |
+| **[SEGMENT-GAP-FIX-COMPLETE.md](SEGMENT-GAP-FIX-COMPLETE.md)** | Segment Gap Status |
 | [WEEK1-INTEGRATION-COMPLETE.md](WEEK1-INTEGRATION-COMPLETE.md) | Consumer Chat Complete |
 | [WEEK2-INTEGRATION-COMPLETE.md](WEEK2-INTEGRATION-COMPLETE.md) | Merchant Copilot Complete |
 | [WEEK3-INTEGRATION-COMPLETE.md](WEEK3-INTEGRATION-COMPLETE.md) | Backend Connections Complete |
@@ -124,9 +125,10 @@ RENDER (7 services to deploy):
 └── REZ-ad-copilot
 
 NEW SEGMENT SERVICES:
-├── rez-student-service (4025)          ⭐ NEW - Student Partnership
 ├── rez-corporate-service (4030)        ⭐ NEW - Corporate Integration
 └── rez-merchant-integrations (4040)    ⭐ NEW - Merchant Integrations
+
+NOTE: Student features are now IN rez-backend (no separate service needed)
 
 NEW REPOS TO DEPLOY:
 ├── rez-knowledge-base-service
