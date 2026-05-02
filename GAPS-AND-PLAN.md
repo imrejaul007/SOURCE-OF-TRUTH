@@ -1,6 +1,6 @@
 # REZ Mind - Remaining Gaps & Implementation Plan
 
-**Version:** 1.0.0
+**Version:** 2.0.0
 **Date:** 2026-05-02
 
 ---
@@ -18,7 +18,7 @@ After analysis, **keeping 16 services separate** is recommended because:
 
 ## Current Status: WHAT'S DONE
 
-### Integrated with REZ Mind (7 services)
+### Integrated with REZ Mind (9 services)
 | Service | Status | Webhooks |
 |---------|--------|----------|
 | rez-order-service | ✅ Done | order.completed, order.placed |
@@ -28,11 +28,13 @@ After analysis, **keeping 16 services separate** is recommended because:
 | rez-app-merchant | ✅ Done | orders, inventory, payments |
 | rendez | ✅ Done | meetup.book |
 | rez-now | ✅ Done | orders, scans, searches |
+| **rez-auth-service** | ✅ **NEW** | auth.signup, auth.login, auth.logout |
+| **rez-wallet-service** | ✅ **NEW** | wallet.topup, wallet.withdraw |
 
 ### REZ Mind Services (16 total)
 | Service | Port | Status |
 |---------|------|--------|
-| Event Platform | 4008 | ✅ Ready |
+| Event Platform | 4008 | ✅ Ready (12 new webhooks added) |
 | Action Engine | 4009 | ✅ Ready |
 | Feedback Service | 4010 | ✅ Ready |
 | User Intelligence | 3004 | ✅ Ready |
@@ -51,234 +53,157 @@ After analysis, **keeping 16 services separate** is recommended because:
 
 ---
 
-## GAPS: WHAT'S MISSING
+## COMPLETED THIS SESSION
 
-### 1. Missing Webhooks in Event Platform
-
+### 1. Event Platform - 12 New Webhooks Added ✅
 ```
-❌ /webhook/auth/signup          - User registration
-❌ /webhook/auth/login           - User login
-❌ /webhook/auth/logout          - User logout
-❌ /webhook/wallet/topup         - Wallet top-up
-❌ /webhook/wallet/withdraw      - Wallet withdrawal
-❌ /webhook/catalog/view         - Catalog/menu view
-❌ /webhook/catalog/search       - Catalog search
-❌ /webhook/merchant/signup      - Merchant registration
-❌ /webhook/merchant/profile      - Merchant profile update
-❌ /webhook/gamification/earn    - Points earned
-❌ /webhook/gamification/redeem   - Points redeemed
-❌ /webhook/support/ticket        - Support ticket
-❌ /webhook/support/message       - Support message
-❌ /webhook/chat/message         - Chat message
-❌ /webhook/loyalty/signup       - Loyalty signup
-❌ /webhook/referral/made        - Referral made
-```
+Auth Webhooks:
+- POST /webhook/auth/signup
+- POST /webhook/auth/login
+- POST /webhook/auth/logout
 
-### 2. Services Needing REZ Mind Integration
+Wallet Webhooks:
+- POST /webhook/wallet/topup
+- POST /webhook/wallet/withdraw
 
-```
-❌ rez-api-gateway        - Aggregate events from all services
-❌ rez-auth-service       - User auth events (signup, login, logout)
-❌ rez-wallet-service     - Wallet transaction events
-❌ rez-catalog-service    - Menu/catalog view events
-❌ rez-merchant-service   - Merchant profile events
-❌ rez-gamification-service - Points/loyalty events
+Catalog Webhooks:
+- POST /webhook/catalog/view
+
+Gamification Webhooks:
+- POST /webhook/gamification/earn
+- POST /webhook/gamification/redeem
+
+Support Webhooks:
+- POST /webhook/support/ticket
+
+Chat Webhooks:
+- POST /webhook/chat/message
 ```
 
-### 3. Chat & Support Intelligence
-
+### 2. rez-auth-service - REZ Mind Integrated ✅
 ```
-❌ Support tickets not linked to user intelligence
-❌ Chat messages not analyzed for sentiment
-❌ Support Copilot not built
-❌ Response time predictions not built
-❌ Smart routing based on user history not built
+Commit: 25e1746
+- Created rezMindService.ts
+- Integrated with OTP verify flow
+- Events: auth.signup, auth.login
 ```
 
----
-
-## IMPLEMENTATION PLAN
-
-### Phase 1: Add Missing Webhooks to Event Platform
-
-Add these webhooks to Event Platform:
-
-```typescript
-// src/events/webhooks/auth.ts
-router.post('/webhook/auth/signup', handleAuthSignup);
-router.post('/webhook/auth/login', handleAuthLogin);
-router.post('/webhook/auth/logout', handleAuthLogout);
-
-// src/events/webhooks/wallet.ts
-router.post('/webhook/wallet/topup', handleWalletTopup);
-router.post('/webhook/wallet/withdraw', handleWalletWithdraw);
-
-// src/events/webhooks/catalog.ts
-router.post('/webhook/catalog/view', handleCatalogView);
-router.post('/webhook/catalog/search', handleCatalogSearch);
-
-// src/events/webhooks/merchant.ts
-router.post('/webhook/merchant/signup', handleMerchantSignup);
-router.post('/webhook/merchant/profile', handleMerchantProfile);
-
-// src/events/webhooks/gamification.ts
-router.post('/webhook/gamification/earn', handleGamificationEarn);
-router.post('/webhook/gamification/redeem', handleGamificationRedeem);
-
-// src/events/webhooks/support.ts
-router.post('/webhook/support/ticket', handleSupportTicket);
-router.post('/webhook/support/message', handleSupportMessage);
-
-// src/events/webhooks/chat.ts
-router.post('/webhook/chat/message', handleChatMessage);
+### 3. rez-wallet-service - REZ Mind Integrated ✅
 ```
-
-### Phase 2: Integrate Services
-
-| Service | Events to Send | Priority |
-|---------|----------------|----------|
-| rez-auth-service | signup, login, logout | HIGH |
-| rez-wallet-service | topup, withdraw | HIGH |
-| rez-catalog-service | view, search | MEDIUM |
-| rez-merchant-service | signup, profile | MEDIUM |
-| rez-gamification-service | earn, redeem | LOW |
-
-### Phase 3: Build Support Intelligence
-
-```
-1. Add support/chat webhooks to Event Platform
-2. Create Support Intelligence service
-3. Build Support Copilot dashboard
-4. Add sentiment analysis
+Commit: 0668830
+- Created rezMindService.ts
+- Integrated with credit/debit flows
+- Events: wallet.topup, wallet.withdraw
 ```
 
 ---
 
-## WEBHOOK SCHEMAS
+## REMAINING GAPS
 
-### Auth Events
-```typescript
-interface AuthSignupEvent {
-  event_type: 'auth.signup';
-  user_id: string;
-  method: 'email' | 'google' | 'phone';
-  timestamp: string;
-}
+### Services Needing Integration
+| Service | Events | Priority |
+|---------|--------|----------|
+| rez-catalog-service | catalog.view, catalog.search | MEDIUM |
+| rez-merchant-service | merchant.signup, merchant.profile | MEDIUM |
+| rez-gamification-service | gamification.earn, gamification.redeem | LOW |
 
-interface AuthLoginEvent {
-  event_type: 'auth.login';
-  user_id: string;
-  method: 'email' | 'google' | 'phone';
-  success: boolean;
-  timestamp: string;
-}
-```
+### Chat & Support Intelligence
+| Item | Status |
+|------|--------|
+| Support tickets webhook | ✅ Added to Event Platform |
+| Chat messages webhook | ✅ Added to Event Platform |
+| Sentiment analysis | ❌ Not built |
+| Support Copilot | ❌ Not built |
 
-### Wallet Events
-```typescript
-interface WalletTopupEvent {
-  event_type: 'wallet.topup';
-  user_id: string;
-  amount: number;
-  payment_method: string;
-  balance_after: number;
-  timestamp: string;
-}
+---
 
-interface WalletWithdrawEvent {
-  event_type: 'wallet.withdraw';
-  user_id: string;
-  amount: number;
-  status: 'pending' | 'success' | 'failed';
-  timestamp: string;
-}
-```
+## IMPLEMENTATION PRIORITIES
 
-### Support Events
-```typescript
-interface SupportTicketEvent {
-  event_type: 'support.ticket';
-  ticket_id: string;
-  user_id: string;
-  category: string;
-  priority: 'low' | 'medium' | 'high' | 'urgent';
-  timestamp: string;
-}
+### HIGH PRIORITY (Done)
+1. ✅ Event Platform - New webhooks added
+2. ✅ rez-auth-service - Integrated
+3. ✅ rez-wallet-service - Integrated
 
-interface SupportMessageEvent {
-  event_type: 'support.message';
-  ticket_id: string;
-  sender_id: string;
-  sender_type: 'user' | 'agent';
-  content_preview: string;
-  sentiment?: 'positive' | 'neutral' | 'negative';
-  timestamp: string;
-}
-```
+### MEDIUM PRIORITY (Next)
+4. rez-catalog-service - Integrate view events
+5. rez-merchant-service - Integrate signup events
+6. Test all Event Platform webhooks
 
-### Chat Events
-```typescript
-interface ChatMessageEvent {
-  event_type: 'chat.message';
-  message_id: string;
-  conversation_id: string;
-  sender_id: string;
-  sender_type: 'user' | 'merchant';
-  context?: 'order' | 'general';
-  content_preview: string;
-  sentiment?: 'positive' | 'neutral' | 'negative';
-  timestamp: string;
-}
+### LOW PRIORITY (Later)
+7. rez-gamification-service - Integrate earn/redeem events
+8. Build Support Copilot
+9. Add sentiment analysis
+
+---
+
+## TESTING COMMANDS
+
+```bash
+# Test Event Platform health
+curl https://rez-event-platform.onrender.com/health
+
+# Test Auth webhook
+curl -X POST https://rez-event-platform.onrender.com/webhook/auth/signup \
+  -H "Content-Type: application/json" \
+  -d '{"user_id":"test_user_123","method":"phone"}'
+
+# Test Wallet webhook
+curl -X POST https://rez-event-platform.onrender.com/webhook/wallet/topup \
+  -H "Content-Type: application/json" \
+  -d '{"user_id":"test_user_123","amount":500,"payment_method":"upi","transaction_id":"txn_123"}'
+
+# Test Support webhook
+curl -X POST https://rez-event-platform.onrender.com/webhook/support/ticket \
+  -H "Content-Type: application/json" \
+  -d '{"ticket_id":"TKT001","user_id":"test_user_123","category":"payment","priority":"high"}'
+
+# Test Chat webhook
+curl -X POST https://rez-event-platform.onrender.com/webhook/chat/message \
+  -H "Content-Type: application/json" \
+  -d '{"message_id":"MSG001","conversation_id":"CONV001","sender_id":"test_user_123","sender_type":"user","context":"order"}'
+
+# View all webhooks
+curl https://rez-event-platform.onrender.com/webhook/status
 ```
 
 ---
 
-## PRIORITY IMPLEMENTATION
+## ENVIRONMENT VARIABLE NEEDED
 
-### HIGH PRIORITY (Deploy This Week)
+After Event Platform is deployed, add to each service:
 
-1. **Event Platform:** Add missing webhooks
-2. **rez-auth-service:** Integrate signup/login events
-3. **rez-wallet-service:** Integrate topup/withdraw events
+```bash
+REZ_MIND_URL=https://rez-event-platform.onrender.com
+```
 
-### MEDIUM PRIORITY (Deploy Next Week)
-
-4. **rez-catalog-service:** Integrate view/search events
-5. **rez-merchant-service:** Integrate signup/profile events
-6. **Support webhooks:** Add to Event Platform
-
-### LOW PRIORITY (Deploy Later)
-
-7. **rez-gamification-service:** Integrate earn/redeem events
-8. **Support Copilot:** Build dashboard
-9. **Sentiment Analysis:** Add AI analysis
+Services that need this:
+- rez-auth-service
+- rez-wallet-service
+- rez-order-service
+- rez-search-service
+- rez-payment-service
 
 ---
 
-## EFFORT ESTIMATE
+## COMMITS THIS SESSION
 
-| Task | Effort | Dependencies |
-|------|--------|--------------|
-| Add 12 webhooks to Event Platform | 2 hours | None |
-| Integrate rez-auth-service | 1 hour | Event Platform |
-| Integrate rez-wallet-service | 1 hour | Event Platform |
-| Integrate rez-catalog-service | 1 hour | Event Platform |
-| Integrate rez-merchant-service | 1 hour | Event Platform |
-| Integrate rez-gamification-service | 1 hour | Event Platform |
-| Build Support webhooks | 2 hours | Event Platform |
-| Build Support Copilot | 8 hours | All above |
-| **Total** | **17 hours** | |
+```
+REZ-event-platform:    479dadd5 - feat: Add missing webhooks (12 new)
+rez-auth-service:       25e1746  - feat: Add REZ Mind integration
+rez-wallet-service:    0668830  - feat: Add REZ Mind integration
+SOURCE-OF-TRUTH:       fc1acbf  - Update deployment docs
+```
 
 ---
 
 ## NEXT STEPS
 
 ```
-1. Add missing webhooks to Event Platform
-2. Integrate auth, wallet, catalog services
-3. Build support intelligence
-4. Test all events flow
-5. Deploy to production
+1. Deploy Event Platform to Render
+2. Add REZ_MIND_URL env var to all services
+3. Integrate remaining services (catalog, merchant, gamification)
+4. Build Support Copilot
+5. Test all integrations
 ```
 
 ---
