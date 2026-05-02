@@ -1,7 +1,32 @@
 # REZ Platform — Deployment Status
-**Last Updated:** 2026-05-01 (Gen 66: Full audit complete - all repos synced, TypeScript passing)
+**Last Updated:** 2026-05-01 (Gen 68: Marketing services unified - AdBazaar connected to rez-ads-service)
 
 ## REZ Ecosystem Services
+
+### Marketing Services
+
+| Service | Port | Purpose | AdBazaar |
+|---------|------|---------|-----------|
+| [rez-ads-service](https://github.com/imrejaul007/rez-ads-service) | 4007 | Digital ad campaigns, impressions, clicks, conversions | ✅ Connected |
+| [rez-marketing-service](https://github.com/imrejaul007/rez-marketing-service) | 4000 | Broadcasts, audience targeting, automation | ✅ Connected |
+| [rez-intent-graph](https://github.com/imrejaul007/rez-intent-graph) | 4001 | User intent capture & analysis | ✅ Connected |
+| [AdBazaar](https://github.com/imrejaul007/adBazaar) | Vercel | Offline ad marketplace | Hub |
+
+#### rez-ads-service Endpoints (AdBazaar)
+| Endpoint | Description |
+|----------|-------------|
+| `POST /adbazaar/campaign` | Create campaign from AdBazaar |
+| `POST /adbazaar/impression` | Track ad impressions |
+| `POST /adbazaar/click` | Track ad clicks |
+| `POST /adbazaar/conversion` | Track conversions |
+| `GET /adbazaar/analytics` | Get campaign analytics |
+
+#### AdBazaar Integration
+```typescript
+// src/lib/adsService.ts - Connect to rez-ads-service
+// src/lib/marketing.ts - Connect to rez-marketing-service  
+// src/lib/rezMarketing.ts - Unified marketing API
+```
 
 ### Backend Services
 
