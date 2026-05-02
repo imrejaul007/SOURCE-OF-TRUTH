@@ -8,11 +8,10 @@
 
 | Document | Purpose |
 |---------|---------|
-| **[UNIFIED-SUPPORT-BUILD-PLAN.md](UNIFIED-SUPPORT-BUILD-PLAN.md)** | **BUILD PLAN - Unified Support System** |
-| **[ECOSYSTEM-REPOS.md](ECOSYSTEM-REPOS.md)** | **ALL 56 REPOS - Complete list** |
-| [REZ-MIND-UNIFIED-SUPPORT.md](REZ-MIND-UNIFIED-SUPPORT.md) | Vision & Architecture |
-| [DEPLOYMENT-TODO.md](DEPLOYMENT-TODO.md) | What needs to be deployed |
-| [RENDER-DEPLOYMENT-STATUS.md](RENDER-DEPLOYMENT-STATUS.md) | Render dashboard status |
+| **[BUILD-BEFORE-DEPLOY.md](BUILD-BEFORE-DEPLOY.md)** | **BUILD FIRST - Then Deploy Together** |
+| **[UNIFIED-SUPPORT-BUILD-PLAN.md](UNIFIED-SUPPORT-BUILD-PLAN.md)** | Detailed Build Plan |
+| [ECOSYSTEM-REPOS.md](ECOSYSTEM-REPOS.md) | All 56 repos |
+| [RENDER-DEPLOYMENT-STATUS.md](RENDER-DEPLOYMENT-STATUS.md) | Render status |
 
 ---
 
