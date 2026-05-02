@@ -5,7 +5,7 @@
 
 When deploying REZ MIND services to Render, apply these fixes BEFORE pushing to GitHub:
 
-### Fix 1: Move @types to dependencies (ALL services)
+### Fix 1: Move @types to dependencies (ALL TypeScript services)
 **Problem:** TypeScript type definitions in `devDependencies` are not installed during Render build.
 
 **Solution:** Move these from `devDependencies` to `dependencies` in `package.json`:
@@ -19,36 +19,32 @@ When deploying REZ MIND services to Render, apply these fixes BEFORE pushing to 
 }
 ```
 
-### Fix 2: Add types to tsconfig.json (ALL TypeScript services)
-**Problem:** TypeScript can't find `process` or other Node types.
+### Fix 2: Create tsconfig.json (ALL TypeScript services)
+**Problem:** Missing tsconfig.json causes TypeScript build to fail.
 
-**Solution:** Add `"types": ["node"]` to `tsconfig.json`:
+**Solution:** Create a basic tsconfig.json:
 ```json
 {
   "compilerOptions": {
-    "types": ["node"],
-    // ... other options
-  }
+    "target": "ES2022",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": false,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
 ```
 
-### Fix 3: Fix TypeScript 7 deprecation warnings (ALL TypeScript services)
-**Problem:** `moduleResolution: "node"` and `baseUrl` are deprecated in TypeScript 7.
-
-**Solution:** Add `"ignoreDeprecations": "5.0"` and remove deprecated options:
-```json
-{
-  "compilerOptions": {
-    "ignoreDeprecations": "5.0",
-    // Remove: moduleResolution, baseUrl, paths
-  }
-}
-```
-
-### Fix 4: Relax strict mode (if build fails with type errors)
+### Fix 3: Relax strict mode (if build fails with type errors)
 **Problem:** Strict TypeScript checking fails on incomplete code.
 
-**Solution:** Set `"strict": false` in tsconfig:
+**Solution:** Set these in tsconfig:
 ```json
 {
   "compilerOptions": {
@@ -59,7 +55,7 @@ When deploying REZ MIND services to Render, apply these fixes BEFORE pushing to 
 }
 ```
 
-### Fix 5: Use 'as any' for optional properties (REZ-merchant-intelligence-service)
+### Fix 4: Use 'as any' for optional properties
 **Problem:** Optional properties in interfaces cause type errors when accessed with `|| {}`.
 
 **Solution:** Add `as any` type assertion:
@@ -71,15 +67,7 @@ const patterns = profile.revenuePatterns || {};
 const patterns = profile.revenuePatterns as any || {};
 ```
 
-### Fix 6: Add missing dependencies
-**Problem:** Missing npm packages like `ioredis`.
-
-**Solution:** Install missing dependencies:
-```bash
-npm install --save ioredis
-```
-
-### Fix 7: Make functions async
+### Fix 5: Make functions async
 **Problem:** `await` used in non-async function.
 
 **Solution:** Add `async` keyword and `Promise<>` return type:
@@ -91,7 +79,7 @@ private calculateMarketPosition(...): MarketPosition {
 private async calculateMarketPosition(...): Promise<MarketPosition> {
 ```
 
-### Fix 5: Remove @rez/shared dependency (rez-event-platform, rez-action-engine, etc.)
+### Fix 6: Remove @rez/shared dependency
 **Problem:** `@rez/shared` is not published to npm.
 
 **Solution:** Remove from `package.json`:
@@ -101,7 +89,7 @@ private async calculateMarketPosition(...): Promise<MarketPosition> {
 }
 ```
 
-### Fix 6: Add connectRedis export (rez-event-platform, rez-action-engine, etc.)
+### Fix 7: Add connectRedis export
 **Problem:** Missing `connectRedis` and `disconnectRedis` exports in redis.ts.
 
 **Solution:** Add to `src/config/redis.ts`:
@@ -119,66 +107,33 @@ export async function disconnectRedis(): Promise<void> {
 }
 ```
 
-### Fix 7: Use union type for event validation (rez-event-platform)
-**Problem:** TypeScript error with event validation return type.
+### Fix 8: Add build script for Plain JS services
+**Problem:** Render fails if `build` script doesn't exist.
 
-**Solution:** Use union type instead of specific event type:
-```typescript
-export type AnyEvent = 
-  | z.infer<typeof InventoryLowEventSchema>
-  | z.infer<typeof OrderCompletedEventSchema>
-  | z.infer<typeof PaymentSuccessEventSchema>;
-
-export function validateEvent(payload: unknown): AnyEvent {
-  // ... validation logic
-}
-```
-
-### Fix 8: Add missing interface properties (REZ-merchant-intelligence-service)
-**Problem:** MerchantProfile interface missing intelligence properties.
-
-**Solution:** Add to `src/types/index.ts`:
-```typescript
-export interface MerchantProfile {
-  // ... existing properties
-  revenuePatterns?: RevenuePatterns;
-  orderVolume?: OrderVolume;
-  popularItems?: PopularItems;
-  customerDemographics?: CustomerDemographics;
-  peakHoursDays?: PeakHoursDays;
-  inventoryPatterns?: InventoryPatterns;
-  seasonalTrends?: SeasonalTrends;
-  growthMetrics?: GrowthMetrics;
-  healthSignals?: HealthSignals;
-}
-```
-
-### Fix 9: Make functions async (REZ-merchant-intelligence-service)
-**Problem:** `await` used in non-async function.
-
-**Solution:** Add `async` and `Promise<>` return type:
-```typescript
-private async calculateMarketPosition(...): Promise<MarketPosition> {
-  // now await works here
+**Solution:** Add empty build script to `package.json`:
+```json
+"scripts": {
+  "build": "echo skip",
+  "start": "node src/index.js"
 }
 ```
 
 ---
 
-## Service-Specific Notes
+## Service-Specific Fixes
 
 ### REZ-merchant-intelligence-service
-- CLAUDE.md created with deployment instructions
-- Required fixes: #1, #2, #3, #4, #8, #9
-
-### REZ-user-intelligence-service
-- Required fixes: #1, #2, #3, #4
+- Required fixes: #1, #2, #3, #4, #5
+- Also: Install `ioredis` dependency
 
 ### REZ-intelligence-hub
-- Required fixes: #1, #2, #3, #4
+- Required fixes: #1, #2, #3
+
+### REZ-user-intelligence-service
+- Required fixes: #1, #2, #3
 
 ### Plain JavaScript services (no TypeScript fixes needed)
-- REZ-intent-predictor
+- REZ-intent-predictor - Use Fix #8
 - REZ-recommendation-engine
 - REZ-personalization-engine
 - REZ-push-service
@@ -201,9 +156,9 @@ private async calculateMarketPosition(...): Promise<MarketPosition> {
 | Service | GitHub | Port | Latest Commit | Status |
 |---------|--------|------|-------------|--------|
 | rez-user-intelligence | [REZ-user-intelligence-service](https://github.com/imrejaul007/REZ-user-intelligence-service) | 3004 | `dc451c5` | 🔄 Deploying |
-| rez-merchant-intelligence | [REZ-merchant-intelligence-service](https://github.com/imrejaul007/REZ-merchant-intelligence-service) | 4012 | `bef714c` | 🔄 Deploying |
-| rez-intent-predictor | [REZ-intent-predictor](https://github.com/imrejaul007/REZ-intent-predictor) | 4018 | - | 🔄 Deploying |
-| rez-intelligence-hub | [REZ-intelligence-hub](https://github.com/imrejaul007/REZ-intelligence-hub) | 4020 | `421aeb4` | 🔄 Deploying |
+| rez-merchant-intelligence | [REZ-merchant-intelligence-service](https://github.com/imrejaul007/REZ-merchant-intelligence-service) | 4012 | `af052bf` | 🔄 Deploying |
+| rez-intent-predictor | [REZ-intent-predictor](https://github.com/imrejaul007/REZ-intent-predictor) | 4018 | `a7f544b` | 🔄 Deploying |
+| rez-intelligence-hub | [REZ-intelligence-hub](https://github.com/imrejaul007/REZ-intelligence-hub) | 4020 | `c4d4720` | 🔄 Deploying |
 
 ### Tier 3 - Delivery
 | Service | GitHub | Port | Latest Commit | Status |
