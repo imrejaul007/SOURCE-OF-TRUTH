@@ -16,7 +16,7 @@
 | rez-catalog-service | ✅ Pass | ✅ Clean | - |
 | rez-intent-graph | ✅ Pass | ✅ Clean | #9 |
 | rez-backend | ✅ Pass | ⚠️ Partial | #159 |
-| rez-notification-events | ✅ Pass | ⚠️ Partial | #21 |
+| rez-notification-events | ✅ Pass | ✅ Clean | #21, #22 |
 
 ---
 
@@ -41,8 +41,12 @@
 - streamService.ts: Added types for map callbacks
 - cache.ts: Added error type annotation
 
-### rez-notification-events (PR #21)
+### rez-notification-events (PR #21, #22)
 - Fix @rez/shared package reference: ^1.0.0 -> file:../rez-shared
+- **NEW:** Connect ReZ Mind intent events via Redis pub/sub
+  - Subscribe to 'rez-mind' channel
+  - Handle: dormant_user_signals, purchase_intent, abandoned_cart, dormancy_alert
+  - Graceful startup/shutdown integration
 
 ### rez-backend (PR #159)
 - Zod v4: Change error.errors to error.issues
