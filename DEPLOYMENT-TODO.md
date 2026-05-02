@@ -1,177 +1,126 @@
-# DEPLOYMENT TODO - WHAT NEEDS TO BE DONE
+# DEPLOYMENT TODO - COMPLETE PRIORITY LIST
 
 **Date:** 2026-05-02
+**Updated:** Just now
 
 ---
-
-## DUPLICATES ANALYSIS
-
-### ❌ ACTUAL DUPLICATES (None - All Different Services)
-
-```
-Event Services:
-  - rez-event-platform     → Main event ingestion bus
-  - analytics-events       → Analytics/aggregations  
-  - rez-media-events      → Media-specific events
-  - rez-notification-events → Push/email events
-
-Ad Services:
-  - adBazaar              → Marketing site
-  - adsqr                 → QR code ads
-  - rez-ad-copilot        → AI copilot for ads
-  - rez-adbazaar          → REZ Mind ad marketplace
-  - rez-ads-service        → Backend ad serving
-```
-
-### ✅ NO REAL DUPLICATES - All serve different purposes
-
----
-
-## DEPLOYMENT STATUS
 
 ```
 ╔═══════════════════════════════════════════════════════════════════════════════════════╗
-║                         DEPLOYMENT STATUS                                 ║
-╠═══════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                   ║
-║  RENDER:                                                                          ║
-║  ├── DEPLOYED: 35 services                                                  ║
-║  ├── DEPLOYING: 1 service                                                   ║
-║  └── FAILED: 3 services                                                     ║
+║                        WHAT'S LEFT TO DO                                   ║
 ║                                                                                   ║
-║  VERCEL:                                                                         ║
-║  ├── DEPLOYED: 10 projects                                                 ║
-║  └── ERROR: 1 project                                                       ║
+║   DEPLOY MISSING:      4 REZ MIND services                                ║
+║   FIX FAILED:          4 deployments                                       ║
+║   UNIFIED SUPPORT:     Configure REZ-support-copilot                       ║
+║   INTEGRATION:         Connect all QR entry points                         ║
 ║                                                                                   ║
 ╚═══════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
 ---
 
-## WHAT NEEDS TO BE DONE NOW
+## 🚨 PRIORITY 1: DEPLOY MISSING REZ MIND (4)
 
-### ❌ RENDER - REDEPLOY FAILED (3)
+| # | Service | Status | Action |
+|---|---------|--------|--------|
+| 1 | **REZ-support-copilot** | CODE READY | Deploy on Render |
+| 2 | REZ-action-engine | On GitHub | Deploy on Render |
+| 3 | REZ-feedback-service | On GitHub | Deploy on Render |
+| 4 | REZ-user-intelligence | On GitHub | Deploy on Render |
+
+---
+
+## 🚨 PRIORITY 2: FIX FAILED DEPLOYS (4)
+
+### RENDER FAILED (3)
+
+| # | Service | Status | Action |
+|---|---------|--------|--------|
+| 1 | **REZ-merchant-intelligence-service** | FIXED | Just Redeploy |
+| 2 | hotel-ota | Error | Check & Fix |
+| 3 | rez-app-consumer-1 | Error | Check & Fix |
+
+### VERCEL ERROR (1)
+
+| # | Service | Status | Action |
+|---|---------|--------|--------|
+| 1 | rez-app-consumer | Error | Check & Fix |
+
+---
+
+## 🚨 PRIORITY 3: UNIFIED SUPPORT SYSTEM
 
 ```
-1. REZ-merchant-intelligence-service
-   Fix: Already pushed ✅
-   Action: Just click "Redeploy" on Render Dashboard
-
-2. hotel-ota
-   Fix: Need to check build error
-   Action: Check logs, fix, redeploy
-
-3. rez-app-consumer-1
-   Fix: Need to check build error
-   Action: Check logs, fix, redeploy
-```
-
-### ❌ VERCEL - REDEPLOY FAILED (1)
-
-```
-1. rez-app-consumer
-   Fix: Need to check build error
-   Action: Check logs, fix, redeploy
+□ Deploy REZ-support-copilot
+□ Set environment variables
+□ Configure QR entry points:
+│   ├── REZ NOW QR
+│   ├── Hotel Room QR
+│   └── Web Menu QR
+□ Connect to data sources
+□ Build knowledge base
+□ Test chat functionality
 ```
 
 ---
 
-## NOT DEPLOYED YET - REZ MIND (4)
+## 🚨 PRIORITY 4: INTEGRATION WORK
 
 ```
-1. REZ-action-engine
-   Status: On GitHub ✅
-   Action: Create new Web Service on Render
-   Port: 4009
-   Build: npm install && npm run build
-   Start: npm start
-
-2. REZ-feedback-service
-   Status: On GitHub ✅
-   Action: Create new Web Service on Render
-   Port: 4010
-   Build: npm install && npm run build
-   Start: npm start
-
-3. REZ-user-intelligence-service
-   Status: On GitHub ✅
-   Action: Create new Web Service on Render
-   Port: 3004
-   Build: npm install && npm run build
-   Start: npm start
-
-4. REZ-support-copilot
-   Status: On GitHub ✅
-   Port: 4033
-   Action: Create new Web Service on Render
+□ Connect event flows
+□ Set up Redis connections
+□ Configure BullMQ queues
+□ Set monitoring & alerts
 ```
 
 ---
 
-## ACTION PLAN
-
-### STEP 1: Fix Failed (2 minutes)
+## 📊 SUMMARY
 
 ```
-RENDER DASHBOARD: https://dashboard.render.com
+DEPLOY NEW:        4 services
+REDEPLOY:          1 service (already fixed)
+FIX ERRORS:        3 services
 
-1. Click "REZ-merchant-intelligence-service" → Redeploy
-2. Click "hotel-ota" → Check error → Fix → Redeploy
-3. Click "rez-app-consumer-1" → Check error → Fix → Redeploy
-```
+CONFIGURATION:     1 service
+INTEGRATION:       Connect all QR points
 
-### STEP 2: Deploy Missing REZ Mind (10 minutes)
-
-```
-RENDER DASHBOARD: https://dashboard.render.com
-
-1. NEW → Web Service
-   Name: REZ-action-engine
-   GitHub: imrejaul007/REZ-action-engine
-   Region: Singapore
-   Branch: main
-   Build Command: npm install && npm run build
-   Start Command: npm start
-
-2. NEW → Web Service
-   Name: REZ-feedback-service
-   GitHub: imrejaul007/REZ-feedback-service
-   ...
-
-3. NEW → Web Service  
-   Name: REZ-user-intelligence-service
-   GitHub: imrejaul007/REZ-user-intelligence-service
-   ...
-
-4. NEW → Web Service
-   Name: REZ-support-copilot
-   GitHub: imrejaul007/REZ-support-copilot
-   ...
-```
-
-### STEP 3: Set Environment Variables
-
-```
-For all new services, add:
-  MONGODB_URI=mongodb+srv://...
-  REDIS_HOST=...
-  REDIS_PASSWORD=...
-  REZ_MIND_URL=https://REZ-event-platform.onrender.com
+ESTIMATED TIME:    30-45 minutes
 ```
 
 ---
 
-## SUMMARY
+## 🎯 QUICK ACTION PLAN
 
+### Step 1: Deploy REZ-support-copilot (5 min)
 ```
-DEPLOYMENT PRIORITY:
-1. Redeploy REZ-merchant-intelligence-service (already fixed)
-2. Deploy REZ-action-engine (missing)
-3. Deploy REZ-feedback-service (missing)
-4. Deploy REZ-user-intelligence-service (missing)
-5. Deploy REZ-support-copilot (missing)
-6. Fix hotel-ota build error
-7. Fix rez-app-consumer build error
+https://dashboard.render.com → NEW → Web Service → REZ-support-copilot
+```
 
-TIME ESTIMATE: 15-20 minutes
+### Step 2: Deploy Other 3 REZ Mind (10 min)
 ```
+Repeat for:
+- REZ-action-engine
+- REZ-feedback-service
+- REZ-user-intelligence
+```
+
+### Step 3: Redeploy REZ-merchant-intelligence-service (1 min)
+```
+REZ-merchant-intelligence-service → Redeploy
+```
+
+### Step 4: Fix Build Errors (10-20 min)
+```
+hotel-ota, rez-app-consumer-1, rez-app-consumer
+```
+
+### Step 5: Configure Unified Support (10 min)
+```
+Set env vars, connect QR points, test
+```
+
+---
+
+**Last Updated:** 2026-05-02
