@@ -8,10 +8,10 @@
 
 | Document | Purpose |
 |---------|---------|
-| **[CHAT-INTEGRATION-PLAN.md](CHAT-INTEGRATION-PLAN.md)** | **NEW! - Connect Chat to Consumer & Merchant Apps** |
-| **[BUILD-COMPLETE.md](BUILD-COMPLETE.md)** | Unified Support Build Complete |
+| **[INTEGRATION-EXECUTION-PLAN.md](INTEGRATION-EXECUTION-PLAN.md)** | **NEW! - Research Complete, Ready to Execute** |
+| **[INTEGRATION-PLAN.md](INTEGRATION-PLAN.md)** | Detailed Integration Plan |
+| [BUILD-COMPLETE.md](BUILD-COMPLETE.md) | Unified Support Build Complete |
 | [ECOSYSTEM-REPOS.md](ECOSYSTEM-REPOS.md) | All 56 repos with links |
-| [DEPLOYMENT-TODO.md](DEPLOYMENT-TODO.md) | What needs to be deployed |
 
 ---
 
