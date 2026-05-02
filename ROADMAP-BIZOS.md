@@ -2605,3 +2605,103 @@ No new architecture needed — pure UX:
   - All TypeScript compilations verified: rez-merchant-service, rez-auth-service, rez-order-service, rez-scheduler-service, rez-wallet-service, rez-payment-service
   - Hotel OTA TypeScript compilation verified
   - All repos committed and pushed to GitHub
+- 2026-05-02: Growth Services Architecture ✅
+  - Created unified Growth Services documentation (GROWTH-SERVICES-ARCHITECTURE.md)
+  - 3 Core Services: Ads (4007), Marketing (4000), Notification Events (3001)
+  - Analytics Hub: analytics-events service (3002)
+  - Merchant Growth Dashboard: Integrated in rez-merchant-service (4005)
+  - Event flow diagrams documented
+  - All API endpoints cataloged
+
+---
+
+## Growth Services Platform (2026-05-02) ✅
+
+### Overview
+
+The Growth Services platform enables merchants to acquire, engage, and retain customers through ads, marketing campaigns, notifications, and analytics.
+
+### Core Services
+
+| Service | Port | Purpose | GitHub |
+|---------|------|---------|--------|
+| **rez-ads-service** | 4007 | Self-serve display advertising | imrejaul007/rez-ads-service |
+| **rez-marketing-service** | 4000 | Cross-channel campaigns | imrejaul007/rez-marketing-service |
+| **rez-notification-events** | 3001 | Notification delivery | imrejaul007/rez-notification-events |
+| **analytics-events** | 3002 | Analytics Hub | imrejaul007/analytics-events |
+
+### Features Implemented
+
+#### Ads Service (rez-ads-service)
+- [x] Ad campaign lifecycle (draft → review → active/rejected → paused/completed)
+- [x] Self-serve ad creation with targeting
+- [x] CPC/CPM bidding model
+- [x] Admin review workflow
+- [x] Ad serving to consumers
+- [x] Impression and click tracking
+- [x] Atomic budget updates (MongoDB aggregation pipeline)
+- [x] Placement types: home_banner, explore_feed, store_listing, search_result
+
+#### Marketing Service (rez-marketing-service)
+- [x] Multi-channel campaigns (WhatsApp, Push, SMS, Email, In-App)
+- [x] Audience segmentation
+- [x] Broadcast messages
+- [x] Keyword bidding for search ads
+- [x] Interest-based audience building
+- [x] Birthday-targeted campaigns
+- [x] AdBazaar bridge
+- [x] Campaign analytics
+
+#### Notification Events (rez-notification-events)
+- [x] 5-channel delivery (Push, Email, SMS, WhatsApp, In-App)
+- [x] BullMQ job processing
+- [x] Rate limiting (200 jobs/second)
+- [x] Retry policy (5 attempts, exponential backoff)
+- [x] Dead Letter Queue handling
+- [x] Streak-at-risk scheduler (daily 7 PM UTC)
+- [x] DLQ log persistence
+
+#### Analytics Hub (analytics-events)
+- [x] Event ingestion (web + app)
+- [x] Idempotent event processing
+- [x] Daily metrics aggregation
+- [x] Merchant analytics API
+- [x] Industry benchmarks
+- [x] Redis-backed rate limiting
+
+### Integration Points
+
+| Source | Destination | Event |
+|--------|------------|-------|
+| rez-marketing-service | notification-events | broadcast.send |
+| rez-backend | notification-events | Behavioral events |
+| rez-gamification | notification-events | streak_at_risk |
+| All services | analytics-events | Analytics events |
+
+### Merchant Growth Dashboard Routes
+
+| Route | Purpose |
+|-------|---------|
+| `/api/merchant/growth/metrics` | 30-day revenue, customers, orders |
+| `/api/merchant/growth/loyal-customers` | High-frequency customers |
+| `/api/merchant/growth/customer-trend` | Monthly customer trends |
+| `/api/merchant/growth/push-status` | Push notification status |
+| `/api/merchant/growth/push` | Send push notification |
+
+### Files Created
+
+```
+SOURCE-OF-TRUTH/GROWTH-SERVICES-ARCHITECTURE.md — Full architecture documentation
+rez-ads-service/ — Ad campaign management service
+rez-marketing-service/ — Campaign orchestration service
+rez-notification-events/ — Notification delivery service
+analytics-events/ — Analytics processing service
+```
+
+### Documentation
+
+| File | Description |
+|------|-------------|
+| [GROWTH-SERVICES-ARCHITECTURE.md](GROWTH-SERVICES-ARCHITECTURE.md) | Complete Growth Services documentation |
+
+---

@@ -1,6 +1,6 @@
 # REZ Platform — Source of Truth
 
-**Last Updated:** 2026-05-01
+**Last Updated:** 2026-05-02
 
 **ReZ Mind** — AI-powered commerce intelligence (separate repo: `rez-intent-graph`)
 
@@ -20,13 +20,18 @@ Single place to find everything about the REZ platform. Read this before solving
 | [DEPLOYMENT.md](DEPLOYMENT.md) | Deployment guide |
 | [CONNECTIVITY.md](CONNECTIVITY.md) | Architecture diagrams |
 
-### Intelligence Layer (NEW)
+### Growth Services (NEW 2026-05-02)
+| Document | Description |
+|----------|-------------|
+| [GROWTH-SERVICES-ARCHITECTURE.md](GROWTH-SERVICES-ARCHITECTURE.md) | Ads, Marketing, Notification, Analytics Hub |
+
+### Intelligence Layer
 | Document | Description |
 |----------|-------------|
 | [EVENT-SCHEMAS.md](EVENT-SCHEMAS.md) | Event schemas (inventory.low, order.completed, payment.success) |
 | [OPERATIONAL-LAYER.md](OPERATIONAL-LAYER.md) | Event Platform, Action Engine, Feedback Service |
 
-### First Loop Testing (NEW)
+### First Loop Testing
 | Document | Description |
 |----------|-------------|
 | [STRESS-TEST-PLAN.md](STRESS-TEST-PLAN.md) | Comprehensive stress test plan with failure scenarios |
