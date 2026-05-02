@@ -6,7 +6,8 @@
 
 | Service | Build | Deploy | Notes |
 |---------|-------|--------|-------|
-| rez-auth-service | ✅ | Ready | |
+| REZ-merchant-intelligence-service | ✅ | Ready | Fixed 2026-05-02 - removed deprecated alwaysStrict (TS 6.0) |
+| REZ-targeting-engine | ✅ | Ready | Fixed 2026-05-02 - removed deprecated alwaysStrict (TS 6.0) |
 | rez-wallet-service | ✅ | Ready | |
 | rez-order-service | ✅ | Ready | |
 | rez-payment-service | ✅ | Ready | |
@@ -30,6 +31,18 @@
 | rez-action-engine | ✅ | Ready | Fixed 2026-05-02 - new service, initial commit |
 | rez-feedback-service | ✅ | Ready | Fixed 2026-05-02 - new service, initial commit |
 | rez-first-loop | ✅ | Ready | Fixed 2026-05-02 - new service, initial commit |
+
+## 2026-05-02 - Build Fixes Applied (Session 4)
+
+### REZ-merchant-intelligence-service ✅ FIXED
+- **Issue:** TS5107 — `alwaysStrict=false` deprecated in TypeScript 6.0 on Render
+- **Fix:** Removed `"alwaysStrict": false` from tsconfig.json. TypeScript 6 always emits `"use strict"` by default
+- **Commit:** `a053fd1` — `fix(tsconfig): remove deprecated alwaysStrict option (TS 6.0)`
+
+### REZ-targeting-engine ✅ FIXED
+- **Issue:** TS5107 — `alwaysStrict=false` deprecated in TypeScript 6.0 on Render
+- **Fix:** Removed `"alwaysStrict": false` from tsconfig.json
+- **Commit:** `f6e11c9` — `fix(tsconfig): remove deprecated alwaysStrict option (TS 6.0)`
 
 ## 2026-05-02 - Build Fixes Applied (Session 3)
 
