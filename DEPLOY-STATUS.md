@@ -59,6 +59,38 @@ When deploying REZ MIND services to Render, apply these fixes BEFORE pushing to 
 }
 ```
 
+### Fix 5: Use 'as any' for optional properties (REZ-merchant-intelligence-service)
+**Problem:** Optional properties in interfaces cause type errors when accessed with `|| {}`.
+
+**Solution:** Add `as any` type assertion:
+```typescript
+// Wrong
+const patterns = profile.revenuePatterns || {};
+
+// Correct
+const patterns = profile.revenuePatterns as any || {};
+```
+
+### Fix 6: Add missing dependencies
+**Problem:** Missing npm packages like `ioredis`.
+
+**Solution:** Install missing dependencies:
+```bash
+npm install --save ioredis
+```
+
+### Fix 7: Make functions async
+**Problem:** `await` used in non-async function.
+
+**Solution:** Add `async` keyword and `Promise<>` return type:
+```typescript
+// Wrong
+private calculateMarketPosition(...): MarketPosition {
+
+// Correct
+private async calculateMarketPosition(...): Promise<MarketPosition> {
+```
+
 ### Fix 5: Remove @rez/shared dependency (rez-event-platform, rez-action-engine, etc.)
 **Problem:** `@rez/shared` is not published to npm.
 
