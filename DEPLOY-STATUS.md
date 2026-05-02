@@ -240,7 +240,7 @@ this.redis = new Redis(redisConfig);
 | Service | GitHub | Port | Latest Commit | Status |
 |---------|--------|------|-------------|--------|
 | rez-merchant-copilot | [REZ-merchant-copilot](https://github.com/imrejaul007/REZ-merchant-copilot) | 4022 | `2137491` | ✅ Fixed |
-| rez-consumer-copilot | [REZ-consumer-copilot](https://github.com/imrejaul007/REZ-consumer-copilot) | 4021 | `f82b55e` | 🔄 Deploying |
+| rez-consumer-copilot | [REZ-consumer-copilot](https://github.com/imrejaul007/REZ-consumer-copilot) | 4021 | `4cce9df` | ✅ Fixed |
 | rez-adbazaar | [REZ-adbazaar](https://github.com/imrejaul007/REZ-adbazaar) | 4025 | - | 🔄 Deploying |
 | rez-feature-flags | [REZ-feature-flags](https://github.com/imrejaul007/REZ-feature-flags) | 4030 | - | 🔄 Deploying |
 | rez-observability | [REZ-observability](https://github.com/imrejaul007/REZ-observability) | 4031 | `d3d3bee` | 🔄 Deploying |
