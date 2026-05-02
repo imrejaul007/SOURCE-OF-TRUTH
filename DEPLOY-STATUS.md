@@ -173,6 +173,13 @@ const redisConfig = config.redis.url
 this.redis = new Redis(redisConfig);
 ```
 
+### Fix 14: Explicit startCommand in render.yaml
+**Problem:** `Error: Cannot find module '/opt/render/project/src/src/index.ts'` - Render uses old startCommand
+**Solution:** Always use explicit `startCommand` in render.yaml:
+```yaml
+startCommand: node server.js  # Not: npm start
+```
+
 ---
 
 ## Service-Specific Fixes

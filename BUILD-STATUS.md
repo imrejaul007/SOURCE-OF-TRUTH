@@ -25,6 +25,35 @@
 | REZ-consumer-copilot | ✅ | Ready | Fixed 2026-05-02 - converted to static site |
 | REZ-feature-flags | ✅ | Ready | Fixed 2026-05-02 - missing package.json, converted TS to JS |
 | rez-auth-service | ✅ | Ready | Fixed 2026-05-02 - duplicate userId + axios dep |
+| rez-observability | ✅ | Ready | Fixed 2026-05-02 - merged master→main (tsconfig.json missing on main) |
+| rez-event-platform | ✅ | Ready | Fixed 2026-05-02 - new service, initial commit |
+| rez-action-engine | ✅ | Ready | Fixed 2026-05-02 - new service, initial commit |
+| rez-feedback-service | ✅ | Ready | Fixed 2026-05-02 - new service, initial commit |
+| rez-first-loop | ✅ | Ready | Fixed 2026-05-02 - new service, initial commit |
+
+## 2026-05-02 - Build Fixes Applied (Session 3)
+
+### REZ-observability ✅ FIXED
+- **Issue:** `tsc` showing help text — `tsconfig.json` missing from `main` branch (only on `master`)
+- **Fix:** Merged `master` → `main`, pushed to trigger redeploy
+- **Commit:** `d3d3bee` — `fix: move @types to dependencies for Render build`
+- **Files added to main:** `tsconfig.json`, `package.json` (types moved to dependencies)
+- **Local path:** `c:/Users/user/OneDrive/Desktop/rez-v5/REZ-observability`
+
+### rez-marketing-service ✅ FIXED (17 errors)
+- **Issue:** TypeScript build failures on Render — mismatched interface fields between code and model
+- **Root cause:** Remote `IGrowthEvent` interface missing `eventId`, `value`, `ipAddress`, `userAgent` fields. `IEventMetadata` missing `channel`, `audienceType`, `maxUses`, `campaignObjective` fields. Circular import. Zod default type mismatch.
+- **Fix:** Extended `IGrowthEvent` and `IEventMetadata` interfaces with all required fields. Removed circular import. Fixed Zod default from `'30'` to `30`. Cast `.lean()` query results to `IGrowthEvent[]`.
+- **Commit:** `1d4fbc5` — `fix(marketing): resolve all TypeScript build errors`
+- **Files changed:** 7 files modified (GrowthEvent.ts, campaigns.ts, growthAnalytics.ts routes, voucherService.ts, notificationService.ts)
+- **Full fix list:** See `DEPLOY-FIX-REPORT-2026-05-02.md` in SOURCE-OF-TRUTH
+
+### New Services — Initial Commits ✅
+- **rez-event-platform** — Central event bus with Zod schemas (inventory.low, order.completed, payment.success)
+- **rez-action-engine** — Decision execution with guardrails (draft_po, notify, escalate)
+- **rez-feedback-service** — Learning feedback infrastructure for adaptive loop
+- **rez-first-loop** — First closed loop worker (inventory → EventPlatform → ActionEngine → NextaBiZ → Feedback)
+- All pushed to GitHub, all TypeScript compiles cleanly locally
 
 ## 2026-05-02 - Build Fixes Applied (Session 2)
 

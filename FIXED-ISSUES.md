@@ -5,6 +5,16 @@
 
 | Date | Service | Issue | Fix |
 |------|---------|-------|-----|
+| 2026-05-02 | REZ-observability | `tsc` shows help — tsconfig.json missing on main branch | Merged master→main, added tsconfig.json to main |
+| 2026-05-02 | rez-marketing-service | TS2300 duplicate campaignId/channel in IEventMetadata | Removed duplicate fields, kept one per field |
+| 2026-05-02 | rez-marketing-service | TS2353 channel/objective/audienceType not in IEventMetadata | Added all missing fields to interface |
+| 2026-05-02 | rez-marketing-service | TS2339 eventId/value/ipAddress not on IGrowthEvent | Added all missing fields to interface |
+| 2026-05-02 | rez-marketing-service | TS2440 circular self-import of CreateVoucherDTO | Removed circular import from voucherService.ts |
+| 2026-05-02 | rez-marketing-service | TS2769 z.coerce.number().default('30') — string not number | Changed default to `30` (number) |
+| 2026-05-02 | rez-marketing-service | TS2339 `.lean()` return type — FlattenMaps incompatible | Cast all `.lean()` results to `IGrowthEvent[]` |
+| 2026-05-02 | rez-marketing-service | TS2322 VoucherType mismatch in voucherService | Extended voucherType union with all values |
+| 2026-05-02 | rez-marketing-service | TS2353 discountApplied not in IEventMetadata | Changed to discountValue |
+| 2026-05-02 | rez-marketing-service | TS18046 response.json() returns unknown | Cast to typed result `{synced: number}` |
 | 2026-05-02 | REZ-feature-flags | ENOENT package.json not found | Created package.json, converted TS to JS |
 | 2026-05-02 | REZ-consumer-copilot | `startCommand` used old `src/index.ts` | Changed to `node server.js` |
 | 2026-05-02 | REZ-consumer-copilot | `tsc` shows help, no tsconfig.json, HTML in .ts | Converted to static site with Express |
