@@ -139,9 +139,9 @@ export async function disconnectRedis(): Promise<void> {
 - Fix `toObject()` calls - remove or cast
 - Fix exports in services/index.ts
 
-### Plain JavaScript services (no TypeScript fixes needed)
-- REZ-intent-predictor - Use Fix #8
-- REZ-recommendation-engine
+### Plain JavaScript services
+- REZ-intent-predictor - Use Fix #8 (add build script)
+- REZ-recommendation-engine - Add missing `express-validator` dependency
 - REZ-personalization-engine
 - REZ-push-service
 - REZ-adbazaar
