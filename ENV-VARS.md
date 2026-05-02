@@ -35,6 +35,7 @@ ANALYTICS_SERVICE_URL=https://analytics-events-37yy.onrender.com
 CATALOG_SERVICE_URL=https://rez-catalog-service-1.onrender.com
 MEDIA_SERVICE_URL=https://rez-media-events-lfym.onrender.com
 SEARCH_SERVICE_URL=https://rez-search-service.onrender.com
+INTENT_GRAPH_URL=https://rez-intent-graph.onrender.com
 MONOLITH_URL=https://rez-backend-8dfu.onrender.com
 ```
 
@@ -258,6 +259,8 @@ PORT=3009
 # PUBLIC_URL is used in push/webhook payloads — must resolve publicly.
 PUBLIC_URL=https://rez-notification-events-mwdz.onrender.com
 FRONTEND_URL=https://menu.rez.money
+# ReZ Mind integration — subscribes to 'rez-mind' Redis channel
+# for intent signals (dormant_user, purchase_intent, abandoned_cart)
 ```
 
 ### rez-search-service
