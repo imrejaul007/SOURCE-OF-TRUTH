@@ -231,7 +231,7 @@ startCommand: node server.js  # Not: npm start
 |---------|--------|------|-------------|--------|
 | rez-user-intelligence | [REZ-user-intelligence-service](https://github.com/imrejaul007/REZ-user-intelligence-service) | 3004 | `772fc23` | ✅ Fixed |
 | rez-merchant-service | [rez-merchant-service](https://github.com/imrejaul007/rez-merchant-service) | 3005 | `b2e41c6` | ✅ Fixed |
-| rez-merchant-intelligence | [REZ-merchant-intelligence-service](https://github.com/imrejaul007/REZ-merchant-intelligence-service) | 4012 | `af052bf` | 🔄 Deploying |
+| rez-merchant-intelligence | [REZ-merchant-intelligence-service](https://github.com/imrejaul007/REZ-merchant-intelligence-service) | 4012 | `443bbfb` | ✅ Fixed |
 | rez-intent-predictor | [REZ-intent-predictor](https://github.com/imrejaul007/REZ-intent-predictor) | 4018 | `a7f544b` | 🔄 Deploying |
 | rez-intelligence-hub | [REZ-intelligence-hub](https://github.com/imrejaul007/REZ-intelligence-hub) | 4020 | `c4d4720` | 🔄 Deploying |
 

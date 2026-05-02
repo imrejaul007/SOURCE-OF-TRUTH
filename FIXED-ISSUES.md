@@ -5,6 +5,7 @@
 
 | Date | Service | Issue | Fix |
 |------|---------|-------|-----|
+| 2026-05-02 | REZ-merchant-intelligence-service | Merge conflict in package.json + tsconfig issues | Resolved conflicts, merged properly |
 | 2026-05-02 | REZ-observability | `tsc` shows help — tsconfig.json missing on main branch | Merged master→main, added tsconfig.json to main |
 | 2026-05-02 | rez-marketing-service | TS2300 duplicate campaignId/channel in IEventMetadata | Removed duplicate fields, kept one per field |
 | 2026-05-02 | rez-marketing-service | TS2353 channel/objective/audienceType not in IEventMetadata | Added all missing fields to interface |

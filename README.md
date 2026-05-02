@@ -25,9 +25,10 @@
 
 | # | Service | GitHub | Port |
 |---|---------|--------|------|
-| 1 | Event Platform | [REZ-event-platform](https://github.com/imrejaul007/REZ-event-platform) | 4008 |
-| 2 | Action Engine | [REZ-action-engine](https://github.com/imrejaul007/REZ-action-engine) | 4009 |
-| 3 | Feedback Service | [REZ-feedback-service](https://github.com/imrejaul007/REZ-feedback-service) | 4010 |
+| 1 | Event Platform | [imrejaul007/rez-event-platform](https://github.com/imrejaul007/rez-event-platform) | 4008 |
+| 2 | Action Engine | [imrejaul007/rez-action-engine](https://github.com/imrejaul007/rez-action-engine) | 4009 |
+| 3 | Feedback Service | [imrejaul007/rez-feedback-service](https://github.com/imrejaul007/rez-feedback-service) | 4010 |
+| 4 | First Loop | [imrejaul007/rez-first-loop](https://github.com/imrejaul007/rez-first-loop) | Worker |
 
 **How to Deploy:**
 ```
@@ -62,6 +63,9 @@ curl https://rez-event-platform.onrender.com/health
 |----------|---------|
 | [DEPLOYMENT-GUIDE.md](DEPLOYMENT-GUIDE.md) | **Complete deployment guide** |
 | [DEPLOYMENT-QUICK-REF.md](DEPLOYMENT-QUICK-REF.md) | **Quick deploy card** |
+| [DEPLOY-FIX-REPORT-2026-05-02.md](DEPLOY-FIX-REPORT-2026-05-02.md) | **Deploy fix log** — all fixes, new services, build errors resolved |
+| [BUILD-STATUS.md](BUILD-STATUS.md) | **Build status** — per-service build/deploy status |
+| [FIXED-ISSUES.md](FIXED-ISSUES.md) | **Fix log** — all issues and resolutions |
 | [REPOS.md](REPOS.md) | All repos with links |
 
 ### For Architecture
