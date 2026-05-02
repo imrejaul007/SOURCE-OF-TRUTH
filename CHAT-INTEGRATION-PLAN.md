@@ -1,308 +1,305 @@
-# UNIFIED CHAT - INTEGRATION PLAN
+# UNIFIED CHAT + SEARCH INTEGRATION
 
 **Date:** 2026-05-02
-**Status:** Ready to Integrate
 
 ---
 
-## CHAT SYSTEM - BOTH SIDES
+## SEARCH SERVICE CONNECTIONS
 
 ```
 ╔═══════════════════════════════════════════════════════════════════════════════════════╗
 ║                                                                                   ║
-║           UNIFIED CHAT FOR CONSUMERS AND MERCHANTS                        ║
+║         UNIFIED CHAT + SEARCH + MERCHANTS + CONSUMERS                     ║
 ║                                                                                   ║
 ╚═══════════════════════════════════════════════════════════════════════════════════════╝
 ```
 
 ---
 
-## CONSUMER SIDE (Customer → REZ Mind)
+## HOW SEARCH WORKS WITH CHAT
+
+### In Chat - Customer Says:
+
+```
+Customer: "Find me a good Italian restaurant nearby"
+         ↓
+REZ-support-copilot detects: ENQUIRY + SEARCH
+         ↓
+Searches rez-search-service
+         ↓
+Returns: "Here are Italian restaurants near you..."
+         ↓
+Customer can order/book directly in chat
+```
+
+---
+
+## SEARCH SERVICE ENDPOINTS
+
+```
+ALREADY EXISTS IN rez-search-service:
+
+├── /api/search?q=         → General search
+├── /api/search/merchants  → Merchant search
+├── /api/search/products    → Product/dish search
+├── /api/search/menu        → Menu item search
+├── /recommend/personalized → Personalized recommendations
+├── /home/feed            → Home feed
+├── /api/search/history    → Search history
+└── /api/search/history/popular → Popular searches
+```
+
+---
+
+## INTEGRATION FLOW
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         CONSUMER EXPERIENCE                                │
+│                         UNIFIED CHAT + SEARCH                              │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│  WHERE CUSTOMERS CHAT:                                                     │
-│  ├── REZ NOW QR Code → Chat with restaurant                               │
-│  ├── Hotel Room QR → Chat with hotel concierge                             │
-│  ├── Web Menu QR → Chat with restaurant                                    │
-│  ├── Consumer App → Chat for all orders/queries                          │
-│  └── Ad Bazaar → Chat for ad inquiries                                   │
-│                                                                             │
-│  WHAT THEY CAN DO:                                                         │
-│  ├── 💬 Chat - Ask questions about menu, orders, services                 │
-│  ├── 📦 Order - Place orders via chat                                      │
-│  ├── 📅 Book - Make reservations via chat                                 │
-│  ├── ❓ Enquire - Get info about hours, location, policies                │
-│  └── 😤 Complain - Report issues, get refunds                             │
-│                                                                             │
-│  EXAMPLES:                                                                 │
-│  ├── "I'd like to order pad thai for delivery"                           │
-│  ├── "Book a table for 4 at 7pm tonight"                                 │
-│  ├── "What time do you close today?"                                      │
-│  ├── "My food arrived cold"                                               │
-│  └── "Do you have vegan options?"                                         │
+│   CUSTOMER IN CHAT:                                                        │
+│   "Find me spicy food"                                                    │
+│         │                                                                   │
+│         ▼                                                                  │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                 REZ-SUPPORT-COPILOT                                 │   │
+│   │                                                                      │   │
+│   │   Intent: ENQUIRY + SEARCH                                         │   │
+│   │   Detects: "Find me" + "spicy food"                              │   │
+│   │                                                                      │   │
+│   └──────────────────────────┬──────────────────────────────────────────┘   │
+│                              │                                                │
+│                              ▼                                                │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                 REZ-SEARCH-SERVICE                                   │   │
+│   │                                                                      │   │
+│   │   /api/search?q=spicy food                                        │   │
+│   │   + /api/search/menu?dietary=spicy                               │   │
+│   │   + /recommend/personalized?preference=spicy                      │   │
+│   │                                                                      │   │
+│   └──────────────────────────┬──────────────────────────────────────────┘   │
+│                              │                                                │
+│                              ▼                                                │
+│   ┌─────────────────────────────────────────────────────────────────────┐   │
+│   │                 REZ-SUPPORT-COPILOT                                 │   │
+│   │                                                                      │   │
+│   │   "Based on your preferences, I found 3 spicy restaurants:         │   │
+│   │    1. Spice Garden - Indian - 4.5★ - 0.5km                        │   │
+│   │    2. Thai Orchid - Thai - 4.3★ - 1.2km                          │   │
+│   │    3. Jalapeño's - Mexican - 4.1★ - 2km                         │   │
+│   │                                                                      │   │
+│   │   Would you like to order from any of these?"                      │   │
+│   │                                                                      │   │
+│   └─────────────────────────────────────────────────────────────────────┘   │
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## MERCHANT SIDE (Merchant → REZ Mind)
+## CHAT + SEARCH USE CASES
+
+### 1. Restaurant Search
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                        MERCHANT EXPERIENCE                                 │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  WHERE MERCHANTS CHAT:                                                     │
-│  ├── Merchant App → AI assistant for operations                          │
-│  ├── Merchant Dashboard → AI copilot for insights                         │
-│  ├── Admin Panel → Full control over AI settings                         │
-│  └── POS System → Quick AI assistance                                    │
-│                                                                             │
-│  WHAT THEY CAN DO:                                                         │
-│  ├── 📊 Analytics - Get business insights & recommendations              │
-│  ├── 📦 Orders - Manage & respond to orders                             │
-│  ├── 📈 Marketing - Get campaign suggestions                              │
-│  ├── 📚 Training - Upload menus, FAQs, policies                         │
-│  └── 👥 Support - Get help with customer issues                           │
-│                                                                             │
-│  EXAMPLES:                                                                 │
-│  ├── "What were my best selling items this week?"                         │
-│  ├── "How can I improve my customer ratings?"                            │
-│  ├── "Suggest a promotion for slow hours"                                │
-│  ├── "Help me set up a new menu category"                                │
-│  └── "What do customers complain about most?"                              │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+Customer: "Show me pizza places open now"
+         ↓
+Search → rez-search-service (merchants open now)
+         ↓
+Chat → "Found 5 pizza places open now near you:
+        1. Dominos Pizza - Open until 11pm - 4.2★
+        2. Pizza Hut - Open until 10pm - 4.0★
+        3. La Pino'z - Open until 10:30pm - 4.3★"
+         ↓
+Customer: "Book a table at La Pino'z for 2 at 8pm"
+         ↓
+Booking flow in chat
 ```
 
----
-
-## INTEGRATION ARCHITECTURE
+### 2. Menu Search
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                    UNIFIED CHAT INTEGRATION                              │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│                         ┌─────────────────────────────────────┐           │
-│                         │      REZ-SUPPORT-COPILOT             │           │
-│                         │   (Central Chat Service)              │           │
-│                         │                                      │           │
-│                         │   Intent Detection:                  │           │
-│                         │   • CUSTOMER_SUPPORT                │           │
-│                         │   • MERCHANT_SUPPORT                │           │
-│                         │   • ORDER_CREATE                   │           │
-│                         │   • BOOKING_CREATE                 │           │
-│                         │   • COMPLAINT                      │           │
-│                         │   • ENQUIRY                        │           │
-│                         └─────────────┬───────────────────────┘           │
-│                                       │                                      │
-│           ┌───────────────────────────┼───────────────────────────┐          │
-│           │                           │                           │          │
-│           ▼                           ▼                           ▼          │
-│  ┌───────────────┐        ┌───────────────┐        ┌───────────────┐   │
-│  │    USER       │        │   MERCHANT    │        │   ORDER      │   │
-│  │  CONTEXT      │        │   CONTEXT     │        │   SERVICE    │   │
-│  │               │        │               │        │              │   │
-│  │ • Preferences │        │ • Business    │        │ • Create     │   │
-│  │ • History     │        │ • Menu        │        │ • Update     │   │
-│  │ • Orders      │        │ • Analytics   │        │ • Cancel     │   │
-│  │ • Feedback    │        │ • Settings    │        │ • Track      │   │
-│  └───────────────┘        └───────────────┘        └───────────────┘   │
-│                                                                             │
-│           │                           │                           │          │
-│           ▼                           ▼                           ▼          │
-│  ┌───────────────┐        ┌───────────────┐        ┌───────────────┐   │
-│  │    REZ-       │        │    REZ-      │        │    REZ-      │   │
-│  │  KNOWLEDGE-   │        │  MERCHANT-   │        │    EVENT     │   │
-│  │    BASE       │        │  INTELLIGENCE │        │  PLATFORM    │   │
-│  │               │        │               │        │              │   │
-│  │ • Menu Data   │        │ • Insights    │        │ • Log Events │   │
-│  │ • FAQs        │        │ • Trends     │        │ • Analytics  │   │
-│  │ • Policies    │        │ • Predictions │        │ • Triggers   │   │
-│  └───────────────┘        └───────────────┘        └───────────────┘   │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+Customer: "What vegetarian options do you have?"
+         ↓
+Search → rez-search-service (menu items vegetarian)
+         ↓
+Chat → "Here are vegetarian options:
+        Appetizers:
+        • Paneer Tikka - ₹250
+        • Veg Spring Roll - ₹150
+        
+        Main Course:
+        • Paneer Butter Masala - ₹280
+        • Malai Kofta - ₹260
+        • Dal Makhani - ₹220
+        
+        Would you like to add any to your order?"
+```
+
+### 3. Personalized Recommendations
+
+```
+Customer: "What should I order tonight?"
+         ↓
+Search → /recommend/personalized (based on history)
+         ↓
+Chat → "Based on your preferences:
+        • You love Italian - Try our new Truffle Pasta! - ₹320
+        • You often order Paneer dishes - Paneer Lanthropicdar - ₹290
+        • Popular this week - Butter Chicken - ₹350
+        
+        What would you like to order?"
+```
+
+### 4. Voice Search (Future)
+
+```
+Customer: 🎤 "Order my usual from Domino's"
+         ↓
+Speech-to-Text
+         ↓
+REZ-support-copilot understands "usual" = past order
+         ↓
+Search → Customer history + favorite items
+         ↓
+Chat → "Your usual from Domino's:
+        • Margherita Pizza (Large) - ₹499
+        • Garlic Bread - ₹149
+        • Coca Cola - ₹60
+        
+        Total: ₹708
+        Confirm order? (Yes/No)"
 ```
 
 ---
 
-## APPS TO INTEGRATE
-
-### Consumer Apps (Chat with Customers)
-
-| App | Platform | Integration |
-|-----|----------|------------|
-| **REZ NOW** | Mobile/Web | Add UnifiedChat component |
-| **Hotel Room Service** | Mobile/Web | Add UnifiedChat component |
-| **Web Menu** | Mobile/Web | Add UnifiedChat component |
-| **rez-app-consumer** | Mobile | Add chat screen |
-| **Ad Bazaar** | Web | Add chat for ad support |
-
-### Merchant Apps (Chat with Merchants)
-
-| App | Platform | Integration |
-|-----|----------|------------|
-| **REZ-merchant-copilot** | Web | Already built - Enhance |
-| **rez-app-merchant** | Mobile | Add AI copilot screen |
-| **Merchant Dashboard** | Web | Add chat panel |
-| **Admin Panel** | Web | Full REZ Mind control |
-| **POS System** | Tablet | Quick chat widget |
-
----
-
-## INTEGRATION STEPS
-
-### Step 1: Add UnifiedChat to Consumer Apps
+## MERCHANT SIDE - SEARCH INSIGHTS
 
 ```
-CONSUMER APP INTEGRATION:
-
-1. REZ NOW
-   ├── npm install rez-unified-chat
-   ├── Import UnifiedChat component
-   ├── Add to QR scan screen
-   └── Configure API endpoint
-
-2. Hotel Room Service
-   ├── npm install rez-unified-chat
-   ├── Import to room service screen
-   └── Connect to hotel-specific knowledge base
-
-3. Web Menu
-   ├── npm install rez-unified-chat
-   ├── Add floating chat button
-   └── Link to restaurant knowledge base
-
-4. rez-app-consumer
-   ├── Add chat tab/screen
-   ├── Import UnifiedChat component
-   └── Connect to REZ-support-copilot API
-```
-
-### Step 2: Add AI Copilot to Merchant Apps
-
-```
-MERCHANT APP INTEGRATION:
-
-1. REZ-merchant-copilot (Already exists)
-   ├── Enhance with unified support features
-   ├── Add analytics dashboard
-   └── Connect to knowledge base
-
-2. rez-app-merchant
-   ├── Add AI copilot tab
-   ├── Connect to REZ-merchant-copilot API
-   └── Add quick action buttons
-
-3. Admin Panel (rez-admin-training-panel)
-   ├── Deploy to Render/Vercel
-   ├── Configure all integrations
-   └── Add merchant management
-```
-
-### Step 3: Configure Backend Connections
-
-```
-BACKEND CONNECTIONS:
-
-1. REZ-support-copilot
-   ├── Connect to MongoDB
-   ├── Connect to Redis
-   ├── Connect to REZ-event-platform
-   ├── Connect to rez-order-service
-   └── Connect to rez-knowledge-base-service
-
-2. Environment Variables (all services):
-   ├── REZ_MIND_URL
-   ├── REZ_SUPPORT_COPILOT_URL
-   ├── KNOWLEDGE_BASE_URL
-   ├── MONGODB_URI
-   └── REDIS_*
+MERCHANT ASKS: "What are customers searching for?"
+         ↓
+REZ-search-service analytics
+         ↓
+Chat → "Top searches this week:
+        1. Biryani (324 searches)
+        2. Pizza (289 searches)
+        3. Pasta (198 searches)
+        4. Burger (176 searches)
+        5. Desserts (145 searches)
+        
+        Recommendation: Add more biryani varieties!"
 ```
 
 ---
 
-## FILES NEEDED
+## TECHNICAL INTEGRATION
 
-### For Consumer Apps
-
-```
-src/
-├── components/
-│   └── UnifiedChat.tsx ← From rez-unified-chat
-├── services/
-│   └── chatService.ts ← API calls
-└── screens/
-    └── ChatScreen.tsx ← Full page chat
-```
-
-### For Merchant Apps
-
-```
-src/
-├── components/
-│   └── MerchantCopilot.tsx
-├── pages/
-│   └── Analytics.tsx
-│   └── Insights.tsx
-└── services/
-    └── merchantApi.ts
-```
-
----
-
-## QUICK INTEGRATION CODE
-
-### Consumer App (React Native)
+### REZ-support-copilot should call:
 
 ```javascript
-// In your consumer app
-import { UnifiedChat } from 'rez-unified-chat';
+// Search for merchants
+const merchants = await axios.get(`${SEARCH_SERVICE_URL}/api/search/merchants`, {
+  params: {
+    q: query,
+    location: userLocation,
+    openNow: true
+  }
+});
 
-// Add to any screen
-<UnifiedChat
-  merchantId="restaurant-123"
-  userId={currentUser.id}
-  entryPoint="REZ_NOW" // or "HOTEL", "WEB_MENU"
-  onOrderCreated={(order) => handleOrder(order)}
-  onBookingCreated={(booking) => handleBooking(booking)}
-/>
-```
+// Search menu items
+const menuItems = await axios.get(`${SEARCH_SERVICE_URL}/api/search/menu`, {
+  params: {
+    q: query,
+    merchantId: merchantId,
+    dietary: userPreferences.dietary
+  }
+});
 
-### Merchant App (React Native)
-
-```javascript
-// In your merchant app
-import { MerchantCopilot } from 'REZ-merchant-copilot';
-
-// Add AI assistant tab
-<MerchantCopilot
-  merchantId={currentMerchant.id}
-  onInsightsUpdate={(insights) => updateDashboard(insights)}
-/>
+// Get personalized recommendations
+const recommendations = await axios.get(`${SEARCH_SERVICE_URL}/recommend/personalized`, {
+  params: {
+    userId: userId,
+    context: 'chat'
+  }
+});
 ```
 
 ---
 
-## NEXT STEPS
+## ENVIRONMENT VARIABLES NEEDED
 
 ```
-1. Add UnifiedChat to REZ NOW app
-2. Add UnifiedChat to Hotel Room Service
-3. Add UnifiedChat to Web Menu
-4. Enhance rez-app-consumer with chat
-5. Add AI copilot to rez-app-merchant
-6. Deploy Admin Training Panel
-7. Test end-to-end flows
+REZ-SEARCH-SERVICE already deployed at:
+https://rez-search-service.onrender.com
+
+REZ-SUPPORT-COPILOT needs:
+SEARCH_SERVICE_URL=https://rez-search-service.onrender.com
+```
+
+---
+
+## APPS THAT USE SEARCH
+
+```
+EXISTING SEARCH USERS:
+├── rez-app-consumer → Search restaurants, dishes
+├── rez-app-merchant → Search analytics
+├── rez-search-service → Core search engine
+└── rez-catalog-service → Product catalog
+
+CHAT INTEGRATION:
+├── REZ-support-copilot → Search via chat
+├── rez-unified-chat → Display search results
+└── REZ-merchant-copilot → Merchant search insights
+```
+
+---
+
+## SUMMARY
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│   UNIFIED CHAT + SEARCH + MERCHANTS + CONSUMERS                           │
+│                                                                             │
+│   CUSTOMER IN CHAT:                                                        │
+│   "Find me Italian food"                                                  │
+│         ↓                                                                  │
+│   REZ-SEARCH-SERVICE ← Searches merchants, menu, recommendations          │
+│         ↓                                                                  │
+│   REZ-SUPPORT-COPILOT ← Returns natural language response                 │
+│         ↓                                                                  │
+│   "Found 5 Italian restaurants near you. Order from any?"                  │
+│                                                                             │
+│   MERCHANT IN CHAT:                                                        │
+│   "What are customers searching for?"                                      │
+│         ↓                                                                  │
+│   REZ-SEARCH-SERVICE ← Returns analytics                                   │
+│         ↓                                                                  │
+│   REZ-MERCHANT-COPILOT ← Natural language response                        │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## FILES INVOLVED
+
+```
+SERVICES:
+├── rez-search-service      → Already deployed, needs search endpoints
+├── rez-catalog-service     → Already deployed, product data
+├── REZ-support-copilot    → Needs search integration
+├── REZ-merchant-copilot   → Needs search insights
+└── rez-unified-chat       → Needs search result display
+
+REPOS TO UPDATE:
+├── REZ-support-copilot     → Add search calls
+└── REZ-merchant-copilot   → Add search insights
 ```
 
 ---
 
 **Last Updated:** 2026-05-02
-**Status:** Ready to integrate
+**Status:** Integration documented
