@@ -19,9 +19,10 @@
 ### Tier 1 - CRITICAL (Deploy First)
 | Service | GitHub | Port | render.yaml | Status |
 |---------|--------|------|-------------|--------|
-| Event Platform | [REZ-event-platform](https://github.com/imrejaul007/REZ-event-platform) | 4008 | ✅ | READY |
-| Action Engine | [REZ-action-engine](https://github.com/imrejaul007/REZ-action-engine) | 4009 | ✅ | READY |
-| Feedback Service | [REZ-feedback-service](https://github.com/imrejaul007/REZ-feedback-service) | 4010 | ✅ | READY |
+| rez-event-platform | [rez-event-platform](https://github.com/imrejaul007/rez-event-platform) | 4008 | ✅ | 🔄 DEPLOYING |
+| rez-action-engine | [rez-action-engine](https://github.com/imrejaul007/rez-action-engine) | 4009 | ✅ | 🔄 DEPLOYING |
+| rez-feedback-service | [rez-feedback-service](https://github.com/imrejaul007/rez-feedback-service) | 4010 | ✅ | 🔄 DEPLOYING |
+| rez-first-loop | [rez-first-loop](https://github.com/imrejaul007/rez-first-loop) | Worker | ✅ | 🔄 DEPLOYING |
 
 ### Tier 2 - Intelligence
 | Service | GitHub | Port | render.yaml | Status |

@@ -1,5 +1,5 @@
 # REZ Platform — Deployment Status
-**Last Updated:** 2026-05-01 (Gen 68: Marketing services unified - AdBazaar connected to rez-ads-service)
+**Last Updated:** 2026-05-02 (REZ MIND - First Closed Loop deployment in progress)
 
 ## REZ Ecosystem Services
 
@@ -59,6 +59,35 @@
 | rez-app-consumer | [Link](https://github.com/imrejaul007/rez-app-consumer) | React Native | ✅ Live |
 | rez-app-marchant | [Link](https://github.com/imrejaul007/rez-app-marchant) | React Native | ✅ Live |
 | rez-app-admin | [Link](https://github.com/imrejaul007/rez-app-admin) | React Native | ✅ Live |
+
+---
+
+## REZ MIND - First Closed Loop Services
+
+### Tier 1 - CRITICAL (Deploying Now)
+| Service | GitHub | Port | Status |
+|---------|--------|------|--------|
+| rez-event-platform | [Link](https://github.com/imrejaul007/rez-event-platform) | 4008 | 🔄 Deploying |
+| rez-action-engine | [Link](https://github.com/imrejaul007/rez-action-engine) | 4009 | 🔄 Deploying |
+| rez-feedback-service | [Link](https://github.com/imrejaul007/rez-feedback-service) | 4010 | 🔄 Deploying |
+| rez-first-loop | [Link](https://github.com/imrejaul007/rez-first-loop) | Worker | 🔄 Deploying |
+
+### Tier 2-4 - NOT YET DEPLOYED
+| Service | GitHub | Port |
+|---------|--------|------|
+| rez-user-intelligence | [Link](https://github.com/imrejaul007/REZ-user-intelligence-service) | 3004 |
+| rez-merchant-intelligence | [Link](https://github.com/imrejaul007/REZ-merchant-intelligence-service) | 4012 |
+| rez-intent-predictor | [Link](https://github.com/imrejaul007/REZ-intent-predictor) | 4018 |
+| rez-intelligence-hub | [Link](https://github.com/imrejaul007/REZ-intelligence-hub) | 4020 |
+| rez-targeting-engine | [Link](https://github.com/imrejaul007/REZ-targeting-engine) | 3003 |
+| rez-recommendation-engine | [Link](https://github.com/imrejaul007/REZ-recommendation-engine) | 3001 |
+| rez-personalization-engine | [Link](https://github.com/imrejaul007/REZ-personalization-engine) | 4017 |
+| rez-push-service | [Link](https://github.com/imrejaul007/REZ-push-service) | 4013 |
+| rez-merchant-copilot | [Link](https://github.com/imrejaul007/REZ-merchant-copilot) | 4022 |
+| rez-consumer-copilot | [Link](https://github.com/imrejaul007/REZ-consumer-copilot) | 4021 |
+| rez-adbazaar | [Link](https://github.com/imrejaul007/REZ-adbazaar) | 4025 |
+| rez-feature-flags | [Link](https://github.com/imrejaul007/REZ-feature-flags) | 4030 |
+| rez-observability | [Link](https://github.com/imrejaul007/REZ-observability) | 4031 |
 
 ---
 
