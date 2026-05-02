@@ -8,11 +8,11 @@
 
 | Document | Purpose |
 |---------|---------|
-| **[DEPLOYMENT-TODO.md](DEPLOYMENT-TODO.md)** | **ACTION NEEDED - What to deploy now** |
+| **[UNIFIED-SUPPORT-BUILD-PLAN.md](UNIFIED-SUPPORT-BUILD-PLAN.md)** | **BUILD PLAN - Unified Support System** |
 | **[ECOSYSTEM-REPOS.md](ECOSYSTEM-REPOS.md)** | **ALL 56 REPOS - Complete list** |
+| [REZ-MIND-UNIFIED-SUPPORT.md](REZ-MIND-UNIFIED-SUPPORT.md) | Vision & Architecture |
+| [DEPLOYMENT-TODO.md](DEPLOYMENT-TODO.md) | What needs to be deployed |
 | [RENDER-DEPLOYMENT-STATUS.md](RENDER-DEPLOYMENT-STATUS.md) | Render dashboard status |
-| [VERCEL-DEPLOYMENT-STATUS.md](VERCEL-DEPLOYMENT-STATUS.md) | Vercel dashboard status |
-| [COMPLETE-AUDIT-2026-05-02.md](COMPLETE-AUDIT-2026-05-02.md) | Latest ecosystem audit |
 
 ---
 
