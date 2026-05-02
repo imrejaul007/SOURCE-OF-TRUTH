@@ -49,6 +49,11 @@
 | Feature Flags | [REZ-feature-flags](https://github.com/imrejaul007/REZ-feature-flags) | 4030 | ✅ | READY |
 | Observability | [REZ-observability](https://github.com/imrejaul007/REZ-observability) | 4031 | ✅ | READY |
 
+### Tier 5 - Support
+| Service | GitHub | Port | render.yaml | Status |
+|---------|--------|------|-------------|--------|
+| Support Copilot | [REZ-support-copilot](https://github.com/imrejaul007/REZ-support-copilot) | 4033 | ✅ | READY |
+
 ---
 
 ## CORE BACKEND SERVICES
@@ -114,10 +119,12 @@
 | Category | Count | Ready |
 |----------|-------|-------|
 | REZ Mind Services | 16 | ✅ |
+| Support Services | 1 | ✅ NEW |
 | Core Backend | 9 | ✅ |
-| Consumer Apps | 4 | ✅ 3 |
-| Merchant Apps | 3 | ✅ 1 |
+| Consumer Apps | 4 | ✅ |
+| Merchant Apps | 3 | ✅ |
 | Admin Apps | 2 | ✅ |
+| **Total** | **35** | **35** |
 | Shared Packages | 3 | ✅ |
 | **Total** | **37** | **35** |
 
